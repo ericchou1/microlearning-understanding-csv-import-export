@@ -1,0 +1,602 @@
+/* NETRUNNER: The Nautobot Protocol - Cyberpunk Styles */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Cyberpunk color palette */
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #12121a;
+  --bg-tertiary: #1a1a2e;
+  --bg-panel: rgba(20, 20, 35, 0.9);
+  
+  /* Neon colors */
+  --neon-cyan: #00ffff;
+  --neon-magenta: #ff00ff;
+  --neon-green: #39ff14;
+  --neon-yellow: #ffff00;
+  --neon-orange: #ff6600;
+  --neon-blue: #0080ff;
+  
+  /* Glow effects */
+  --glow-cyan: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 40px #00ffff;
+  --glow-magenta: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 40px #ff00ff;
+  --glow-green: 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 40px #39ff14;
+  
+  /* Text colors */
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0a0;
+  --text-muted: #606070;
+}
+
+/* Base styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Rajdhani', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* Scanline overlay effect */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.1) 0px,
+    rgba(0, 0, 0, 0.1) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.3;
+}
+
+/* Typography */
+h1, h2, h3, h4 {
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+code, pre, .terminal {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ================================
+   NEON TITLE
+   ================================ */
+.neon-title {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  color: var(--neon-cyan);
+  text-shadow: var(--glow-cyan);
+  animation: flicker 3s infinite alternate;
+}
+
+.neon-title.magenta {
+  color: var(--neon-magenta);
+  text-shadow: var(--glow-magenta);
+}
+
+.neon-title.green {
+  color: var(--neon-green);
+  text-shadow: var(--glow-green);
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  93% { opacity: 0.8; }
+  94% { opacity: 1; }
+  95% { opacity: 0.9; }
+  96% { opacity: 1; }
+}
+
+/* ================================
+   XP BAR / PROGRESS
+   ================================ */
+.xp-bar-container {
+  background: var(--bg-tertiary);
+  border: 2px solid var(--neon-cyan);
+  border-radius: 4px;
+  padding: 3px;
+  position: relative;
+  overflow: hidden;
+}
+
+.xp-bar {
+  height: 20px;
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-green));
+  border-radius: 2px;
+  position: relative;
+  transition: width 0.5s ease;
+}
+
+.xp-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: shine 2s infinite;
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.xp-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.75rem;
+  color: var(--bg-primary);
+  font-weight: bold;
+  text-shadow: 0 0 2px white;
+}
+
+/* ================================
+   QUEST LOG
+   ================================ */
+.quest-log {
+  background: var(--bg-panel);
+  border: 2px solid var(--neon-magenta);
+  border-radius: 8px;
+  padding: 1.5rem;
+  position: relative;
+}
+
+.quest-log::before {
+  content: '◆ QUEST LOG ◆';
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  background: var(--bg-primary);
+  padding: 0 10px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.75rem;
+  color: var(--neon-magenta);
+  text-shadow: var(--glow-magenta);
+}
+
+.quest-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  background: rgba(255, 0, 255, 0.05);
+  border-left: 3px solid var(--neon-magenta);
+  transition: all 0.3s ease;
+}
+
+.quest-item:hover {
+  background: rgba(255, 0, 255, 0.1);
+  transform: translateX(5px);
+}
+
+.quest-item.completed {
+  border-left-color: var(--neon-green);
+  background: rgba(57, 255, 20, 0.05);
+}
+
+.quest-item.active {
+  border-left-color: var(--neon-cyan);
+  background: rgba(0, 255, 255, 0.1);
+  box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.1);
+}
+
+.quest-status {
+  width: 24px;
+  height: 24px;
+  border: 2px solid currentColor;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+}
+
+.quest-item.completed .quest-status {
+  color: var(--neon-green);
+}
+
+.quest-item.locked .quest-status {
+  color: var(--text-muted);
+}
+
+.quest-item.active .quest-status {
+  color: var(--neon-cyan);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 5px var(--neon-cyan); }
+  50% { box-shadow: 0 0 20px var(--neon-cyan); }
+}
+
+/* ================================
+   SKILL CARD
+   ================================ */
+.skill-card {
+  background: var(--bg-panel);
+  border: 2px solid var(--neon-green);
+  border-radius: 8px;
+  padding: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.skill-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--neon-green), var(--neon-cyan), var(--neon-green));
+}
+
+.skill-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.9rem;
+  color: var(--neon-green);
+  margin-bottom: 0.5rem;
+}
+
+.skill-level {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.skill-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* ================================
+   TERMINAL / CODE BLOCK
+   ================================ */
+.terminal {
+  background: #0d0d0d;
+  border: 1px solid var(--neon-green);
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 1rem 0;
+}
+
+.terminal-header {
+  background: var(--bg-tertiary);
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--neon-green);
+}
+
+.terminal-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.terminal-dot.red { background: #ff5f56; }
+.terminal-dot.yellow { background: #ffbd2e; }
+.terminal-dot.green { background: #27ca40; }
+
+.terminal-title {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.terminal-body {
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.terminal-body pre {
+  margin: 0;
+  color: var(--neon-green);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.terminal-body .comment { color: #666; }
+.terminal-body .keyword { color: var(--neon-magenta); }
+.terminal-body .string { color: var(--neon-yellow); }
+.terminal-body .function { color: var(--neon-cyan); }
+
+/* ================================
+   MISSION BRIEFING
+   ================================ */
+.mission-briefing {
+  background: var(--bg-panel);
+  border: 2px solid var(--neon-orange);
+  border-radius: 8px;
+  padding: 1.5rem;
+  position: relative;
+  margin: 2rem 0;
+}
+
+.mission-briefing::before {
+  content: '◆ MISSION BRIEFING ◆';
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  background: var(--bg-primary);
+  padding: 0 10px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.75rem;
+  color: var(--neon-orange);
+}
+
+.mission-briefing p {
+  margin: 0.5rem 0;
+  line-height: 1.8;
+}
+
+/* ================================
+   CYBER BUTTON
+   ================================ */
+.cyber-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background: transparent;
+  border: 2px solid var(--neon-cyan);
+  color: var(--neon-cyan);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+.cyber-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+  transition: left 0.5s ease;
+  opacity: 0.3;
+}
+
+.cyber-btn:hover::before {
+  left: 100%;
+}
+
+.cyber-btn:hover {
+  background: var(--neon-cyan);
+  color: var(--bg-primary);
+  box-shadow: var(--glow-cyan);
+}
+
+.cyber-btn.magenta {
+  border-color: var(--neon-magenta);
+  color: var(--neon-magenta);
+}
+
+.cyber-btn.magenta:hover {
+  background: var(--neon-magenta);
+  box-shadow: var(--glow-magenta);
+}
+
+.cyber-btn.green {
+  border-color: var(--neon-green);
+  color: var(--neon-green);
+}
+
+.cyber-btn.green:hover {
+  background: var(--neon-green);
+  box-shadow: var(--glow-green);
+}
+
+/* ================================
+   STATS PANEL
+   ================================ */
+.stats-panel {
+  background: var(--bg-panel);
+  border: 2px solid var(--neon-blue);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.stats-panel::before {
+  content: '◆ NETRUNNER STATS ◆';
+  display: block;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.75rem;
+  color: var(--neon-blue);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(0, 128, 255, 0.2);
+}
+
+.stat-name {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.stat-value {
+  font-family: 'Orbitron', sans-serif;
+  color: var(--neon-blue);
+}
+
+/* ================================
+   CHAPTER HEADER
+   ================================ */
+.chapter-header {
+  text-align: center;
+  padding: 4rem 2rem;
+  position: relative;
+  background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+  border-bottom: 2px solid var(--neon-cyan);
+}
+
+.chapter-number {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.9rem;
+  color: var(--neon-magenta);
+  letter-spacing: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.chapter-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(2rem, 6vw, 4rem);
+  color: var(--neon-cyan);
+  text-shadow: var(--glow-cyan);
+  margin: 0.5rem 0;
+}
+
+.chapter-subtitle {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 1rem auto 0;
+}
+
+/* ================================
+   NAVIGATION
+   ================================ */
+.cyber-nav {
+  background: rgba(10, 10, 15, 0.95);
+  border-bottom: 1px solid var(--neon-cyan);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+}
+
+.cyber-nav a {
+  color: var(--neon-cyan);
+  text-decoration: none;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+.cyber-nav a:hover {
+  text-shadow: var(--glow-cyan);
+}
+
+/* ================================
+   SECTION DIVIDER
+   ================================ */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 3rem 0;
+  color: var(--neon-magenta);
+}
+
+.section-divider::before,
+.section-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--neon-magenta), transparent);
+}
+
+.section-divider span {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+}
+
+/* ================================
+   GLITCH TEXT EFFECT
+   ================================ */
+.glitch {
+  position: relative;
+  animation: glitch-anim 2s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% { clip-path: inset(40% 0 61% 0); transform: translate(-2px, 2px); }
+  20% { clip-path: inset(92% 0 1% 0); transform: translate(2px, -2px); }
+  40% { clip-path: inset(43% 0 1% 0); transform: translate(-2px, 2px); }
+  60% { clip-path: inset(25% 0 58% 0); transform: translate(2px, -2px); }
+  80% { clip-path: inset(54% 0 7% 0); transform: translate(-2px, 2px); }
+  100% { clip-path: inset(58% 0 43% 0); transform: translate(2px, -2px); }
+}
+
+/* ================================
+   UTILITY CLASSES
+   ================================ */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.text-cyan { color: var(--neon-cyan); }
+.text-magenta { color: var(--neon-magenta); }
+.text-green { color: var(--neon-green); }
+.text-yellow { color: var(--neon-yellow); }
+.text-orange { color: var(--neon-orange); }
+
+.glow-cyan { text-shadow: var(--glow-cyan); }
+.glow-magenta { text-shadow: var(--glow-magenta); }
+.glow-green { text-shadow: var(--glow-green); }
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+

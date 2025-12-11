@@ -3,109 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSV Learning - Version 2</title>
+    <title>NETRUNNER: The Nautobot Protocol</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-    </style>
+    <link rel="stylesheet" href="assets/css/cyberpunk.css">
 </head>
-<body class="min-h-screen bg-gradient-to-br from-emerald-900 via-teal-900 to-cyan-900 text-white">
-    
-    <!-- Header -->
-    <header class="bg-black/20 backdrop-blur-sm border-b border-white/10">
-        <div class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <span class="text-2xl">📊</span>
-                <span class="font-bold">CSV Learning</span>
-            </div>
-            <span class="text-xs bg-emerald-500 px-2 py-1 rounded-full">Version 2</span>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="max-w-4xl mx-auto px-4 py-16">
-        <div class="text-center mb-12">
-            <h1 class="text-5xl font-bold mb-4">
-                CSV Import & Export
-            </h1>
-            <p class="text-xl text-emerald-200 mb-2">
-                A Microlearning Experience
+<body>
+    <!-- Hero Section -->
+    <section class="min-h-screen flex flex-col items-center justify-center text-center px-4 relative overflow-hidden">
+        <!-- Background grid effect -->
+        <div class="absolute inset-0 opacity-10" style="background-image: linear-gradient(var(--neon-cyan) 1px, transparent 1px), linear-gradient(90deg, var(--neon-cyan) 1px, transparent 1px); background-size: 50px 50px;"></div>
+        
+        <div class="relative z-10">
+            <div class="text-6xl mb-6">🔌</div>
+            
+            <h1 class="neon-title text-5xl md:text-7xl mb-2">NETRUNNER</h1>
+            <h2 class="text-2xl md:text-3xl text-magenta mb-8" style="font-family: 'Orbitron', sans-serif; color: var(--neon-magenta);">
+                THE NAUTOBOT PROTOCOL
+            </h2>
+            
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-12">
+                Neo-Tokyo 2087. You are a netrunner hired to infiltrate network infrastructure databases. 
+                Master the art of CSV data manipulation to complete your mission.
             </p>
-            <p class="text-teal-300">
-                🌿 This is <strong>Version 2</strong> - A simpler, cleaner design
-            </p>
-        </div>
-
-        <!-- Version Indicator -->
-        <div class="bg-white/10 backdrop-blur rounded-2xl p-8 mb-8 border border-white/20">
-            <h2 class="text-2xl font-bold mb-4 text-emerald-300">🔀 Branch Switching Demo</h2>
-            <p class="text-white/80 mb-4">
-                You're viewing <code class="bg-black/30 px-2 py-1 rounded">version_2</code> branch.
-            </p>
-            <p class="text-white/60 text-sm">
-                To switch to version_1 (The CSV Chronicles graphic novel), go to:<br>
-                <strong>Settings → Pages → Branch</strong> and select <code class="bg-black/30 px-1 rounded">version_1</code>
-            </p>
-        </div>
-
-        <!-- Comparison -->
-        <div class="grid md:grid-cols-2 gap-6">
-            <div class="bg-white/5 rounded-xl p-6 border border-white/10">
-                <h3 class="font-bold text-lg mb-3 text-amber-300">📖 Version 1</h3>
-                <ul class="text-sm text-white/70 space-y-2">
-                    <li>• Graphic novel style</li>
-                    <li>• 5 story chapters</li>
-                    <li>• Comic panels & speech bubbles</li>
-                    <li>• Python exercises</li>
-                    <li>• Dark theme with blue accents</li>
-                </ul>
+            
+            <!-- XP Bar -->
+            <div class="max-w-md mx-auto mb-8">
+                <div class="flex justify-between text-sm mb-2">
+                    <span class="text-cyan" style="color: var(--neon-cyan);">LEVEL 1: INITIATE</span>
+                    <span class="text-gray-500">0 / 500 XP</span>
+                </div>
+                <div class="xp-bar-container">
+                    <div class="xp-bar" style="width: 0%;"></div>
+                </div>
             </div>
             
-            <div class="bg-emerald-500/20 rounded-xl p-6 border border-emerald-400/30">
-                <h3 class="font-bold text-lg mb-3 text-emerald-300">🌿 Version 2 (Current)</h3>
-                <ul class="text-sm text-white/70 space-y-2">
-                    <li>• Simple, clean design</li>
-                    <li>• Single page</li>
-                    <li>• Minimalist approach</li>
-                    <li>• Placeholder for new content</li>
-                    <li>• Green/teal theme</li>
-                </ul>
+            <a href="chapters/quest-01.html" class="cyber-btn">
+                <span>◆</span>
+                <span>JACK IN</span>
+                <span>→</span>
+            </a>
+        </div>
+    </section>
+    
+    <!-- Mission Briefing -->
+    <section class="container">
+        <div class="mission-briefing">
+            <p><strong class="text-cyan" style="color: var(--neon-orange);">INCOMING TRANSMISSION...</strong></p>
+            <p class="mt-4">
+                Agent, your skills are needed. <strong>DataFlow Industries</strong> has contracted you for a critical operation.
+            </p>
+            <p class="mt-2">
+                Your target: <strong class="text-cyan" style="color: var(--neon-cyan);">NAUTOBOT</strong> — a network infrastructure database containing valuable intel on network assets, IP addresses, and system configurations.
+            </p>
+            <p class="mt-2">
+                Your mission: Master <strong>CSV data stream manipulation</strong> to extract, transform, and control network data. Complete all five quests to unlock the title of <strong class="text-green" style="color: var(--neon-green);">DATA ARCHITECT</strong>.
+            </p>
+            <p class="mt-4 text-gray-500 text-sm">
+                // Prerequisites: Basic Python knowledge, CSV fundamentals, Nautobot familiarity required.
+            </p>
+        </div>
+    </section>
+    
+    <!-- Quest Log -->
+    <section class="container">
+        <div class="quest-log">
+            <a href="chapters/quest-01.html" class="quest-item active" style="text-decoration: none; color: inherit;">
+                <div class="quest-status">01</div>
+                <div class="flex-1">
+                    <div class="font-bold" style="font-family: 'Orbitron', sans-serif;">INITIALIZATION</div>
+                    <div class="text-sm text-gray-500">Boot the Nautobot system and establish connection</div>
+                </div>
+                <div class="text-sm" style="color: var(--neon-cyan);">+100 XP</div>
+            </a>
+            
+            <a href="chapters/quest-02.html" class="quest-item locked" style="text-decoration: none; color: inherit;">
+                <div class="quest-status">02</div>
+                <div class="flex-1">
+                    <div class="font-bold" style="font-family: 'Orbitron', sans-serif;">DATA EXTRACTION</div>
+                    <div class="text-sm text-gray-500">Import device data via CSV uplink</div>
+                </div>
+                <div class="text-sm" style="color: var(--neon-cyan);">+150 XP</div>
+            </a>
+            
+            <a href="chapters/quest-03.html" class="quest-item locked" style="text-decoration: none; color: inherit;">
+                <div class="quest-status">03</div>
+                <div class="flex-1">
+                    <div class="font-bold" style="font-family: 'Orbitron', sans-serif;">ERROR RECOVERY</div>
+                    <div class="text-sm text-gray-500">Handle corrupted data streams and system conflicts</div>
+                </div>
+                <div class="text-sm" style="color: var(--neon-cyan);">+150 XP</div>
+            </a>
+            
+            <a href="chapters/quest-04.html" class="quest-item locked" style="text-decoration: none; color: inherit;">
+                <div class="quest-status">04</div>
+                <div class="flex-1">
+                    <div class="font-bold" style="font-family: 'Orbitron', sans-serif;">DATA EXFILTRATION</div>
+                    <div class="text-sm text-gray-500">Export intel to CSV dropfiles for analysis</div>
+                </div>
+                <div class="text-sm" style="color: var(--neon-cyan);">+150 XP</div>
+            </a>
+            
+            <a href="chapters/quest-05.html" class="quest-item locked" style="text-decoration: none; color: inherit;">
+                <div class="quest-status">05</div>
+                <div class="flex-1">
+                    <div class="font-bold" style="font-family: 'Orbitron', sans-serif;">SYSTEM INTEGRATION</div>
+                    <div class="text-sm text-gray-500">Full network takeover — multi-model data pipeline</div>
+                </div>
+                <div class="text-sm" style="color: var(--neon-green);">+200 XP</div>
+            </a>
+        </div>
+    </section>
+    
+    <!-- Skills Preview -->
+    <section class="container mt-8">
+        <div class="section-divider">
+            <span>SKILLS TO UNLOCK</span>
+        </div>
+        
+        <div class="grid-3 mt-6">
+            <div class="skill-card text-center">
+                <div class="skill-icon">📡</div>
+                <div class="skill-name">FILE_UPLOAD</div>
+                <div class="skill-level">Lv.0 → Lv.3</div>
+            </div>
+            <div class="skill-card text-center">
+                <div class="skill-icon">🔓</div>
+                <div class="skill-name">CSV_PARSE</div>
+                <div class="skill-level">Lv.0 → Lv.3</div>
+            </div>
+            <div class="skill-card text-center">
+                <div class="skill-icon">⚡</div>
+                <div class="skill-name">OBJECT_CREATE</div>
+                <div class="skill-level">Lv.0 → Lv.3</div>
+            </div>
+            <div class="skill-card text-center">
+                <div class="skill-icon">🛡️</div>
+                <div class="skill-name">ERROR_HANDLE</div>
+                <div class="skill-level">Lv.0 → Lv.3</div>
+            </div>
+            <div class="skill-card text-center">
+                <div class="skill-icon">🔍</div>
+                <div class="skill-name">QUERY_BUILD</div>
+                <div class="skill-level">Lv.0 → Lv.3</div>
+            </div>
+            <div class="skill-card text-center">
+                <div class="skill-icon">📤</div>
+                <div class="skill-name">EXPORT_STREAM</div>
+                <div class="skill-level">Lv.0 → Lv.3</div>
             </div>
         </div>
-
-        <!-- Topics Preview -->
-        <div class="mt-12">
-            <h2 class="text-2xl font-bold mb-6 text-center">📚 Topics Covered</h2>
-            <div class="grid md:grid-cols-3 gap-4">
-                <div class="bg-white/5 rounded-lg p-4 text-center border border-white/10 hover:bg-white/10 transition">
-                    <div class="text-3xl mb-2">📄</div>
-                    <div class="font-semibold">CSV Basics</div>
-                    <div class="text-xs text-white/50">Structure & Format</div>
-                </div>
-                <div class="bg-white/5 rounded-lg p-4 text-center border border-white/10 hover:bg-white/10 transition">
-                    <div class="text-3xl mb-2">🐍</div>
-                    <div class="font-semibold">Python csv Module</div>
-                    <div class="text-xs text-white/50">Read & Write</div>
-                </div>
-                <div class="bg-white/5 rounded-lg p-4 text-center border border-white/10 hover:bg-white/10 transition">
-                    <div class="text-3xl mb-2">🎯</div>
-                    <div class="font-semibold">Nautobot</div>
-                    <div class="text-xs text-white/50">Source of Truth</div>
-                </div>
+    </section>
+    
+    <!-- System Requirements -->
+    <section class="container mt-8 mb-16">
+        <div class="stats-panel">
+            <div class="stat-row">
+                <span class="stat-name">CODESPACE ACCESS</span>
+                <span class="stat-value">REQUIRED</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-name">PYTHON CLEARANCE</span>
+                <span class="stat-value">LEVEL 2+</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-name">CSV KNOWLEDGE</span>
+                <span class="stat-value">BASIC</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-name">NAUTOBOT FAMILIARITY</span>
+                <span class="stat-value">BASIC</span>
             </div>
         </div>
-    </main>
-
+        
+        <div class="text-center mt-8">
+            <a href="chapters/quest-01.html" class="cyber-btn green">
+                <span>◆</span>
+                <span>BEGIN MISSION</span>
+                <span>→</span>
+            </a>
+        </div>
+    </section>
+    
     <!-- Footer -->
-    <footer class="border-t border-white/10 mt-16 py-8 text-center text-white/50 text-sm">
-        <p>CSV Learning Microproject</p>
-        <p class="mt-1">
-            <a href="https://github.com/ericchou1/microlearning-understanding-csv-import-export" 
-               class="text-emerald-400 hover:underline">View on GitHub</a>
+    <footer class="text-center py-8 border-t" style="border-color: var(--neon-cyan); opacity: 0.3;">
+        <p class="text-sm text-gray-600">
+            NETRUNNER: The Nautobot Protocol // A LitRPG Learning Experience
+        </p>
+        <p class="text-xs text-gray-700 mt-2">
+            Based on <a href="https://github.com/nautobot/100-days-of-nautobot" class="text-cyan" style="color: var(--neon-cyan);">100 Days of Nautobot</a>
         </p>
     </footer>
-
 </body>
 </html>
-

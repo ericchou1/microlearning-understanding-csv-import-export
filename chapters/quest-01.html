@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quest 01: INITIALIZATION | NETRUNNER</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../assets/css/cyberpunk.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="cyber-nav">
+        <a href="../index.html">◆ NETRUNNER</a>
+        <div class="flex items-center gap-4">
+            <span class="text-gray-500 text-sm">QUEST 01/05</span>
+            <a href="quest-02.html" style="color: var(--neon-magenta);">NEXT →</a>
+        </div>
+    </nav>
+    
+    <!-- XP Progress -->
+    <div class="container mt-4">
+        <div class="flex justify-between text-sm mb-2">
+            <span style="color: var(--neon-cyan);">QUEST PROGRESS</span>
+            <span class="text-gray-500">0 / 100 XP</span>
+        </div>
+        <div class="xp-bar-container">
+            <div class="xp-bar" style="width: 0%;"></div>
+        </div>
+    </div>
+
+    <!-- Chapter Header -->
+    <header class="chapter-header">
+        <div class="chapter-number">◆ QUEST 01 ◆</div>
+        <h1 class="chapter-title">INITIALIZATION</h1>
+        <p class="chapter-subtitle">Boot the Nautobot system and establish your connection to the network</p>
+    </header>
+
+    <main class="container">
+        <!-- Mission Briefing -->
+        <div class="mission-briefing">
+            <p><strong style="color: var(--neon-orange);">// INCOMING TRANSMISSION</strong></p>
+            <p class="mt-4">
+                Agent, before you can access the Nautobot database, you must first establish a secure connection. 
+                DataFlow Industries has provided you with access credentials to a <strong>Codespace terminal</strong> — 
+                a virtualized environment where you can safely execute your operations.
+            </p>
+            <p class="mt-2">
+                Your first objective: <strong style="color: var(--neon-cyan);">Boot the Nautobot system</strong> and verify connectivity.
+            </p>
+        </div>
+
+        <!-- Quest Objectives -->
+        <div class="quest-log mt-8">
+            <div class="quest-item active">
+                <div class="quest-status">◇</div>
+                <div>Launch GitHub Codespace</div>
+            </div>
+            <div class="quest-item">
+                <div class="quest-status">◇</div>
+                <div>Execute boot sequence commands</div>
+            </div>
+            <div class="quest-item">
+                <div class="quest-status">◇</div>
+                <div>Verify Nautobot connection</div>
+            </div>
+            <div class="quest-item">
+                <div class="quest-status">◇</div>
+                <div>Understand Job structure</div>
+            </div>
+        </div>
+
+        <div class="section-divider mt-8">
+            <span>PHASE 1: SYSTEM ACCESS</span>
+        </div>
+
+        <!-- Step 1 -->
+        <div class="mt-6">
+            <h3 class="text-xl font-bold mb-4" style="color: var(--neon-cyan); font-family: 'Orbitron', sans-serif;">
+                > ACCESSING CODESPACE TERMINAL
+            </h3>
+            
+            <p class="mb-4">
+                You jack into the network and locate the secure terminal. The coordinates flash across your neural interface:
+            </p>
+            
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-dot red"></div>
+                    <div class="terminal-dot yellow"></div>
+                    <div class="terminal-dot green"></div>
+                    <span class="terminal-title">SECURE_LINK.exe</span>
+                </div>
+                <div class="terminal-body">
+                    <pre>TARGET: https://github.com/nautobot/100-days-of-nautobot
+
+INSTRUCTIONS:
+1. Navigate to target repository
+2. Click [Code] → [Codespaces] → [Create codespace on main]
+3. Wait for environment initialization...
+
+STATUS: AWAITING CONNECTION...</pre>
+                </div>
+            </div>
+            
+            <p class="mt-4 text-gray-400 text-sm">
+                // The Codespace is a virtualized development environment. All tools are pre-installed.
+            </p>
+        </div>
+
+        <div class="section-divider mt-8">
+            <span>PHASE 2: BOOT SEQUENCE</span>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="mt-6">
+            <h3 class="text-xl font-bold mb-4" style="color: var(--neon-cyan); font-family: 'Orbitron', sans-serif;">
+                > EXECUTING BOOT SEQUENCE
+            </h3>
+            
+            <p class="mb-4">
+                The terminal blinks to life. You input the boot sequence commands:
+            </p>
+            
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-dot red"></div>
+                    <div class="terminal-dot yellow"></div>
+                    <div class="terminal-dot green"></div>
+                    <span class="terminal-title">TERMINAL</span>
+                </div>
+                <div class="terminal-body">
+                    <pre><span style="color: var(--neon-green);">netrunner@codespace:~$</span> cd nautobot-docker-compose/
+
+<span style="color: var(--neon-green);">netrunner@codespace:~/nautobot-docker-compose$</span> poetry shell
+<span style="color: #888;">Spawning shell within virtual environment...</span>
+
+<span style="color: var(--neon-green);">(nautobot-py3.10)$</span> invoke build
+<span style="color: #888;">Building containers... [████████████████████] 100%</span>
+
+<span style="color: var(--neon-green);">(nautobot-py3.10)$</span> invoke db-import
+<span style="color: #888;">Importing database... [████████████████████] 100%</span>
+
+<span style="color: var(--neon-green);">(nautobot-py3.10)$</span> invoke debug
+<span style="color: #888;">Starting Nautobot in debug mode...</span>
+<span style="color: var(--neon-cyan);">✓ Nautobot is running on port 8080</span></pre>
+                </div>
+            </div>
+            
+            <div class="skill-card mt-6">
+                <div class="flex items-center gap-4">
+                    <div class="skill-icon">💡</div>
+                    <div>
+                        <div class="skill-name">INTEL: QUICK REBOOT</div>
+                        <div class="text-sm text-gray-400">
+                            Returning to an existing Codespace? Skip <code style="color: var(--neon-magenta);">invoke build</code> and <code style="color: var(--neon-magenta);">invoke db-import</code>. 
+                            Just run <code style="color: var(--neon-green);">invoke debug</code>.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-divider mt-8">
+            <span>PHASE 3: CONNECTION VERIFIED</span>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="mt-6">
+            <h3 class="text-xl font-bold mb-4" style="color: var(--neon-cyan); font-family: 'Orbitron', sans-serif;">
+                > VERIFYING NAUTOBOT CONNECTION
+            </h3>
+            
+            <p class="mb-4">
+                The system hums to life. Codespaces displays a forwarded port notification. You click through and 
+                the Nautobot interface materializes before you:
+            </p>
+            
+            <div class="stats-panel">
+                <div class="stat-row">
+                    <span class="stat-name">INTERFACE URL</span>
+                    <span class="stat-value" style="font-size: 0.8rem;">https://&lt;codespace&gt;-8080.app.github.dev</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-name">USERNAME</span>
+                    <span class="stat-value">admin</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-name">PASSWORD</span>
+                    <span class="stat-value">admin</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-name">CONNECTION STATUS</span>
+                    <span class="stat-value" style="color: var(--neon-green);">● CONNECTED</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-divider mt-8">
+            <span>PHASE 4: JOB PROTOCOL OVERVIEW</span>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="mt-6">
+            <h3 class="text-xl font-bold mb-4" style="color: var(--neon-cyan); font-family: 'Orbitron', sans-serif;">
+                > UNDERSTANDING NAUTOBOT JOBS
+            </h3>
+            
+            <p class="mb-4">
+                In the Nautobot system, <strong style="color: var(--neon-magenta);">Jobs</strong> are executable Python scripts that can 
+                manipulate the database. You'll be writing custom Jobs to import and export CSV data.
+            </p>
+            
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-dot red"></div>
+                    <div class="terminal-dot yellow"></div>
+                    <div class="terminal-dot green"></div>
+                    <span class="terminal-title">jobs/example_job.py</span>
+                </div>
+                <div class="terminal-body">
+                    <pre><span style="color: var(--neon-magenta);">from</span> nautobot.apps.jobs <span style="color: var(--neon-magenta);">import</span> Job, register_jobs
+
+<span style="color: var(--neon-magenta);">class</span> <span style="color: var(--neon-cyan);">MyJob</span>(Job):
+    <span style="color: var(--neon-yellow);">"""A basic Job template."""</span>
+    
+    <span style="color: var(--neon-magenta);">class</span> <span style="color: var(--neon-cyan);">Meta</span>:
+        name = <span style="color: var(--neon-yellow);">"My Custom Job"</span>
+        description = <span style="color: var(--neon-yellow);">"Does something useful"</span>
+    
+    <span style="color: var(--neon-magenta);">def</span> <span style="color: var(--neon-cyan);">run</span>(self):
+        <span style="color: var(--neon-yellow);">"""Main execution method."""</span>
+        self.logger.info(<span style="color: var(--neon-yellow);">"Job executing..."</span>)
+        <span style="color: var(--neon-magenta);">return</span> <span style="color: var(--neon-yellow);">"Job completed!"</span>
+
+register_jobs(MyJob)</pre>
+                </div>
+            </div>
+            
+            <div class="grid-2 mt-6">
+                <div class="skill-card">
+                    <div class="skill-name">class Meta</div>
+                    <div class="text-sm text-gray-400">Defines Job name & description shown in UI</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-name">run()</div>
+                    <div class="text-sm text-gray-400">Main method where your logic executes</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-name">self.logger</div>
+                    <div class="text-sm text-gray-400">Outputs messages to the Job log</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-name">register_jobs()</div>
+                    <div class="text-sm text-gray-400">Makes the Job visible in Nautobot</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quest Complete -->
+        <div class="section-divider mt-8">
+            <span>QUEST COMPLETE</span>
+        </div>
+        
+        <div class="text-center mt-8 p-8" style="background: rgba(57, 255, 20, 0.1); border: 2px solid var(--neon-green); border-radius: 8px;">
+            <div class="text-4xl mb-4">🎮</div>
+            <h3 class="neon-title green text-2xl mb-4">INITIALIZATION COMPLETE</h3>
+            <p class="text-gray-400 mb-6">You have established connection to the Nautobot system.</p>
+            
+            <div class="grid-3 mb-6">
+                <div class="skill-card">
+                    <div class="skill-icon">🔌</div>
+                    <div class="skill-name">SYSTEM_ACCESS</div>
+                    <div class="skill-level">UNLOCKED</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">💻</div>
+                    <div class="skill-name">TERMINAL_CONTROL</div>
+                    <div class="skill-level">UNLOCKED</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">📋</div>
+                    <div class="skill-name">JOB_KNOWLEDGE</div>
+                    <div class="skill-level">UNLOCKED</div>
+                </div>
+            </div>
+            
+            <div class="text-2xl font-bold mb-6" style="color: var(--neon-green); font-family: 'Orbitron', sans-serif;">
+                +100 XP
+            </div>
+            
+            <a href="quest-02.html" class="cyber-btn green">
+                <span>◆</span>
+                <span>PROCEED TO QUEST 02</span>
+                <span>→</span>
+            </a>
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex justify-between items-center mt-8 mb-8 p-4" style="border-top: 1px solid var(--neon-cyan);">
+            <a href="../index.html" class="cyber-btn" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+                <span>←</span>
+                <span>HUB</span>
+            </a>
+            <span class="text-gray-500">QUEST 01/05</span>
+            <a href="quest-02.html" class="cyber-btn magenta" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+                <span>QUEST 02</span>
+                <span>→</span>
+            </a>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+</body>
+</html>
+

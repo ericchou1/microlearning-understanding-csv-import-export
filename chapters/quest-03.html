@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quest 03: ERROR RECOVERY | NETRUNNER</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../assets/css/cyberpunk.css">
+</head>
+<body>
+    <nav class="cyber-nav">
+        <a href="../index.html">◆ NETRUNNER</a>
+        <div class="flex items-center gap-4">
+            <a href="quest-02.html" style="color: var(--neon-magenta);">← PREV</a>
+            <span class="text-gray-500 text-sm">QUEST 03/05</span>
+            <a href="quest-04.html" style="color: var(--neon-magenta);">NEXT →</a>
+        </div>
+    </nav>
+
+    <header class="chapter-header">
+        <div class="chapter-number">◆ QUEST 03 ◆</div>
+        <h1 class="chapter-title">ERROR RECOVERY</h1>
+        <p class="chapter-subtitle">Handle corrupted data streams and duplicate conflicts</p>
+    </header>
+
+    <main class="container">
+        <div class="mission-briefing">
+            <p><strong style="color: var(--neon-orange);">// SYSTEM ALERT</strong></p>
+            <p class="mt-2">Running your import twice causes a <strong style="color: #ff4444;">UNIQUE CONSTRAINT FAILURE</strong>. Devices already exist! You need <strong style="color: var(--neon-cyan);">idempotent</strong> operations.</p>
+        </div>
+
+        <div class="section-divider mt-8"><span>THE PROBLEM</span></div>
+
+        <div class="terminal mt-6">
+            <div class="terminal-header">
+                <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
+                <span class="terminal-title" style="color: #ff4444;">ERROR_LOG</span>
+            </div>
+            <div class="terminal-body">
+                <pre style="color: #ff4444;">ERROR | UNIQUE constraint failed: dcim_device.name
+Device 'tn-sw-01' already exists in database!</pre>
+            </div>
+        </div>
+
+        <div class="section-divider mt-8"><span>SOLUTION: get_or_create</span></div>
+
+        <p class="mt-4 mb-4">Use <strong style="color: var(--neon-green);">get_or_create()</strong> — it retrieves existing objects or creates new ones:</p>
+
+        <div class="terminal">
+            <div class="terminal-header">
+                <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
+                <span class="terminal-title">Idempotent Import</span>
+            </div>
+            <div class="terminal-body">
+                <pre><span style="color: #888;"># Returns (object, was_created_boolean)</span>
+device, created = Device.objects.get_or_create(
+    name=hostname,  <span style="color: #888;"># Lookup field</span>
+    defaults={      <span style="color: #888;"># Fields set only when creating</span>
+        <span style="color: var(--neon-yellow);">"device_type"</span>: device_type,
+        <span style="color: var(--neon-yellow);">"role"</span>: role,
+        <span style="color: var(--neon-yellow);">"location"</span>: location,
+        <span style="color: var(--neon-yellow);">"status"</span>: active_status,
+    }
+)
+
+<span style="color: var(--neon-magenta);">if</span> created:
+    self.logger.info(<span style="color: var(--neon-yellow);">f"✓ Created: </span>{hostname}<span style="color: var(--neon-yellow);">"</span>)
+<span style="color: var(--neon-magenta);">else</span>:
+    self.logger.info(<span style="color: var(--neon-yellow);">f"⏭ Skipped (exists): </span>{hostname}<span style="color: var(--neon-yellow);">"</span>)</pre>
+            </div>
+        </div>
+
+        <div class="section-divider mt-8"><span>ALTERNATIVE: update_or_create</span></div>
+
+        <p class="mt-4 mb-4">If CSV should overwrite existing data, use <strong style="color: var(--neon-magenta);">update_or_create()</strong>:</p>
+
+        <div class="terminal">
+            <div class="terminal-header">
+                <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
+                <span class="terminal-title">Update Mode</span>
+            </div>
+            <div class="terminal-body">
+                <pre>device, created = Device.objects.update_or_create(
+    name=hostname,  <span style="color: #888;"># Lookup field</span>
+    defaults={      <span style="color: #888;"># Fields to set (create OR update)</span>
+        <span style="color: var(--neon-yellow);">"device_type"</span>: device_type,
+        <span style="color: var(--neon-yellow);">"role"</span>: role,
+        <span style="color: var(--neon-yellow);">"location"</span>: location,
+        <span style="color: var(--neon-yellow);">"status"</span>: active_status,
+    }
+)
+
+<span style="color: var(--neon-magenta);">if</span> created:
+    self.logger.info(<span style="color: var(--neon-yellow);">f"✓ Created: </span>{hostname}<span style="color: var(--neon-yellow);">"</span>)
+<span style="color: var(--neon-magenta);">else</span>:
+    self.logger.info(<span style="color: var(--neon-yellow);">f"🔄 Updated: </span>{hostname}<span style="color: var(--neon-yellow);">"</span>)</pre>
+            </div>
+        </div>
+
+        <div class="section-divider mt-8"><span>COMPARISON</span></div>
+
+        <div class="stats-panel mt-4">
+            <div class="stat-row">
+                <span class="stat-name">get_or_create</span>
+                <span class="stat-value" style="color: var(--neon-green);">Skip existing</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-name">update_or_create</span>
+                <span class="stat-value" style="color: var(--neon-magenta);">Overwrite existing</span>
+            </div>
+        </div>
+
+        <div class="skill-card mt-6">
+            <div class="skill-name">💡 PRO TIP: BooleanVar</div>
+            <div class="text-sm text-gray-400 mt-2">Add a toggle to let users choose behavior:</div>
+            <pre class="mt-2" style="color: var(--neon-cyan); font-size: 0.85rem;">update_existing = BooleanVar(description="Update existing?", default=False)</pre>
+        </div>
+
+        <!-- Quest Complete -->
+        <div class="text-center mt-8 p-8" style="background: rgba(57, 255, 20, 0.1); border: 2px solid var(--neon-green); border-radius: 8px;">
+            <h3 class="neon-title green text-2xl mb-4">+150 XP — SKILLS UNLOCKED</h3>
+            <div class="grid-3 mb-6">
+                <div class="skill-card text-center"><div class="skill-icon">🛡️</div><div class="skill-name">IDEMPOTENCY</div></div>
+                <div class="skill-card text-center"><div class="skill-icon">🔄</div><div class="skill-name">ERROR_HANDLE</div></div>
+                <div class="skill-card text-center"><div class="skill-icon">✅</div><div class="skill-name">DATA_VALIDATE</div></div>
+            </div>
+            <a href="quest-04.html" class="cyber-btn green"><span>QUEST 04: DATA EXFILTRATION →</span></a>
+        </div>
+
+        <div class="flex justify-between mt-8 mb-8">
+            <a href="quest-02.html" class="cyber-btn" style="padding: 0.5rem 1rem;">← QUEST 02</a>
+            <a href="quest-04.html" class="cyber-btn magenta" style="padding: 0.5rem 1rem;">QUEST 04 →</a>
+        </div>
+    </main>
+</body>
+</html>
+

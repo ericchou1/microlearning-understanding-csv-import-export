@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quest 05: SYSTEM INTEGRATION | NETRUNNER</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../assets/css/cyberpunk.css">
+</head>
+<body>
+    <nav class="cyber-nav">
+        <a href="../index.html">◆ NETRUNNER</a>
+        <div class="flex items-center gap-4">
+            <a href="quest-04.html" style="color: var(--neon-magenta);">← PREV</a>
+            <span class="text-gray-500 text-sm">QUEST 05/05</span>
+        </div>
+    </nav>
+
+    <header class="chapter-header" style="border-color: var(--neon-green);">
+        <div class="chapter-number" style="color: var(--neon-green);">◆ FINAL QUEST ◆</div>
+        <h1 class="chapter-title" style="color: var(--neon-green); text-shadow: var(--glow-green);">SYSTEM INTEGRATION</h1>
+        <p class="chapter-subtitle">Full network takeover — multi-model data pipeline</p>
+    </header>
+
+    <main class="container">
+        <div class="mission-briefing" style="border-color: var(--neon-green);">
+            <p><strong style="color: var(--neon-green);">// FINAL OBJECTIVE</strong></p>
+            <p class="mt-2">You've mastered individual operations. Now combine them into a complete pipeline: <strong>Devices → Interfaces → IP Addresses → Prefixes</strong>.</p>
+        </div>
+
+        <div class="section-divider mt-8"><span>IMPORT ORDER MATTERS</span></div>
+
+        <div class="stats-panel mt-4">
+            <div class="stat-row"><span class="stat-name">1. Prefixes</span><span class="stat-value">No dependencies</span></div>
+            <div class="stat-row"><span class="stat-name">2. Devices</span><span class="stat-value">→ DeviceType, Role, Location</span></div>
+            <div class="stat-row"><span class="stat-name">3. Interfaces</span><span class="stat-value">→ Device</span></div>
+            <div class="stat-row"><span class="stat-name">4. IP Addresses</span><span class="stat-value">→ Interface (for assignment)</span></div>
+        </div>
+
+        <div class="section-divider mt-8"><span>INTERFACE IMPORT</span></div>
+
+        <div class="terminal mt-4">
+            <div class="terminal-header">
+                <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
+                <span class="terminal-title">Interface Import Job</span>
+            </div>
+            <div class="terminal-body">
+                <pre><span style="color: var(--neon-magenta);">from</span> nautobot.dcim.models <span style="color: var(--neon-magenta);">import</span> Device, Interface
+<span style="color: var(--neon-magenta);">from</span> nautobot.extras.models <span style="color: var(--neon-magenta);">import</span> Status
+
+<span style="color: #888;"># CSV: device,name,type,enabled,description</span>
+
+<span style="color: var(--neon-magenta);">for</span> row <span style="color: var(--neon-magenta);">in</span> reader:
+    <span style="color: var(--neon-magenta);">try</span>:
+        device = Device.objects.get(name=row[<span style="color: var(--neon-yellow);">'device'</span>])
+        
+        interface, created = Interface.objects.get_or_create(
+            device=device,
+            name=row[<span style="color: var(--neon-yellow);">'name'</span>],
+            defaults={
+                <span style="color: var(--neon-yellow);">"type"</span>: row.get(<span style="color: var(--neon-yellow);">'type'</span>, <span style="color: var(--neon-yellow);">'1000base-t'</span>),
+                <span style="color: var(--neon-yellow);">"enabled"</span>: row.get(<span style="color: var(--neon-yellow);">'enabled'</span>, <span style="color: var(--neon-yellow);">'true'</span>) == <span style="color: var(--neon-yellow);">'true'</span>,
+                <span style="color: var(--neon-yellow);">"status"</span>: Status.objects.get(name=<span style="color: var(--neon-yellow);">"Active"</span>),
+            }
+        )
+    <span style="color: var(--neon-magenta);">except</span> Device.DoesNotExist:
+        self.logger.warning(<span style="color: var(--neon-yellow);">f"Device not found: </span>{row[<span style="color: var(--neon-yellow);">'device'</span>]}<span style="color: var(--neon-yellow);">"</span>)</pre>
+            </div>
+        </div>
+
+        <div class="section-divider mt-8"><span>IP ADDRESS WITH ASSIGNMENT</span></div>
+
+        <div class="terminal mt-4">
+            <div class="terminal-header">
+                <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
+                <span class="terminal-title">IP Import with Interface Binding</span>
+            </div>
+            <div class="terminal-body">
+                <pre><span style="color: var(--neon-magenta);">from</span> nautobot.ipam.models <span style="color: var(--neon-magenta);">import</span> IPAddress, Namespace
+
+<span style="color: #888;"># CSV: ip_address,device,interface,description</span>
+
+namespace = Namespace.objects.get(name=<span style="color: var(--neon-yellow);">"Global"</span>)
+
+<span style="color: var(--neon-magenta);">for</span> row <span style="color: var(--neon-magenta);">in</span> reader:
+    <span style="color: #888;"># Create IP</span>
+    ip, created = IPAddress.objects.get_or_create(
+        address=row[<span style="color: var(--neon-yellow);">'ip_address'</span>],
+        namespace=namespace,
+        defaults={<span style="color: var(--neon-yellow);">"status"</span>: active_status}
+    )
+    
+    <span style="color: #888;"># Assign to interface (M2M relationship)</span>
+    <span style="color: var(--neon-magenta);">if</span> row.get(<span style="color: var(--neon-yellow);">'device'</span>) <span style="color: var(--neon-magenta);">and</span> row.get(<span style="color: var(--neon-yellow);">'interface'</span>):
+        <span style="color: var(--neon-magenta);">try</span>:
+            device = Device.objects.get(name=row[<span style="color: var(--neon-yellow);">'device'</span>])
+            iface = Interface.objects.get(device=device, name=row[<span style="color: var(--neon-yellow);">'interface'</span>])
+            
+            <span style="color: #888;"># Add IP to interface's ip_addresses (Many-to-Many)</span>
+            <span style="color: var(--neon-magenta);">if</span> ip <span style="color: var(--neon-magenta);">not in</span> iface.ip_addresses.all():
+                iface.ip_addresses.add(ip)
+                self.logger.info(<span style="color: var(--neon-yellow);">f"Assigned </span>{ip}<span style="color: var(--neon-yellow);"> to </span>{iface}<span style="color: var(--neon-yellow);">"</span>)
+        <span style="color: var(--neon-magenta);">except</span> Exception <span style="color: var(--neon-magenta);">as</span> e:
+            self.logger.warning(<span style="color: var(--neon-yellow);">f"Assignment failed: </span>{e}<span style="color: var(--neon-yellow);">"</span>)</pre>
+            </div>
+        </div>
+
+        <div class="section-divider mt-8"><span>FULL NETWORK EXPORT</span></div>
+
+        <div class="terminal mt-4">
+            <div class="terminal-header">
+                <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
+                <span class="terminal-title">Complete Export Job</span>
+            </div>
+            <div class="terminal-body">
+                <pre>queryset = Device.objects.select_related(
+    <span style="color: var(--neon-yellow);">'device_type'</span>, <span style="color: var(--neon-yellow);">'location'</span>, <span style="color: var(--neon-yellow);">'role'</span>
+).prefetch_related(
+    <span style="color: var(--neon-yellow);">'interfaces'</span>, <span style="color: var(--neon-yellow);">'interfaces__ip_addresses'</span>
+)
+
+writer.writerow([<span style="color: var(--neon-yellow);">'device'</span>, <span style="color: var(--neon-yellow);">'location'</span>, <span style="color: var(--neon-yellow);">'interface'</span>, <span style="color: var(--neon-yellow);">'ip_address'</span>])
+
+<span style="color: var(--neon-magenta);">for</span> device <span style="color: var(--neon-magenta);">in</span> queryset:
+    <span style="color: var(--neon-magenta);">for</span> interface <span style="color: var(--neon-magenta);">in</span> device.interfaces.all():
+        ips = interface.ip_addresses.all()
+        <span style="color: var(--neon-magenta);">if</span> ips:
+            <span style="color: var(--neon-magenta);">for</span> ip <span style="color: var(--neon-magenta);">in</span> ips:
+                writer.writerow([device.name, device.location.name, interface.name, str(ip.address)])
+        <span style="color: var(--neon-magenta);">else</span>:
+            writer.writerow([device.name, device.location.name, interface.name, <span style="color: var(--neon-yellow);">''</span>])</pre>
+            </div>
+        </div>
+
+        <div class="skill-card mt-6">
+            <div class="skill-name">💡 select_related vs prefetch_related</div>
+            <div class="text-sm text-gray-400 mt-2">
+                <strong style="color: var(--neon-cyan);">select_related</strong>: ForeignKey, OneToOne (single join) <br>
+                <strong style="color: var(--neon-magenta);">prefetch_related</strong>: ManyToMany, reverse FK (separate query)
+            </div>
+        </div>
+
+        <!-- Mission Complete -->
+        <div class="text-center mt-8 p-8" style="background: linear-gradient(135deg, rgba(57, 255, 20, 0.2), rgba(0, 255, 255, 0.2)); border: 3px solid var(--neon-green); border-radius: 8px;">
+            <div class="text-6xl mb-4">🏆</div>
+            <h3 class="neon-title green text-3xl mb-2">MISSION COMPLETE</h3>
+            <p class="text-xl mb-4" style="color: var(--neon-cyan);">DATA ARCHITECT RANK ACHIEVED</p>
+            
+            <div class="grid-3 mb-6">
+                <div class="skill-card text-center"><div class="skill-icon">🔗</div><div class="skill-name">MULTI_MODEL</div><div class="skill-level">Lv.MAX</div></div>
+                <div class="skill-card text-center"><div class="skill-icon">⚡</div><div class="skill-name">PIPELINE_MASTER</div><div class="skill-level">Lv.MAX</div></div>
+                <div class="skill-card text-center"><div class="skill-icon">🏆</div><div class="skill-name">DATA_ARCHITECT</div><div class="skill-level">TITLE</div></div>
+            </div>
+            
+            <div class="text-3xl font-bold mb-6" style="color: var(--neon-green); font-family: 'Orbitron', sans-serif;">
+                +200 XP — TOTAL: 750 XP
+            </div>
+            
+            <div class="stats-panel mt-6">
+                <div class="stat-row"><span class="stat-name">Quests Completed</span><span class="stat-value">5/5</span></div>
+                <div class="stat-row"><span class="stat-name">Skills Unlocked</span><span class="stat-value">15</span></div>
+                <div class="stat-row"><span class="stat-name">Final Rank</span><span class="stat-value" style="color: var(--neon-green);">DATA ARCHITECT</span></div>
+            </div>
+            
+            <a href="../index.html" class="cyber-btn green mt-6"><span>◆ RETURN TO HUB ◆</span></a>
+        </div>
+
+        <div class="flex justify-between mt-8 mb-8">
+            <a href="quest-04.html" class="cyber-btn" style="padding: 0.5rem 1rem;">← QUEST 04</a>
+            <a href="../index.html" class="cyber-btn green" style="padding: 0.5rem 1rem;">HUB →</a>
+        </div>
+    </main>
+</body>
+</html>
+

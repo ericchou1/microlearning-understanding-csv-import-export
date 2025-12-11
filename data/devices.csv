@@ -1,0 +1,7 @@
+hostname,device_type,role,location
+tn-sw-01,Catalyst 9300,Access Switch,TechNova HQ
+tn-sw-02,Catalyst 9300,Access Switch,TechNova HQ
+tn-sw-03,Catalyst 9300,Access Switch,TechNova Branch
+tn-rtr-core,ASR 1001-X,Core Router,TechNova DC
+tn-rtr-edge,ASR 1001-X,Edge Router,TechNova DC
+tn-fw-01,Firepower 2110,Firewall,TechNova DC
