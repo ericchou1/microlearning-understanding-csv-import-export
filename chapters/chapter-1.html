@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapter 1: The Spreadsheet Nightmare | The CSV Chronicles</title>
+    <title>Chapter 1: The Merger Begins | The CSV Chronicles</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -19,7 +19,7 @@
     <nav class="bg-slate-900/80 backdrop-blur-sm sticky top-0 z-50 border-b border-slate-800">
         <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
             <a href="../index.html" class="flex items-center gap-2 text-slate-300 hover:text-white">
-                <span>📊</span>
+                <span>🔄</span>
                 <span class="font-bold">The CSV Chronicles</span>
             </a>
             <div class="flex items-center gap-4">
@@ -34,8 +34,8 @@
     <!-- Chapter Title Card -->
     <div class="chapter-title-card mx-4 mt-8 md:mx-auto md:max-w-4xl">
         <div class="chapter-number">CHAPTER ONE</div>
-        <h1>The Spreadsheet Nightmare</h1>
-        <p class="subtitle">In which our hero inherits chaos and discovers a glimmer of hope</p>
+        <h1>The Merger Begins</h1>
+        <p class="subtitle">In which our hero receives a monumental task and prepares the battlefield</p>
     </div>
 
     <!-- Story Content -->
@@ -43,31 +43,32 @@
         
         <!-- Opening Scene -->
         <div class="comic-page">
-            <div class="narrator-box warning mb-6">
-                Monday morning. DataFlow Corp headquarters. Alex Chen's first day as the new network engineer...
+            <div class="narrator-box mb-6">
+                Monday morning. DataFlow Corp executive conference room. Alex Chen, Senior Network Automation Engineer, 
+                is called into an urgent meeting...
             </div>
             
             <div class="comic-row cols-2">
-                <div class="panel chaos">
+                <div class="panel">
                     <div class="panel-scene flex-col">
                         <span class="text-5xl mb-2">🏢</span>
-                        <span class="text-sm text-slate-400">Server Room B</span>
+                        <span class="text-sm text-slate-400">Executive Floor</span>
                     </div>
                     <div class="character">
-                        <div class="character-avatar">👨‍💼</div>
+                        <div class="character-avatar" style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);">👔</div>
                         <div>
-                            <div class="character-name text-sm">Manager Dave</div>
+                            <div class="character-name text-sm" style="color: #818cf8;">CTO Morrison</div>
                         </div>
                     </div>
                     <div class="speech-bubble">
-                        "So, the last engineer left without notice. All the documentation is... somewhere. 
-                        Good luck! I have a meeting."
+                        "Alex, the acquisition of TechNova Inc. closes this Friday. We need their 
+                        entire network inventory merged into our Nautobot instance. Can you handle it?"
                     </div>
                 </div>
                 
                 <div class="panel">
                     <div class="panel-scene flex-col">
-                        <span class="text-5xl mb-2">😰</span>
+                        <span class="text-5xl mb-2">📊</span>
                     </div>
                     <div class="character">
                         <div class="character-avatar">👨‍💻</div>
@@ -75,38 +76,55 @@
                             <div class="character-name text-sm">Alex Chen</div>
                         </div>
                     </div>
-                    <div class="thought-bubble">
-                        500 devices... no documentation... what have I gotten myself into?
+                    <div class="speech-bubble">
+                        "What format is their data in?"
+                    </div>
+                    <div class="character mt-4">
+                        <div class="character-avatar" style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);">👔</div>
+                    </div>
+                    <div class="speech-bubble">
+                        "CSV files. Lots of them. Oh, and the auditors need a full network inventory 
+                        report by next Monday."
                     </div>
                 </div>
             </div>
             
-            <!-- Discovery Scene -->
+            <!-- The Challenge -->
             <div class="comic-row cols-1 mt-6">
-                <div class="panel">
-                    <div class="narrator-box mb-4">
-                        After hours of searching, Alex discovers a folder on the shared drive...
+                <div class="panel chaos">
+                    <div class="narrator-box warning mb-4">
+                        Alex returns to the desk to find an email with attachments from TechNova's IT team...
                     </div>
                     
-                    <div class="bg-slate-900 rounded-lg p-4 font-mono text-sm">
-                        <div class="text-slate-500 mb-2">📁 Network_Stuff_FINAL_v2_REAL/</div>
-                        <div class="ml-4 space-y-1 text-slate-300">
-                            <div>├── 📄 devices_old.csv</div>
-                            <div>├── 📄 devices_new_BACKUP.csv</div>
-                            <div>├── 📄 switches_maybe.csv</div>
-                            <div>├── 📄 routers_2019.csv</div>
-                            <div>├── 📄 Copy of inventory (2).csv</div>
-                            <div>├── 📄 DONT_DELETE.csv</div>
-                            <div>└── 📄 final_FINAL_usethis.csv</div>
+                    <div class="bg-slate-900 rounded-lg p-4 font-mono text-sm mb-4">
+                        <div class="text-slate-500 mb-2">📧 From: it@technova.com</div>
+                        <div class="text-slate-500 mb-2">Subject: Network Data Export</div>
+                        <div class="text-slate-300 mt-4">
+                            <div>Attachments:</div>
+                            <div class="ml-4 mt-2 space-y-1">
+                                <div>📎 technova_devices.csv (2,847 rows)</div>
+                                <div>📎 technova_interfaces.csv (18,432 rows)</div>
+                                <div>📎 technova_ip_addresses.csv (5,621 rows)</div>
+                                <div>📎 technova_prefixes.csv (847 rows)</div>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="sfx large text-center mt-4">GULP!</div>
+                    <div class="character">
+                        <div class="character-avatar">👨‍💻</div>
+                        <div>
+                            <div class="character-name text-sm">Alex</div>
+                        </div>
+                    </div>
+                    <div class="thought-bubble">
+                        Nearly 28,000 rows of data to import, plus I need to build export reports. 
+                        Time to build some serious Nautobot Jobs...
+                    </div>
                 </div>
             </div>
             
-            <!-- The CSV Discovery -->
-            <div class="comic-row cols-1-2 mt-6">
+            <!-- The Plan -->
+            <div class="comic-row cols-1 mt-6">
                 <div class="panel featured">
                     <div class="character">
                         <div class="character-avatar">👨‍💻</div>
@@ -115,63 +133,78 @@
                         </div>
                     </div>
                     <div class="speech-bubble">
-                        "Wait... these are all CSV files. If I could just read them programmatically..."
-                    </div>
-                    <div class="thought-bubble mt-4">
-                        I remember learning Python in that bootcamp. Maybe it's time to put it to use!
-                    </div>
-                </div>
-                
-                <div class="panel">
-                    <div class="narrator-box success mb-4">
-                        💡 A moment of clarity! Before diving into code, Alex needs to understand what CSV actually is...
+                        "I've done CSV imports before, but not at this scale. I need a proper 
+                        development environment to build and test these Jobs safely."
                     </div>
                     
-                    <h3 class="text-xl font-bold text-blue-400 mb-3">What is a CSV File?</h3>
-                    <p class="text-slate-300 text-sm mb-4">
-                        <strong>CSV</strong> stands for <strong>Comma-Separated Values</strong>. 
-                        It's one of the simplest and most universal ways to store tabular data.
-                    </p>
-                    
-                    <div class="csv-preview">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>hostname</th>
-                                    <th>ip_address</th>
-                                    <th>device_type</th>
-                                    <th>location</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>switch-01</td>
-                                    <td>10.0.1.1</td>
-                                    <td>switch</td>
-                                    <td>Building A</td>
-                                </tr>
-                                <tr>
-                                    <td>router-core</td>
-                                    <td>10.0.0.1</td>
-                                    <td>router</td>
-                                    <td>Data Center</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="bg-slate-800/50 rounded-lg p-4 mt-6">
+                        <h4 class="font-bold text-blue-400 mb-3">Alex's Plan:</h4>
+                        <ol class="space-y-2 text-slate-300 text-sm">
+                            <li class="flex items-start gap-2">
+                                <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">1</span>
+                                <span>Set up a development Nautobot instance using 100-days-of-nautobot Codespace</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">2</span>
+                                <span>Build CSV import Jobs with proper error handling</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">3</span>
+                                <span>Build CSV export Jobs for the auditor reports</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">4</span>
+                                <span>Test everything, then deploy to production</span>
+                            </li>
+                        </ol>
                     </div>
                 </div>
             </div>
         </div>
         
-        <!-- Learning Section: CSV Structure -->
+        <!-- Environment Setup Section -->
         <section class="mt-12">
-            <h2 class="comic-title text-3xl text-center mb-8">📚 Understanding CSV Structure</h2>
+            <h2 class="comic-title text-3xl text-center mb-8">🚀 Setting Up the Environment</h2>
             
             <div class="panel mb-6">
-                <h3 class="text-xl font-bold text-amber-400 mb-4">The Anatomy of a CSV File</h3>
+                <div class="narrator-box success mb-4">
+                    Alex uses the 100-days-of-nautobot repository, which provides a pre-configured 
+                    Nautobot development environment via GitHub Codespaces.
+                </div>
+                
+                <h3 class="text-xl font-bold text-blue-400 mb-4">Step 1: Launch the Codespace</h3>
+                
+                <ol class="space-y-4 text-slate-300">
+                    <li class="flex items-start gap-3">
+                        <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs mt-1">1</span>
+                        <div>
+                            <p>Navigate to the 100-days-of-nautobot repository:</p>
+                            <a href="https://github.com/nautobot/100-days-of-nautobot" target="_blank" 
+                               class="text-blue-400 hover:underline text-sm">
+                                https://github.com/nautobot/100-days-of-nautobot
+                            </a>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs mt-1">2</span>
+                        <div>
+                            <p>Click the green <strong>Code</strong> button → <strong>Codespaces</strong> tab → <strong>Create codespace on main</strong></p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs mt-1">3</span>
+                        <div>
+                            <p>Wait for the Codespace to build (this may take a few minutes the first time)</p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+            
+            <div class="panel mb-6">
+                <h3 class="text-xl font-bold text-emerald-400 mb-4">Step 2: Start Nautobot</h3>
                 
                 <p class="text-slate-300 mb-4">
-                    When you open a CSV file in a text editor, you'll see something like this:
+                    Once your Codespace is ready, open a terminal and run these commands:
                 </p>
                 
                 <div class="code-panel">
@@ -181,38 +214,72 @@
                             <div class="dot yellow"></div>
                             <div class="dot green"></div>
                         </div>
-                        <span class="filename">devices.csv</span>
+                        <span class="filename">Terminal</span>
                     </div>
-                    <pre><code class="language-text">hostname,ip_address,device_type,location
-switch-01,10.0.1.1,switch,Building A
-switch-02,10.0.1.2,switch,Building A
-router-core,10.0.0.1,router,Data Center
-firewall-main,10.0.0.254,firewall,Data Center</code></pre>
+                    <pre><code class="language-bash"># Navigate to the nautobot-docker-compose directory
+cd nautobot-docker-compose/
+
+# Activate the Poetry shell
+poetry shell
+
+# Build the containers (first time only)
+invoke build
+
+# Import the sample database
+invoke db-import
+
+# Start Nautobot in debug mode
+invoke debug</code></pre>
                 </div>
                 
-                <div class="grid md:grid-cols-3 gap-4 mt-6">
-                    <div class="bg-slate-800 rounded-lg p-4">
-                        <div class="text-2xl mb-2">📋</div>
-                        <h4 class="font-bold text-blue-400">Header Row</h4>
-                        <p class="text-sm text-slate-400">First line contains column names</p>
+                <div class="bg-amber-900/30 border border-amber-500/50 rounded-lg p-4 mt-4">
+                    <h4 class="font-bold text-amber-400 mb-2">💡 Pro Tip: Restarting a Codespace</h4>
+                    <p class="text-sm text-slate-300">
+                        If you're returning to an existing Codespace, you can skip <code>invoke build</code> 
+                        and <code>invoke db-import</code>. Just run:
+                    </p>
+                    <div class="code-panel mt-2">
+                        <pre><code class="language-bash">cd nautobot-docker-compose/
+poetry shell
+invoke debug</code></pre>
                     </div>
-                    <div class="bg-slate-800 rounded-lg p-4">
-                        <div class="text-2xl mb-2">📝</div>
-                        <h4 class="font-bold text-amber-400">Data Rows</h4>
-                        <p class="text-sm text-slate-400">Each line is one record</p>
+                </div>
+            </div>
+            
+            <div class="panel mb-6">
+                <h3 class="text-xl font-bold text-purple-400 mb-4">Step 3: Access Nautobot</h3>
+                
+                <p class="text-slate-300 mb-4">
+                    Once the containers are running, Codespaces will show a popup with the forwarded port. 
+                    Click to open Nautobot in your browser.
+                </p>
+                
+                <div class="bg-slate-800 rounded-lg p-4">
+                    <div class="grid md:grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <div class="text-slate-400">URL:</div>
+                            <div class="text-blue-400 font-mono">https://&lt;codespace-name&gt;-8080.app.github.dev</div>
+                        </div>
+                        <div>
+                            <div class="text-slate-400">Default Credentials:</div>
+                            <div class="text-slate-300">
+                                <span class="text-emerald-400">admin</span> / 
+                                <span class="text-emerald-400">admin</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="bg-slate-800 rounded-lg p-4">
-                        <div class="text-2xl mb-2">➗</div>
-                        <h4 class="font-bold text-emerald-400">Delimiters</h4>
-                        <p class="text-sm text-slate-400">Commas separate each field</p>
-                    </div>
+                </div>
+                
+                <div class="narrator-box success mt-4">
+                    ✅ You now have a fully functional Nautobot instance with sample data, 
+                    ready for building and testing Jobs!
                 </div>
             </div>
         </section>
         
-        <!-- Learning Section: Python CSV Module -->
+        <!-- Understanding Nautobot Jobs -->
         <section class="mt-12">
-            <h2 class="comic-title text-3xl text-center mb-8">🐍 Enter Python's csv Module</h2>
+            <h2 class="comic-title text-3xl text-center mb-8">⚡ Understanding Nautobot Jobs</h2>
             
             <div class="comic-row cols-2 mb-6">
                 <div class="panel">
@@ -222,78 +289,89 @@ firewall-main,10.0.0.254,firewall,Data Center</code></pre>
                             <div class="character-name text-sm">Alex</div>
                         </div>
                     </div>
-                    <div class="speech-bubble">
-                        "Python has a built-in csv module? This is going to be easier than I thought!"
+                    <div class="thought-bubble">
+                        Before I dive in, let me review how Nautobot Jobs work...
                     </div>
                 </div>
                 
                 <div class="panel featured">
-                    <div class="narrator-box success mb-4">
-                        Python's csv module is part of the standard library - no installation needed!
-                    </div>
+                    <h4 class="font-bold text-blue-400 mb-3">What is a Nautobot Job?</h4>
                     <p class="text-slate-300 text-sm">
-                        The <code class="text-blue-400">csv</code> module provides functionality to 
-                        read from and write to CSV files, handling all the parsing details for you.
+                        A Job is a Python script that runs within Nautobot. Jobs can:
                     </p>
-                </div>
-            </div>
-            
-            <div class="panel mb-6">
-                <h3 class="text-xl font-bold text-emerald-400 mb-4">Your First CSV Read</h3>
-                
-                <p class="text-slate-300 mb-4">
-                    Here's the basic pattern Alex uses to read a CSV file:
-                </p>
-                
-                <div class="code-panel">
-                    <div class="code-panel-header">
-                        <div class="dots">
-                            <div class="dot red"></div>
-                            <div class="dot yellow"></div>
-                            <div class="dot green"></div>
-                        </div>
-                        <span class="filename">read_devices.py</span>
-                    </div>
-                    <pre><code class="language-python">import csv
-
-# Open the CSV file
-with open('devices.csv', 'r') as file:
-    # Create a CSV reader object
-    reader = csv.reader(file)
-    
-    # Skip the header row
-    header = next(reader)
-    print(f"Columns: {header}")
-    
-    # Read each row
-    for row in reader:
-        hostname = row[0]
-        ip_address = row[1]
-        device_type = row[2]
-        location = row[3]
-        
-        print(f"Found device: {hostname} at {ip_address}")</code></pre>
-                </div>
-                
-                <div class="bg-slate-800 rounded-lg p-4 mt-4">
-                    <h4 class="font-bold text-amber-400 mb-2">🔍 Code Breakdown:</h4>
-                    <ul class="space-y-2 text-sm text-slate-300">
-                        <li><code class="text-blue-400">import csv</code> - Import the built-in CSV module</li>
-                        <li><code class="text-blue-400">open('devices.csv', 'r')</code> - Open file in read mode</li>
-                        <li><code class="text-blue-400">csv.reader(file)</code> - Create a reader that parses the file</li>
-                        <li><code class="text-blue-400">next(reader)</code> - Get the first row (header)</li>
-                        <li><code class="text-blue-400">for row in reader</code> - Iterate through data rows</li>
+                    <ul class="text-sm text-slate-300 mt-2 space-y-1">
+                        <li>• Accept user input via the UI</li>
+                        <li>• Process files (like CSVs!)</li>
+                        <li>• Create, update, or delete objects</li>
+                        <li>• Log progress and results</li>
                     </ul>
                 </div>
             </div>
             
-            <!-- DictReader Section -->
             <div class="panel mb-6">
-                <h3 class="text-xl font-bold text-purple-400 mb-4">📖 Even Better: DictReader</h3>
+                <h3 class="text-xl font-bold text-emerald-400 mb-4">Job Structure Refresher</h3>
+                
+                <div class="code-panel">
+                    <div class="code-panel-header">
+                        <div class="dots">
+                            <div class="dot red"></div>
+                            <div class="dot yellow"></div>
+                            <div class="dot green"></div>
+                        </div>
+                        <span class="filename">jobs/example_job.py</span>
+                    </div>
+                    <pre><code class="language-python">from nautobot.apps.jobs import Job, register_jobs
+
+class MyJob(Job):
+    """A simple example Job."""
+    
+    class Meta:
+        name = "My Example Job"
+        description = "Does something useful"
+    
+    def run(self):
+        """Main entry point for the Job."""
+        self.logger.info("Job is running!")
+        
+        # Your logic here...
+        
+        return "Job completed successfully!"
+
+# Register the job so Nautobot can find it
+register_jobs(MyJob)</code></pre>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-4 mt-4">
+                    <div class="bg-slate-800 rounded-lg p-4">
+                        <h4 class="font-bold text-blue-400 mb-2">Key Components</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li><code>class Meta</code> - Job name & description</li>
+                            <li><code>run()</code> - Main execution method</li>
+                            <li><code>self.logger</code> - Logging to UI</li>
+                            <li><code>register_jobs()</code> - Makes job visible</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 rounded-lg p-4">
+                        <h4 class="font-bold text-emerald-400 mb-2">Job Location</h4>
+                        <p class="text-sm text-slate-300">
+                            Jobs are stored in:<br>
+                            <code class="text-xs">nautobot-docker-compose/jobs/</code>
+                        </p>
+                        <p class="text-sm text-slate-400 mt-2">
+                            After adding/modifying a job, enable it in:<br>
+                            <strong>Jobs → Jobs</strong> in the Nautobot UI
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FileVar Preview -->
+            <div class="panel mb-6">
+                <h3 class="text-xl font-bold text-purple-400 mb-4">🔑 Key Tool: FileVar</h3>
                 
                 <p class="text-slate-300 mb-4">
-                    Accessing columns by index (<code>row[0]</code>) works, but it's error-prone. 
-                    What if someone rearranges the columns? <code>DictReader</code> solves this!
+                    For CSV imports, we'll use <code>FileVar</code> - a special input type that 
+                    creates a file upload field in the Job's UI.
                 </p>
                 
                 <div class="code-panel">
@@ -303,31 +381,34 @@ with open('devices.csv', 'r') as file:
                             <div class="dot yellow"></div>
                             <div class="dot green"></div>
                         </div>
-                        <span class="filename">read_devices_better.py</span>
+                        <span class="filename">Preview: FileVar Usage</span>
                     </div>
-                    <pre><code class="language-python">import csv
+                    <pre><code class="language-python">from nautobot.apps.jobs import Job, register_jobs, FileVar
 
-with open('devices.csv', 'r') as file:
-    # DictReader uses the header row as dictionary keys
-    reader = csv.DictReader(file)
+class CSVImportJob(Job):
+    class Meta:
+        name = "CSV Import"
+        description = "Import data from CSV file"
     
-    for row in reader:
-        # Access columns by name - much clearer!
-        hostname = row['hostname']
-        ip_address = row['ip_address']
-        device_type = row['device_type']
-        location = row['location']
+    # This creates a file upload button in the UI!
+    csv_file = FileVar(
+        description="Upload your CSV file"
+    )
+    
+    def run(self, csv_file):
+        # Read the uploaded file
+        content = csv_file.read().decode('utf-8')
+        self.logger.info(f"Received file with {len(content)} bytes")
         
-        print(f"Device: {hostname}")
-        print(f"  IP: {ip_address}")
-        print(f"  Type: {device_type}")
-        print(f"  Location: {location}")
-        print("-" * 30)</code></pre>
+        # Process the CSV...
+        
+        return "Import complete!"
+
+register_jobs(CSVImportJob)</code></pre>
                 </div>
                 
-                <div class="narrator-box success mt-4">
-                    💡 <strong>Pro Tip:</strong> Always prefer <code>DictReader</code> over <code>reader</code> when your CSV has headers. 
-                    It makes your code more readable and resilient to column order changes!
+                <div class="narrator-box mt-4">
+                    💡 We'll dive deep into FileVar and CSV processing in Chapter 2!
                 </div>
             </div>
         </section>
@@ -338,50 +419,26 @@ with open('devices.csv', 'r') as file:
                 <div class="comic-row cols-1">
                     <div class="panel success">
                         <div class="narrator-box mb-4">
-                            Hours later, Alex runs the first script...
+                            After setting up the environment, Alex takes a moment to review...
                         </div>
                         
-                        <div class="code-panel mb-4">
-                            <div class="code-panel-header">
-                                <div class="dots">
-                                    <div class="dot red"></div>
-                                    <div class="dot yellow"></div>
-                                    <div class="dot green"></div>
-                                </div>
-                                <span class="filename">Terminal Output</span>
-                            </div>
-                            <pre><code class="language-text">$ python read_devices.py
-Device: switch-01
-  IP: 10.0.1.1
-  Type: switch
-  Location: Building A
-------------------------------
-Device: switch-02
-  IP: 10.0.1.2
-  Type: switch
-  Location: Building A
-------------------------------
-Device: router-core
-  IP: 10.0.0.1
-  Type: router
-  Location: Data Center
-------------------------------
-...</code></pre>
+                        <div class="bg-slate-900 rounded-lg p-4 font-mono text-sm mb-4">
+                            <div class="text-emerald-400">$ invoke debug</div>
+                            <div class="text-slate-400 mt-2">Starting Nautobot in debug mode...</div>
+                            <div class="text-slate-400">nautobot-1  | Django version 3.2, using settings 'nautobot_config'</div>
+                            <div class="text-slate-400">nautobot-1  | Starting development server at http://0.0.0.0:8080/</div>
+                            <div class="text-emerald-400 mt-2">✓ Nautobot is running!</div>
                         </div>
                         
-                        <div class="text-center">
-                            <div class="sfx large">SUCCESS!</div>
-                        </div>
-                        
-                        <div class="character justify-center mt-4">
+                        <div class="character justify-center">
                             <div class="character-avatar">👨‍💻</div>
                             <div>
                                 <div class="character-name">Alex</div>
                             </div>
                         </div>
-                        <div class="speech-bubble mx-auto" style="max-width: 400px;">
-                            "It works! I can finally see what's in these files. But reading is just the beginning... 
-                            I need to make sense of this data."
+                        <div class="speech-bubble mx-auto" style="max-width: 450px;">
+                            "Environment is ready. I've got sample data to work with and a safe place 
+                            to test. Tomorrow, I start building the import Job. Let's do this!"
                         </div>
                     </div>
                 </div>
@@ -395,38 +452,37 @@ Device: router-core
                 
                 <div class="grid md:grid-cols-2 gap-6">
                     <div>
-                        <h4 class="font-bold text-blue-400 mb-3">CSV Fundamentals</h4>
+                        <h4 class="font-bold text-blue-400 mb-3">Environment Setup</h4>
                         <ul class="space-y-2 text-slate-300 text-sm">
-                            <li>✓ CSV = Comma-Separated Values</li>
-                            <li>✓ First row is typically the header</li>
-                            <li>✓ Each subsequent row is a data record</li>
-                            <li>✓ Fields are separated by commas</li>
+                            <li>✓ Use 100-days-of-nautobot Codespace</li>
+                            <li>✓ <code>poetry shell</code> to activate environment</li>
+                            <li>✓ <code>invoke build</code> for first-time setup</li>
+                            <li>✓ <code>invoke debug</code> to start Nautobot</li>
                         </ul>
                     </div>
                     <div>
-                        <h4 class="font-bold text-emerald-400 mb-3">Python csv Module</h4>
+                        <h4 class="font-bold text-emerald-400 mb-3">Nautobot Jobs Basics</h4>
                         <ul class="space-y-2 text-slate-300 text-sm">
-                            <li>✓ Built-in module, no installation needed</li>
-                            <li>✓ <code>csv.reader()</code> for basic reading</li>
-                            <li>✓ <code>csv.DictReader()</code> for named columns</li>
-                            <li>✓ Always use <code>with open()</code> for files</li>
+                            <li>✓ Jobs are Python classes inheriting from <code>Job</code></li>
+                            <li>✓ <code>run()</code> method contains main logic</li>
+                            <li>✓ <code>FileVar</code> enables file uploads</li>
+                            <li>✓ Must <code>register_jobs()</code> to enable</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </section>
         
-        <!-- Try It Yourself -->
-        <div class="try-it-section mt-12">
-            <h3>🧪 Try It Yourself!</h3>
-            <p class="text-slate-400 mb-4">
-                Open this project in Codespace and run the Chapter 1 exercise. 
-                Practice reading CSV files with Python!
-            </p>
-            <a href="../exercises/exercise-1.py" class="exercise-link">
-                <span>📝</span>
-                <span>Open Exercise 1</span>
-            </a>
+        <!-- Next Chapter Teaser -->
+        <div class="panel mt-8" style="border-color: #f59e0b;">
+            <div class="text-center">
+                <div class="text-3xl mb-2">🔮</div>
+                <h3 class="text-xl font-bold text-amber-400 mb-2">Coming Up Next...</h3>
+                <p class="text-slate-300">
+                    In Chapter 2, Alex builds the first CSV import Job—loading TechNova's device 
+                    inventory into Nautobot using FileVar, csv parsing, and Django ORM operations.
+                </p>
+            </div>
         </div>
         
         <!-- Chapter Navigation -->
@@ -447,8 +503,8 @@ Device: router-core
     <footer class="py-8 px-4 border-t border-slate-800 mt-12">
         <div class="max-w-4xl mx-auto text-center text-slate-500">
             <p class="text-sm">
-                <a href="../index.html" class="text-blue-400 hover:underline">The CSV Chronicles</a>
-                · A learning adventure for network engineers
+                <a href="../index.html" class="text-blue-400 hover:underline">The CSV Chronicles: The Merger</a>
+                · An intermediate Nautobot tutorial
             </p>
         </div>
     </footer>
@@ -456,6 +512,6 @@ Device: router-core
     <!-- Prism.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
 </body>
 </html>
-

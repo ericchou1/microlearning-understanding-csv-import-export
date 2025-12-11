@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapter 4: The Source of Truth | The CSV Chronicles</title>
+    <title>Chapter 4: Exporting for the Auditors | The CSV Chronicles</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -19,7 +19,7 @@
     <nav class="bg-slate-900/80 backdrop-blur-sm sticky top-0 z-50 border-b border-slate-800">
         <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
             <a href="../index.html" class="flex items-center gap-2 text-slate-300 hover:text-white">
-                <span>📊</span>
+                <span>🔄</span>
                 <span class="font-bold">The CSV Chronicles</span>
             </a>
             <div class="flex items-center gap-4">
@@ -33,8 +33,8 @@
     <!-- Chapter Title Card -->
     <div class="chapter-title-card mx-4 mt-8 md:mx-auto md:max-w-4xl" style="border-color: #10b981;">
         <div class="chapter-number">CHAPTER FOUR</div>
-        <h1>The Source of Truth</h1>
-        <p class="subtitle">In which our hero discovers Nautobot and sees a new possibility</p>
+        <h1>Exporting for the Auditors</h1>
+        <p class="subtitle">In which our hero learns to extract data from Nautobot into CSV reports</p>
     </div>
 
     <!-- Story Content -->
@@ -43,14 +43,28 @@
         <!-- Opening Scene -->
         <div class="comic-page">
             <div class="narrator-box mb-6">
-                A month has passed. Alex's CSV scripts are running smoothly, but something still feels incomplete...
+                Thursday afternoon. An urgent email arrives from the Compliance team...
             </div>
             
             <div class="comic-row cols-2">
                 <div class="panel">
-                    <div class="panel-scene flex-col">
-                        <span class="text-5xl mb-2">😔</span>
+                    <div class="bg-slate-900 rounded-lg p-4 font-mono text-sm mb-4">
+                        <div class="text-slate-500 mb-2">📧 From: compliance@dataflow.com</div>
+                        <div class="text-slate-500 mb-2">Subject: URGENT - Network Inventory Audit</div>
+                        <div class="text-slate-300 mt-4">
+                            <p>Alex,</p>
+                            <p class="mt-2">The auditors need a complete network inventory by Monday. They require:</p>
+                            <ul class="mt-2 ml-4 space-y-1">
+                                <li>• All devices with their locations</li>
+                                <li>• IP address assignments</li>
+                                <li>• Everything in CSV format</li>
+                            </ul>
+                            <p class="mt-2">Thanks,<br>Compliance Team</p>
+                        </div>
                     </div>
+                </div>
+                
+                <div class="panel">
                     <div class="character">
                         <div class="character-avatar">👨‍💻</div>
                         <div>
@@ -58,120 +72,206 @@
                         </div>
                     </div>
                     <div class="thought-bubble">
-                        My CSVs are clean now, but every time something changes, I have to update files 
-                        manually. And when the team asks "what's connected to what?"... I'm back to spreadsheets.
+                        I've mastered importing... now I need to export! Time to build some 
+                        CSV export Jobs.
                     </div>
-                </div>
-                
-                <div class="panel">
-                    <div class="narrator-box mb-4">
-                        During a late-night troubleshooting session...
-                    </div>
-                    <div class="character">
-                        <div class="character-avatar" style="background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);">🦊</div>
-                        <div>
-                            <div class="character-name text-sm" style="color: #8b5cf6;">Marcus</div>
-                            <div class="text-slate-500 text-xs">Senior SRE, Remote Team</div>
-                        </div>
-                    </div>
-                    <div class="speech-bubble">
-                        "Hey Alex, I saw your CSV scripts in the repo. Nice work! But have you heard 
-                        of Nautobot? It might be exactly what you need."
-                    </div>
-                </div>
-            </div>
-            
-            <!-- The Revelation -->
-            <div class="comic-row cols-1 mt-6">
-                <div class="panel featured" style="border-color: #10b981;">
-                    <div class="flex flex-col md:flex-row gap-6 items-center">
-                        <div class="flex-shrink-0">
-                            <div class="w-32 h-32 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center text-6xl shadow-lg">
-                                🎯
-                            </div>
-                        </div>
-                        <div>
-                            <h2 class="text-2xl font-bold text-emerald-400 mb-2">Introducing Nautobot</h2>
-                            <p class="text-slate-300 mb-4">
-                                Nautobot is a <strong>Network Source of Truth</strong> and <strong>Network Automation Platform</strong>. 
-                                It's an open-source project that provides a single place to store and manage all your network data.
-                            </p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm">Open Source</span>
-                                <span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded-full text-sm">Python/Django</span>
-                                <span class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">REST API</span>
-                                <span class="px-3 py-1 bg-amber-500/20 text-amber-400 rounded-full text-sm">GraphQL</span>
-                            </div>
-                        </div>
+                    <div class="speech-bubble mt-4">
+                        "Good thing all the TechNova data is now in Nautobot. I just need to 
+                        query it and generate CSV reports."
                     </div>
                 </div>
             </div>
         </div>
         
-        <!-- What is Source of Truth -->
+        <!-- Building Export Job -->
         <section class="mt-12">
-            <h2 class="comic-title text-3xl text-center mb-8">🎯 What is a Source of Truth?</h2>
+            <h2 class="comic-title text-3xl text-center mb-8">📤 Building the Export Job</h2>
             
             <div class="panel mb-6">
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <h3 class="text-xl font-bold text-red-400 mb-4">❌ Without Source of Truth</h3>
-                        <div class="bg-red-900/20 border border-red-500/30 rounded-lg p-4">
-                            <ul class="space-y-3 text-slate-300 text-sm">
-                                <li class="flex items-start gap-2">
-                                    <span>📁</span>
-                                    <span>Data scattered across spreadsheets</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span>🔄</span>
-                                    <span>Multiple versions, unclear which is current</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span>🤷</span>
-                                    <span>"Is this IP still in use?" - nobody knows</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span>🐛</span>
-                                    <span>Changes made in one place, not reflected elsewhere</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span>😱</span>
-                                    <span>Outages from outdated information</span>
-                                </li>
-                            </ul>
-                        </div>
+                <h3 class="text-xl font-bold text-blue-400 mb-4">Approach: Query → Format → Output</h3>
+                
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-slate-800 rounded-lg p-4 text-center">
+                        <div class="text-3xl mb-2">🔍</div>
+                        <h4 class="font-bold text-blue-400">Query</h4>
+                        <p class="text-sm text-slate-400">Use Django QuerySets to get data</p>
                     </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-emerald-400 mb-4">✅ With Source of Truth</h3>
-                        <div class="bg-emerald-900/20 border border-emerald-500/30 rounded-lg p-4">
-                            <ul class="space-y-3 text-slate-300 text-sm">
-                                <li class="flex items-start gap-2">
-                                    <span>🎯</span>
-                                    <span>Single authoritative data source</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span>📝</span>
-                                    <span>Complete change history and audit trail</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span>🔗</span>
-                                    <span>Relationships between objects are tracked</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span>🤖</span>
-                                    <span>Automation can query and update data via API</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span>✨</span>
-                                    <span>Everyone works from the same information</span>
-                                </li>
-                            </ul>
-                        </div>
+                    <div class="bg-slate-800 rounded-lg p-4 text-center">
+                        <div class="text-3xl mb-2">📝</div>
+                        <h4 class="font-bold text-emerald-400">Format</h4>
+                        <p class="text-sm text-slate-400">Convert objects to CSV rows</p>
+                    </div>
+                    <div class="bg-slate-800 rounded-lg p-4 text-center">
+                        <div class="text-3xl mb-2">📤</div>
+                        <h4 class="font-bold text-purple-400">Output</h4>
+                        <p class="text-sm text-slate-400">Write to file or return as download</p>
                     </div>
                 </div>
             </div>
             
-            <div class="comic-row cols-1">
+            <div class="panel mb-6">
+                <h3 class="text-xl font-bold text-emerald-400 mb-4">Step 1: Query Nautobot Data</h3>
+                
+                <p class="text-slate-300 mb-4">
+                    Django's QuerySet API makes it easy to retrieve data:
+                </p>
+                
+                <div class="code-panel">
+                    <div class="code-panel-header">
+                        <div class="dots">
+                            <div class="dot red"></div>
+                            <div class="dot yellow"></div>
+                            <div class="dot green"></div>
+                        </div>
+                        <span class="filename">QuerySet examples</span>
+                    </div>
+                    <pre><code class="language-python">from nautobot.dcim.models import Device, Interface
+from nautobot.ipam.models import IPAddress
+
+# Get all devices
+all_devices = Device.objects.all()
+
+# Filter by location
+datacenter_devices = Device.objects.filter(location__name="Data Center")
+
+# Filter by role
+switches = Device.objects.filter(role__name="Access Switch")
+
+# Filter by multiple criteria
+active_switches = Device.objects.filter(
+    role__name="Access Switch",
+    status__name="Active"
+)
+
+# Order results
+devices_sorted = Device.objects.all().order_by('name')
+
+# Get related data efficiently (avoid N+1 queries)
+devices_with_relations = Device.objects.select_related(
+    'device_type',
+    'location',
+    'role',
+    'status'
+).all()</code></pre>
+                </div>
+                
+                <div class="narrator-box mt-4">
+                    💡 <strong>select_related()</strong> fetches related objects in a single query, 
+                    dramatically improving performance when accessing foreign key fields!
+                </div>
+            </div>
+            
+            <div class="panel mb-6">
+                <h3 class="text-xl font-bold text-purple-400 mb-4">Step 2: Generate CSV Output</h3>
+                
+                <p class="text-slate-300 mb-4">
+                    Alex builds a Job that exports device inventory to CSV:
+                </p>
+                
+                <div class="code-panel">
+                    <div class="code-panel-header">
+                        <div class="dots">
+                            <div class="dot red"></div>
+                            <div class="dot yellow"></div>
+                            <div class="dot green"></div>
+                        </div>
+                        <span class="filename">jobs/device_export.py</span>
+                    </div>
+                    <pre><code class="language-python">import csv
+from io import StringIO
+
+from nautobot.apps.jobs import Job, register_jobs, ObjectVar, MultiObjectVar
+from nautobot.dcim.models import Device, Location
+from nautobot.extras.models import Status
+
+
+class DeviceCSVExport(Job):
+    """Export devices to CSV format."""
+    
+    class Meta:
+        name = "Device CSV Export"
+        description = "Generate a CSV report of devices"
+    
+    # Optional: Filter by location
+    location = ObjectVar(
+        model=Location,
+        required=False,
+        description="Filter by location (leave empty for all)"
+    )
+    
+    # Optional: Filter by status
+    status = ObjectVar(
+        model=Status,
+        required=False,
+        description="Filter by status (leave empty for all)"
+    )
+    
+    def run(self, location=None, status=None):
+        # Build the query
+        queryset = Device.objects.select_related(
+            'device_type__manufacturer',
+            'location',
+            'role',
+            'status'
+        )
+        
+        # Apply filters if provided
+        if location:
+            queryset = queryset.filter(location=location)
+        if status:
+            queryset = queryset.filter(status=status)
+        
+        # Order by name
+        queryset = queryset.order_by('name')
+        
+        # Create CSV output
+        output = StringIO()
+        writer = csv.writer(output)
+        
+        # Write header
+        writer.writerow([
+            'hostname',
+            'device_type',
+            'manufacturer',
+            'role',
+            'location',
+            'status'
+        ])
+        
+        # Write data rows
+        for device in queryset:
+            writer.writerow([
+                device.name,
+                device.device_type.model,
+                device.device_type.manufacturer.name,
+                device.role.name if device.role else '',
+                device.location.name if device.location else '',
+                device.status.name if device.status else '',
+            ])
+        
+        # Get the CSV content
+        csv_content = output.getvalue()
+        
+        # Log the output
+        self.logger.info(f"Generated CSV with {queryset.count()} devices")
+        self.logger.info("=" * 50)
+        self.logger.info("CSV Preview (first 20 lines):")
+        for line in csv_content.split('\n')[:20]:
+            self.logger.info(line)
+        
+        return f"Exported {queryset.count()} devices to CSV"
+
+
+register_jobs(DeviceCSVExport)</code></pre>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ObjectVar Explanation -->
+        <section class="mt-12">
+            <h2 class="comic-title text-3xl text-center mb-8">🎛️ Using ObjectVar for Filters</h2>
+            
+            <div class="comic-row cols-2 mb-6">
                 <div class="panel">
                     <div class="character">
                         <div class="character-avatar">👨‍💻</div>
@@ -180,262 +280,332 @@
                         </div>
                     </div>
                     <div class="speech-bubble">
-                        "So instead of maintaining CSV files that get out of sync, I can put everything 
-                        in Nautobot and it becomes THE place for network data?"
+                        "ObjectVar creates a dropdown in the Job UI that lets users select 
+                        a Nautobot object. Perfect for filtering!"
                     </div>
-                    
-                    <div class="character mt-4">
-                        <div class="character-avatar" style="background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);">🦊</div>
+                </div>
+                
+                <div class="panel featured">
+                    <h4 class="font-bold text-blue-400 mb-3">Common Job Variables</h4>
+                    <ul class="text-sm text-slate-300 space-y-2">
+                        <li><code class="text-purple-400">FileVar</code> - File upload</li>
+                        <li><code class="text-purple-400">ObjectVar</code> - Single object dropdown</li>
+                        <li><code class="text-purple-400">MultiObjectVar</code> - Multi-select</li>
+                        <li><code class="text-purple-400">StringVar</code> - Text input</li>
+                        <li><code class="text-purple-400">BooleanVar</code> - Checkbox</li>
+                        <li><code class="text-purple-400">ChoiceVar</code> - Dropdown with choices</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="panel mb-6">
+                <h3 class="text-xl font-bold text-amber-400 mb-4">Example: MultiObjectVar for Multiple Selections</h3>
+                
+                <div class="code-panel">
+                    <div class="code-panel-header">
+                        <div class="dots">
+                            <div class="dot red"></div>
+                            <div class="dot yellow"></div>
+                            <div class="dot green"></div>
+                        </div>
+                        <span class="filename">MultiObjectVar example</span>
+                    </div>
+                    <pre><code class="language-python">from nautobot.apps.jobs import Job, MultiObjectVar
+from nautobot.dcim.models import Location
+
+class MultiLocationExport(Job):
+    """Export devices from multiple locations."""
+    
+    class Meta:
+        name = "Multi-Location Export"
+    
+    # Multi-select dropdown
+    locations = MultiObjectVar(
+        model=Location,
+        required=False,
+        description="Select one or more locations"
+    )
+    
+    def run(self, locations=None):
+        queryset = Device.objects.all()
+        
+        if locations:
+            # Filter by multiple locations
+            queryset = queryset.filter(location__in=locations)
+        
+        # ... rest of export logic</code></pre>
+                </div>
+            </div>
+        </section>
+        
+        <!-- File Output -->
+        <section class="mt-12">
+            <h2 class="comic-title text-3xl text-center mb-8">💾 Creating Downloadable Files</h2>
+            
+            <div class="panel mb-6">
+                <div class="narrator-box mb-4">
+                    The compliance team wants to download the CSV file, not just view it in logs...
+                </div>
+                
+                <h3 class="text-xl font-bold text-emerald-400 mb-4">Using FileProxy for Downloads</h3>
+                
+                <p class="text-slate-300 mb-4">
+                    Nautobot Jobs can create downloadable files using <code>FileProxy</code>:
+                </p>
+                
+                <div class="code-panel">
+                    <div class="code-panel-header">
+                        <div class="dots">
+                            <div class="dot red"></div>
+                            <div class="dot yellow"></div>
+                            <div class="dot green"></div>
+                        </div>
+                        <span class="filename">jobs/device_export_download.py</span>
+                    </div>
+                    <pre><code class="language-python">import csv
+from io import StringIO
+from datetime import datetime
+
+from nautobot.apps.jobs import Job, register_jobs, ObjectVar
+from nautobot.core.celery import register_jobs
+from nautobot.dcim.models import Device, Location
+from nautobot.extras.models import FileProxy
+
+
+class DeviceCSVExportDownload(Job):
+    """Export devices to a downloadable CSV file."""
+    
+    class Meta:
+        name = "Device CSV Export (Download)"
+        description = "Generate a downloadable CSV report"
+    
+    location = ObjectVar(
+        model=Location,
+        required=False,
+        description="Filter by location"
+    )
+    
+    def run(self, location=None):
+        # Build query
+        queryset = Device.objects.select_related(
+            'device_type__manufacturer',
+            'location',
+            'role',
+            'status'
+        ).order_by('name')
+        
+        if location:
+            queryset = queryset.filter(location=location)
+        
+        # Generate CSV content
+        output = StringIO()
+        writer = csv.writer(output)
+        
+        writer.writerow([
+            'hostname', 'device_type', 'manufacturer',
+            'role', 'location', 'status'
+        ])
+        
+        for device in queryset:
+            writer.writerow([
+                device.name,
+                device.device_type.model,
+                device.device_type.manufacturer.name,
+                device.role.name if device.role else '',
+                device.location.name if device.location else '',
+                device.status.name if device.status else '',
+            ])
+        
+        csv_content = output.getvalue()
+        
+        # Create downloadable file
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        filename = f"device_export_{timestamp}.csv"
+        
+        # Create FileProxy for download
+        file_proxy = FileProxy.objects.create(
+            name=filename,
+            job_result=self.job_result,
+        )
+        file_proxy.file.save(filename, ContentFile(csv_content.encode('utf-8')))
+        
+        self.logger.info(f"Created export file: {filename}")
+        self.logger.info(f"Total devices: {queryset.count()}")
+        
+        return f"Export complete! Download: {filename}"
+
+
+register_jobs(DeviceCSVExportDownload)</code></pre>
+                </div>
+                
+                <div class="bg-emerald-900/30 border border-emerald-500/50 rounded-lg p-4 mt-4">
+                    <h4 class="font-bold text-emerald-400 mb-2">📥 Where to Find Downloads</h4>
+                    <p class="text-sm text-slate-300">
+                        After the Job runs, find the download link in:
+                    </p>
+                    <ul class="text-sm text-slate-300 mt-2 space-y-1">
+                        <li>• Job Results page → Files tab</li>
+                        <li>• Or directly in the Job output log</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- IP Address Export -->
+        <section class="mt-12">
+            <h2 class="comic-title text-3xl text-center mb-8">🌐 Exporting IP Addresses</h2>
+            
+            <div class="comic-row cols-1 mb-6">
+                <div class="panel">
+                    <div class="character">
+                        <div class="character-avatar">👨‍💻</div>
                         <div>
-                            <div class="character-name text-sm" style="color: #8b5cf6;">Marcus</div>
+                            <div class="character-name text-sm">Alex</div>
                         </div>
                     </div>
                     <div class="speech-bubble">
-                        "Exactly! And the best part? You can import your existing CSV data into Nautobot. 
-                        All that cleanup work wasn't wasted - it's the perfect starting point!"
+                        "The auditors also need IP address assignments. Let me create another export Job!"
                     </div>
                 </div>
             </div>
-        </section>
-        
-        <!-- Nautobot Features -->
-        <section class="mt-12">
-            <h2 class="comic-title text-3xl text-center mb-8">🔧 What Can Nautobot Do?</h2>
-            
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="panel">
-                    <div class="text-4xl mb-4 text-center">📦</div>
-                    <h3 class="text-lg font-bold text-blue-400 mb-2 text-center">Inventory Management</h3>
-                    <ul class="text-sm text-slate-300 space-y-2">
-                        <li>• Devices, interfaces, cables</li>
-                        <li>• Racks, locations, regions</li>
-                        <li>• IP addresses, VLANs, VRFs</li>
-                        <li>• Circuits and providers</li>
-                    </ul>
-                </div>
-                
-                <div class="panel">
-                    <div class="text-4xl mb-4 text-center">🔌</div>
-                    <h3 class="text-lg font-bold text-emerald-400 mb-2 text-center">API Access</h3>
-                    <ul class="text-sm text-slate-300 space-y-2">
-                        <li>• REST API for CRUD operations</li>
-                        <li>• GraphQL for complex queries</li>
-                        <li>• Webhooks for integrations</li>
-                        <li>• Python SDK available</li>
-                    </ul>
-                </div>
-                
-                <div class="panel">
-                    <div class="text-4xl mb-4 text-center">⚡</div>
-                    <h3 class="text-lg font-bold text-purple-400 mb-2 text-center">Jobs & Automation</h3>
-                    <ul class="text-sm text-slate-300 space-y-2">
-                        <li>• Custom Python jobs</li>
-                        <li>• Scheduled execution</li>
-                        <li>• File upload processing</li>
-                        <li>• Git integration</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Nautobot Data Model -->
-        <section class="mt-12">
-            <h2 class="comic-title text-3xl text-center mb-8">📊 Nautobot's Data Model</h2>
             
             <div class="panel mb-6">
-                <p class="text-slate-300 mb-6">
-                    Nautobot organizes network data into logical objects with relationships. 
-                    Here's how Alex's CSV data maps to Nautobot models:
-                </p>
+                <div class="code-panel">
+                    <div class="code-panel-header">
+                        <div class="dots">
+                            <div class="dot red"></div>
+                            <div class="dot yellow"></div>
+                            <div class="dot green"></div>
+                        </div>
+                        <span class="filename">jobs/ip_export.py</span>
+                    </div>
+                    <pre><code class="language-python">import csv
+from io import StringIO
+
+from nautobot.apps.jobs import Job, register_jobs
+from nautobot.ipam.models import IPAddress
+
+
+class IPAddressCSVExport(Job):
+    """Export IP addresses with their assignments."""
+    
+    class Meta:
+        name = "IP Address CSV Export"
+        description = "Generate a CSV report of all IP addresses"
+    
+    def run(self):
+        # Query IP addresses with related data
+        queryset = IPAddress.objects.select_related(
+            'status',
+            'parent',  # Prefix
+        ).prefetch_related(
+            'interfaces',  # M2M relationship
+            'interfaces__device',
+        ).order_by('host')
+        
+        output = StringIO()
+        writer = csv.writer(output)
+        
+        # Header
+        writer.writerow([
+            'ip_address',
+            'prefix',
+            'status',
+            'assigned_device',
+            'assigned_interface',
+            'dns_name',
+            'description'
+        ])
+        
+        for ip in queryset:
+            # Get assigned interface/device if exists
+            interface = ip.interfaces.first() if ip.interfaces.exists() else None
+            device_name = interface.device.name if interface and interface.device else ''
+            interface_name = interface.name if interface else ''
+            
+            writer.writerow([
+                str(ip.address),
+                str(ip.parent) if ip.parent else '',
+                ip.status.name if ip.status else '',
+                device_name,
+                interface_name,
+                ip.dns_name or '',
+                ip.description or '',
+            ])
+        
+        csv_content = output.getvalue()
+        
+        self.logger.info(f"Exported {queryset.count()} IP addresses")
+        self.logger.info("=" * 50)
+        for line in csv_content.split('\n')[:15]:
+            self.logger.info(line)
+        
+        return f"Exported {queryset.count()} IP addresses"
+
+
+register_jobs(IPAddressCSVExport)</code></pre>
+                </div>
                 
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm">
+                <div class="bg-blue-900/30 border border-blue-500/50 rounded-lg p-4 mt-4">
+                    <h4 class="font-bold text-blue-400 mb-2">🔗 prefetch_related vs select_related</h4>
+                    <table class="w-full text-sm mt-2">
                         <thead>
-                            <tr class="bg-slate-800">
-                                <th class="p-3 text-left text-blue-400">CSV Column</th>
-                                <th class="p-3 text-left text-emerald-400">Nautobot Model</th>
-                                <th class="p-3 text-left text-slate-400">Description</th>
+                            <tr class="text-left">
+                                <th class="text-slate-400 pb-2">Method</th>
+                                <th class="text-slate-400 pb-2">Use For</th>
+                                <th class="text-slate-400 pb-2">Example</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr class="border-b border-slate-700">
-                                <td class="p-3 font-mono">hostname</td>
-                                <td class="p-3"><code class="text-purple-400">Device.name</code></td>
-                                <td class="p-3 text-slate-400">The device's hostname</td>
-                            </tr>
-                            <tr class="border-b border-slate-700">
-                                <td class="p-3 font-mono">device_type</td>
-                                <td class="p-3"><code class="text-purple-400">Device.device_type</code></td>
-                                <td class="p-3 text-slate-400">Reference to DeviceType model</td>
-                            </tr>
-                            <tr class="border-b border-slate-700">
-                                <td class="p-3 font-mono">location</td>
-                                <td class="p-3"><code class="text-purple-400">Device.location</code></td>
-                                <td class="p-3 text-slate-400">Reference to Location model</td>
-                            </tr>
-                            <tr class="border-b border-slate-700">
-                                <td class="p-3 font-mono">ip_address</td>
-                                <td class="p-3"><code class="text-purple-400">IPAddress</code></td>
-                                <td class="p-3 text-slate-400">Assigned to device interface</td>
+                        <tbody class="text-slate-300">
+                            <tr>
+                                <td class="py-1"><code>select_related</code></td>
+                                <td>ForeignKey, OneToOne</td>
+                                <td>device.location</td>
                             </tr>
                             <tr>
-                                <td class="p-3 font-mono">status</td>
-                                <td class="p-3"><code class="text-purple-400">Device.status</code></td>
-                                <td class="p-3 text-slate-400">Active, Planned, Staged, etc.</td>
+                                <td class="py-1"><code>prefetch_related</code></td>
+                                <td>ManyToMany, reverse FK</td>
+                                <td>ip.interfaces.all()</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            
-            <div class="panel">
-                <h3 class="text-lg font-bold text-amber-400 mb-4">🔗 Key Insight: Relationships Matter</h3>
-                
-                <p class="text-slate-300 mb-4">
-                    Unlike flat CSV files, Nautobot maintains relationships between objects:
-                </p>
-                
-                <div class="code-panel">
-                    <div class="code-panel-header">
-                        <div class="dots">
-                            <div class="dot red"></div>
-                            <div class="dot yellow"></div>
-                            <div class="dot green"></div>
-                        </div>
-                        <span class="filename">Relationship Example</span>
-                    </div>
-                    <pre><code class="language-text">Device: switch-01
-  ├── Location: Building A
-  │     └── Region: East Coast
-  ├── Device Type: Cisco Catalyst 9300
-  │     └── Manufacturer: Cisco
-  ├── Role: Access Switch
-  ├── Interfaces:
-  │     ├── GigabitEthernet0/1
-  │     │     └── IP: 10.0.1.1/24
-  │     └── GigabitEthernet0/2
-  │           └── Connected to: router-core (Gi0/1)
-  └── Status: Active</code></pre>
-                </div>
-                
-                <div class="narrator-box success mt-4">
-                    💡 With Nautobot, you can answer questions like "Show me all switches in Building A" 
-                    or "What devices are connected to router-core?" instantly!
-                </div>
-            </div>
         </section>
         
-        <!-- The Plan Forms -->
+        <!-- Victory Scene -->
         <section class="mt-12">
             <div class="comic-page">
                 <div class="comic-row cols-1">
-                    <div class="panel success" style="border-color: #10b981;">
+                    <div class="panel success">
                         <div class="narrator-box mb-4">
-                            Alex's mind is racing with possibilities...
+                            Friday morning. Alex generates the audit reports...
                         </div>
                         
-                        <div class="character">
-                            <div class="character-avatar">👨‍💻</div>
-                            <div>
-                                <div class="character-name text-sm">Alex</div>
+                        <div class="grid md:grid-cols-2 gap-4 mb-4">
+                            <div class="bg-slate-800 rounded-lg p-4">
+                                <div class="text-emerald-400 font-bold mb-2">📄 device_export_20240115.csv</div>
+                                <div class="text-2xl font-bold text-white">3,421</div>
+                                <div class="text-slate-400 text-sm">devices exported</div>
+                            </div>
+                            <div class="bg-slate-800 rounded-lg p-4">
+                                <div class="text-blue-400 font-bold mb-2">📄 ip_export_20240115.csv</div>
+                                <div class="text-2xl font-bold text-white">8,742</div>
+                                <div class="text-slate-400 text-sm">IP addresses exported</div>
                             </div>
                         </div>
-                        <div class="speech-bubble">
-                            "I can use Nautobot Jobs to import my CSV data automatically! 
-                            All my Python CSV skills will come in handy."
-                        </div>
                         
-                        <div class="bg-slate-800/50 rounded-lg p-4 mt-6">
-                            <h4 class="font-bold text-emerald-400 mb-3">Alex's Migration Plan:</h4>
-                            <ol class="space-y-2 text-slate-300 text-sm">
-                                <li class="flex items-start gap-2">
-                                    <span class="bg-emerald-500 text-white rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">1</span>
-                                    <span>Set up Nautobot (using Docker Compose)</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="bg-emerald-500 text-white rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">2</span>
-                                    <span>Create base objects (Locations, DeviceTypes, Roles)</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="bg-emerald-500 text-white rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">3</span>
-                                    <span>Write a Nautobot Job to import CSV data</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="bg-emerald-500 text-white rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">4</span>
-                                    <span>Upload CSV and run the import job</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="bg-emerald-500 text-white rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">5</span>
-                                    <span>Verify data in Nautobot's web UI</span>
-                                </li>
-                            </ol>
+                        <div class="character justify-center">
+                            <div class="character-avatar">👨‍💻</div>
+                            <div>
+                                <div class="character-name">Alex</div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Nautobot Jobs Preview -->
-        <section class="mt-12">
-            <h2 class="comic-title text-3xl text-center mb-8">⚡ Preview: Nautobot Jobs</h2>
-            
-            <div class="panel mb-6">
-                <p class="text-slate-300 mb-4">
-                    Nautobot Jobs are Python scripts that run within Nautobot. They can accept user input, 
-                    process data, and interact with the Nautobot database. Here's a sneak peek:
-                </p>
-                
-                <div class="code-panel">
-                    <div class="code-panel-header">
-                        <div class="dots">
-                            <div class="dot red"></div>
-                            <div class="dot yellow"></div>
-                            <div class="dot green"></div>
+                        <div class="speech-bubble mx-auto" style="max-width: 450px;">
+                            "Reports ready for the auditors! And these Jobs are reusable—I can 
+                            generate fresh reports anytime. But I still need to connect it all: 
+                            devices, IPs, interfaces, prefixes..."
                         </div>
-                        <span class="filename">csv_import_job.py (Preview)</span>
-                    </div>
-                    <pre><code class="language-python">from nautobot.apps.jobs import Job, register_jobs, FileVar
-
-class CSVImportJob(Job):
-    """Import devices from a CSV file."""
-    
-    class Meta:
-        name = "CSV Device Import"
-        description = "Upload a CSV file to import devices"
-    
-    # This creates a file upload field in the UI!
-    csv_file = FileVar(
-        description="CSV file containing device data"
-    )
-    
-    def run(self, csv_file):
-        """Process the uploaded CSV file."""
-        # Read the file contents
-        content = csv_file.read().decode('utf-8')
-        
-        # Parse CSV and create devices...
-        # (We'll implement this in Chapter 5!)
-        
-        self.logger.info("Import complete!")
-        return "Success!"
-
-register_jobs(CSVImportJob)</code></pre>
-                </div>
-                
-                <div class="grid md:grid-cols-2 gap-4 mt-6">
-                    <div class="bg-blue-900/30 border border-blue-500/50 rounded-lg p-4">
-                        <h4 class="font-bold text-blue-400 mb-2">📤 FileVar</h4>
-                        <p class="text-sm text-slate-300">
-                            Creates a file upload field in the Nautobot UI. Users can upload CSV files 
-                            directly through the web interface!
-                        </p>
-                    </div>
-                    <div class="bg-purple-900/30 border border-purple-500/50 rounded-lg p-4">
-                        <h4 class="font-bold text-purple-400 mb-2">🔧 run() Method</h4>
-                        <p class="text-sm text-slate-300">
-                            This is where your logic goes. Process the file, create objects, 
-                            log progress - all with Python you already know!
-                        </p>
                     </div>
                 </div>
             </div>
@@ -448,41 +618,41 @@ register_jobs(CSVImportJob)</code></pre>
                 
                 <div class="grid md:grid-cols-2 gap-6">
                     <div>
-                        <h4 class="font-bold text-blue-400 mb-3">Source of Truth Benefits</h4>
+                        <h4 class="font-bold text-blue-400 mb-3">Querying Data</h4>
                         <ul class="space-y-2 text-slate-300 text-sm">
-                            <li>✓ Single authoritative data source</li>
-                            <li>✓ Relationships between objects</li>
-                            <li>✓ API access for automation</li>
-                            <li>✓ Audit history and change tracking</li>
+                            <li>✓ <code>filter()</code> for WHERE clauses</li>
+                            <li>✓ <code>select_related()</code> for ForeignKeys</li>
+                            <li>✓ <code>prefetch_related()</code> for M2M</li>
+                            <li>✓ <code>order_by()</code> for sorting</li>
                         </ul>
                     </div>
                     <div>
-                        <h4 class="font-bold text-emerald-400 mb-3">Nautobot Features</h4>
+                        <h4 class="font-bold text-emerald-400 mb-3">CSV Export</h4>
                         <ul class="space-y-2 text-slate-300 text-sm">
-                            <li>✓ Open-source, Python/Django based</li>
-                            <li>✓ Rich data model for networks</li>
-                            <li>✓ Custom Jobs for automation</li>
-                            <li>✓ CSV import via FileVar</li>
+                            <li>✓ <code>ObjectVar</code> for filter dropdowns</li>
+                            <li>✓ <code>StringIO</code> + <code>csv.writer</code></li>
+                            <li>✓ <code>FileProxy</code> for downloads</li>
+                            <li>✓ Log previews for quick checks</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </section>
         
-        <!-- Teaser for next chapter -->
-        <div class="panel mt-8" style="border-color: #f59e0b;">
+        <!-- Next Chapter Teaser -->
+        <div class="panel mt-8" style="border-color: #8b5cf6;">
             <div class="text-center">
-                <div class="text-3xl mb-2">🔮</div>
-                <h3 class="text-xl font-bold text-amber-400 mb-2">Coming Up Next...</h3>
+                <div class="text-3xl mb-2">🔄</div>
+                <h3 class="text-xl font-bold text-purple-400 mb-2">Coming Up Next...</h3>
                 <p class="text-slate-300">
-                    In Chapter 5, Alex will write a complete Nautobot Job to import CSV data, 
-                    finally achieving the automation dream!
+                    In the final chapter, Alex builds the complete pipeline: importing and exporting 
+                    Devices, Interfaces, IP Addresses, and Prefixes—all working together!
                 </p>
             </div>
         </div>
         
         <!-- Chapter Navigation -->
-        <div class="chapter-nav mt-8">
+        <div class="chapter-nav">
             <a href="chapter-3.html">
                 <span>←</span>
                 <span>Chapter 3</span>
@@ -499,8 +669,8 @@ register_jobs(CSVImportJob)</code></pre>
     <footer class="py-8 px-4 border-t border-slate-800 mt-12">
         <div class="max-w-4xl mx-auto text-center text-slate-500">
             <p class="text-sm">
-                <a href="../index.html" class="text-blue-400 hover:underline">The CSV Chronicles</a>
-                · A learning adventure for network engineers
+                <a href="../index.html" class="text-blue-400 hover:underline">The CSV Chronicles: The Merger</a>
+                · An intermediate Nautobot tutorial
             </p>
         </div>
     </footer>
@@ -510,4 +680,3 @@ register_jobs(CSVImportJob)</code></pre>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
 </body>
 </html>
-

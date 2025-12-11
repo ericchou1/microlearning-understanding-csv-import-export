@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapter 3: Building Order from Disorder | The CSV Chronicles</title>
+    <title>Chapter 3: When Things Go Wrong | The CSV Chronicles</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -19,7 +19,7 @@
     <nav class="bg-slate-900/80 backdrop-blur-sm sticky top-0 z-50 border-b border-slate-800">
         <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
             <a href="../index.html" class="flex items-center gap-2 text-slate-300 hover:text-white">
-                <span>📊</span>
+                <span>🔄</span>
                 <span class="font-bold">The CSV Chronicles</span>
             </a>
             <div class="flex items-center gap-4">
@@ -31,140 +31,116 @@
     </nav>
 
     <!-- Chapter Title Card -->
-    <div class="chapter-title-card mx-4 mt-8 md:mx-auto md:max-w-4xl">
+    <div class="chapter-title-card mx-4 mt-8 md:mx-auto md:max-w-4xl" style="border-color: #f59e0b;">
         <div class="chapter-number">CHAPTER THREE</div>
-        <h1>Building Order from Disorder</h1>
-        <p class="subtitle">In which our hero learns to write clean, standardized CSV files</p>
+        <h1>When Things Go Wrong</h1>
+        <p class="subtitle">In which our hero learns about idempotency, validation, and graceful error handling</p>
     </div>
 
     <!-- Story Content -->
     <main class="max-w-5xl mx-auto px-4 py-8">
         
-        <!-- Opening Scene -->
+        <!-- Opening Scene - The Problem -->
         <div class="comic-page">
-            <div class="narrator-box mb-6">
-                One week later. Alex has validated dozens of CSV files and collected all the good data...
+            <div class="narrator-box warning mb-6">
+                Wednesday morning. Alex runs the import Job again to test with a larger dataset...
             </div>
             
             <div class="comic-row cols-2">
-                <div class="panel">
-                    <div class="panel-scene flex-col">
-                        <span class="text-5xl mb-2">📋</span>
-                        <span class="text-2xl">→</span>
-                        <span class="text-5xl mt-2">✨📄</span>
+                <div class="panel chaos">
+                    <div class="code-panel">
+                        <div class="code-panel-header">
+                            <div class="dots">
+                                <div class="dot red"></div>
+                                <div class="dot yellow"></div>
+                                <div class="dot green"></div>
+                            </div>
+                            <span class="filename">Job Output</span>
+                        </div>
+                        <pre><code class="language-text">ERROR | Row 2: Failed to create tn-sw-01: 
+  UNIQUE constraint failed: dcim_device.name
+ERROR | Row 3: Failed to create tn-sw-02:
+  UNIQUE constraint failed: dcim_device.name
+ERROR | Row 4: Failed to create tn-sw-03:
+  UNIQUE constraint failed: dcim_device.name
+...
+Import Complete!
+  Created: 0
+  Errors: 2847</code></pre>
                     </div>
+                    <div class="sfx text-center mt-3">CRASH!</div>
+                </div>
+                
+                <div class="panel">
                     <div class="character">
                         <div class="character-avatar">👨‍💻</div>
                         <div>
                             <div class="character-name text-sm">Alex</div>
                         </div>
                     </div>
-                    <div class="speech-bubble">
-                        "I've read all the messy files. Now I need to export this cleaned data 
-                        into a standardized format everyone can use!"
+                    <div class="shout-bubble">
+                        UNIQUE CONSTRAINT?!
+                    </div>
+                    <div class="thought-bubble mt-4">
+                        Of course... the devices already exist from my first test run. 
+                        Running the import twice creates duplicates!
                     </div>
                 </div>
-                
-                <div class="panel featured">
-                    <h3 class="text-lg font-bold text-blue-400 mb-3">The Goal:</h3>
-                    <div class="csv-preview">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>hostname</th>
-                                    <th>ip_address</th>
-                                    <th>device_type</th>
-                                    <th>location</th>
-                                    <th>status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>switch-01</td>
-                                    <td>10.0.1.1</td>
-                                    <td>switch</td>
-                                    <td>building-a</td>
-                                    <td>active</td>
-                                </tr>
-                                <tr>
-                                    <td>router-core</td>
-                                    <td>10.0.0.1</td>
-                                    <td>router</td>
-                                    <td>data-center</td>
-                                    <td>active</td>
-                                </tr>
-                            </tbody>
-                        </table>
+            </div>
+            
+            <!-- The Problem Explained -->
+            <div class="comic-row cols-1 mt-6">
+                <div class="panel">
+                    <h3 class="text-xl font-bold text-red-400 mb-4">🚨 The Problem: Non-Idempotent Imports</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-red-900/20 border border-red-500/30 rounded-lg p-4">
+                            <h4 class="font-bold text-red-400 mb-2">What Happened:</h4>
+                            <ul class="text-sm text-slate-300 space-y-1">
+                                <li>• First run: Created devices successfully</li>
+                                <li>• Second run: Tried to create same devices</li>
+                                <li>• Device names must be unique</li>
+                                <li>• Database rejected duplicates</li>
+                            </ul>
+                        </div>
+                        <div class="bg-emerald-900/20 border border-emerald-500/30 rounded-lg p-4">
+                            <h4 class="font-bold text-emerald-400 mb-2">What We Need:</h4>
+                            <ul class="text-sm text-slate-300 space-y-1">
+                                <li>• <strong>Idempotent</strong> imports</li>
+                                <li>• Check if device exists first</li>
+                                <li>• Update existing OR create new</li>
+                                <li>• Safe to run multiple times</li>
+                            </ul>
+                        </div>
                     </div>
-                    <p class="text-sm text-slate-400 mt-3">
-                        ✓ Consistent naming · ✓ Normalized values · ✓ Standard columns
-                    </p>
+                    
+                    <div class="narrator-box mt-4">
+                        💡 <strong>Idempotent</strong> = Running the same operation multiple times produces 
+                        the same result. Essential for reliable automation!
+                    </div>
                 </div>
             </div>
         </div>
         
-        <!-- Learning Section: Writing CSVs -->
+        <!-- Solution: get_or_create -->
         <section class="mt-12">
-            <h2 class="comic-title text-3xl text-center mb-8">📝 Writing CSV Files with Python</h2>
+            <h2 class="comic-title text-3xl text-center mb-8">🛡️ Solution: get_or_create</h2>
             
             <div class="panel mb-6">
-                <h3 class="text-xl font-bold text-blue-400 mb-4">Basic CSV Writing with csv.writer</h3>
-                
-                <p class="text-slate-300 mb-4">
-                    The csv module makes writing just as easy as reading:
-                </p>
-                
-                <div class="code-panel">
-                    <div class="code-panel-header">
-                        <div class="dots">
-                            <div class="dot red"></div>
-                            <div class="dot yellow"></div>
-                            <div class="dot green"></div>
-                        </div>
-                        <span class="filename">write_basic.py</span>
+                <div class="character">
+                    <div class="character-avatar">👨‍💻</div>
+                    <div>
+                        <div class="character-name text-sm">Alex</div>
                     </div>
-                    <pre><code class="language-python">import csv
-
-# Data to write
-devices = [
-    ['switch-01', '10.0.1.1', 'switch', 'building-a'],
-    ['switch-02', '10.0.1.2', 'switch', 'building-a'],
-    ['router-core', '10.0.0.1', 'router', 'data-center'],
-]
-
-# Write to CSV file
-with open('devices_clean.csv', 'w', newline='') as file:
-    writer = csv.writer(file)
-    
-    # Write header row
-    writer.writerow(['hostname', 'ip_address', 'device_type', 'location'])
-    
-    # Write data rows
-    for device in devices:
-        writer.writerow(device)
-    
-    # Or write all at once:
-    # writer.writerows(devices)
-
-print("✅ CSV file created successfully!")</code></pre>
                 </div>
-                
-                <div class="bg-amber-900/30 border border-amber-500/50 rounded-lg p-4 mt-4">
-                    <h4 class="font-bold text-amber-400 mb-2">⚠️ Important: newline=''</h4>
-                    <p class="text-sm text-slate-300">
-                        Always use <code>newline=''</code> when opening files for CSV writing on Windows. 
-                        This prevents extra blank lines between rows.
-                    </p>
+                <div class="speech-bubble">
+                    "Django has a built-in method for this: <code>get_or_create()</code>. 
+                    It either retrieves an existing object or creates a new one!"
                 </div>
             </div>
             
-            <!-- DictWriter Section -->
             <div class="panel mb-6">
-                <h3 class="text-xl font-bold text-emerald-400 mb-4">Better Approach: csv.DictWriter</h3>
-                
-                <p class="text-slate-300 mb-4">
-                    Just like DictReader is better for reading, DictWriter makes writing cleaner:
-                </p>
+                <h3 class="text-xl font-bold text-blue-400 mb-4">How get_or_create Works</h3>
                 
                 <div class="code-panel">
                     <div class="code-panel-header">
@@ -173,57 +149,204 @@ print("✅ CSV file created successfully!")</code></pre>
                             <div class="dot yellow"></div>
                             <div class="dot green"></div>
                         </div>
-                        <span class="filename">write_dict.py</span>
+                        <span class="filename">get_or_create pattern</span>
                     </div>
-                    <pre><code class="language-python">import csv
+                    <pre><code class="language-python"># Basic syntax
+obj, created = Model.objects.get_or_create(
+    # Fields to search by (lookup)
+    name="my-device",
+    # Fields to set only if creating (defaults)
+    defaults={
+        "status": active_status,
+        "location": some_location,
+    }
+)
 
-# Data as list of dictionaries
-devices = [
-    {
-        'hostname': 'switch-01',
-        'ip_address': '10.0.1.1',
-        'device_type': 'switch',
-        'location': 'building-a',
-        'status': 'active'
-    },
-    {
-        'hostname': 'router-core',
-        'ip_address': '10.0.0.1',
-        'device_type': 'router',
-        'location': 'data-center',
-        'status': 'active'
-    },
-]
+# 'created' is True if new object was created
+# 'created' is False if existing object was returned
+if created:
+    print("Created new object!")
+else:
+    print("Object already existed")</code></pre>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-4 mt-4">
+                    <div class="bg-slate-800 rounded-lg p-4">
+                        <h4 class="font-bold text-blue-400 mb-2">Lookup Fields</h4>
+                        <p class="text-sm text-slate-300">
+                            Fields used to find existing objects. Usually the unique identifier 
+                            like <code>name</code> or a combination of fields.
+                        </p>
+                    </div>
+                    <div class="bg-slate-800 rounded-lg p-4">
+                        <h4 class="font-bold text-emerald-400 mb-2">defaults</h4>
+                        <p class="text-sm text-slate-300">
+                            Fields set <strong>only when creating</strong> a new object. 
+                            Existing objects won't be modified.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Updated Job -->
+            <div class="panel mb-6">
+                <h3 class="text-xl font-bold text-emerald-400 mb-4">Updated Import Job with get_or_create</h3>
+                
+                <div class="code-panel">
+                    <div class="code-panel-header">
+                        <div class="dots">
+                            <div class="dot red"></div>
+                            <div class="dot yellow"></div>
+                            <div class="dot green"></div>
+                        </div>
+                        <span class="filename">jobs/device_import.py (idempotent version)</span>
+                    </div>
+                    <pre><code class="language-python"># Inside the run() method, replace the device creation with:
 
-# Define the columns (and their order)
-fieldnames = ['hostname', 'ip_address', 'device_type', 'location', 'status']
-
-with open('devices_clean.csv', 'w', newline='') as file:
-    writer = csv.DictWriter(file, fieldnames=fieldnames)
+try:
+    device, created = Device.objects.get_or_create(
+        name=hostname,  # Lookup field
+        defaults={
+            "device_type": device_type,
+            "role": role,
+            "location": location,
+            "status": active_status,
+        }
+    )
     
-    # Write header row
-    writer.writeheader()
-    
-    # Write all data rows
-    writer.writerows(devices)
-
-print("✅ CSV file created with DictWriter!")</code></pre>
+    if created:
+        self.logger.info(f"✅ Created: {hostname}")
+        created_count += 1
+    else:
+        self.logger.info(f"⏭️  Skipped (exists): {hostname}")
+        skipped_count += 1
+        
+except Exception as e:
+    self.logger.error(f"Row {row_num}: Error with {hostname}: {e}")
+    error_count += 1</code></pre>
                 </div>
                 
                 <div class="narrator-box success mt-4">
-                    💡 <strong>Pro Tip:</strong> Using dictionaries means column order in your data doesn't matter - 
-                    the fieldnames parameter controls the output order!
+                    ✅ Now running the import multiple times is safe! Existing devices are skipped.
                 </div>
             </div>
         </section>
         
-        <!-- Data Transformation Section -->
+        <!-- Update or Create -->
         <section class="mt-12">
-            <h2 class="comic-title text-3xl text-center mb-8">🔄 Data Transformation Pipeline</h2>
+            <h2 class="comic-title text-3xl text-center mb-8">🔄 Bonus: update_or_create</h2>
+            
+            <div class="comic-row cols-2 mb-6">
+                <div class="panel">
+                    <div class="character">
+                        <div class="character-avatar">👨‍💻</div>
+                        <div>
+                            <div class="character-name text-sm">Alex</div>
+                        </div>
+                    </div>
+                    <div class="thought-bubble">
+                        But what if TechNova sends updated CSVs? I want to update existing devices 
+                        with new information, not just skip them...
+                    </div>
+                </div>
+                
+                <div class="panel featured">
+                    <h4 class="font-bold text-purple-400 mb-3">update_or_create</h4>
+                    <p class="text-sm text-slate-300">
+                        Similar to <code>get_or_create</code>, but it <strong>updates</strong> 
+                        existing objects with the values in <code>defaults</code>.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="panel mb-6">
+                <div class="code-panel">
+                    <div class="code-panel-header">
+                        <div class="dots">
+                            <div class="dot red"></div>
+                            <div class="dot yellow"></div>
+                            <div class="dot green"></div>
+                        </div>
+                        <span class="filename">update_or_create pattern</span>
+                    </div>
+                    <pre><code class="language-python"># update_or_create: Updates existing OR creates new
+device, created = Device.objects.update_or_create(
+    name=hostname,  # Lookup field
+    defaults={
+        "device_type": device_type,
+        "role": role,
+        "location": location,
+        "status": active_status,
+    }
+)
+
+if created:
+    self.logger.info(f"✅ Created: {hostname}")
+    created_count += 1
+else:
+    self.logger.info(f"🔄 Updated: {hostname}")
+    updated_count += 1</code></pre>
+                </div>
+                
+                <div class="bg-amber-900/30 border border-amber-500/50 rounded-lg p-4 mt-4">
+                    <h4 class="font-bold text-amber-400 mb-2">⚠️ Choose Wisely</h4>
+                    <table class="w-full text-sm mt-2">
+                        <thead>
+                            <tr class="text-left">
+                                <th class="text-slate-400 pb-2">Method</th>
+                                <th class="text-slate-400 pb-2">If Exists</th>
+                                <th class="text-slate-400 pb-2">Use When</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-slate-300">
+                            <tr>
+                                <td class="py-1"><code>get_or_create</code></td>
+                                <td>Returns as-is</td>
+                                <td>Don't overwrite local changes</td>
+                            </tr>
+                            <tr>
+                                <td class="py-1"><code>update_or_create</code></td>
+                                <td>Updates fields</td>
+                                <td>CSV is source of truth</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Handling Missing Related Objects -->
+        <section class="mt-12">
+            <h2 class="comic-title text-3xl text-center mb-8">🔗 Handling Missing Related Objects</h2>
             
             <div class="comic-page">
                 <div class="comic-row cols-1">
-                    <div class="panel">
+                    <div class="panel chaos">
+                        <div class="narrator-box warning mb-4">
+                            Alex notices another problem in the CSV...
+                        </div>
+                        
+                        <div class="csv-preview mb-4">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>hostname</th>
+                                        <th>device_type</th>
+                                        <th>role</th>
+                                        <th>location</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>tn-sw-99</td>
+                                        <td class="text-red-400">NEW-MODEL-X</td>
+                                        <td>Access Switch</td>
+                                        <td class="text-red-400">TechNova Branch Office</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
                         <div class="character">
                             <div class="character-avatar">👨‍💻</div>
                             <div>
@@ -231,14 +354,20 @@ print("✅ CSV file created with DictWriter!")</code></pre>
                             </div>
                         </div>
                         <div class="speech-bubble">
-                            "I need a complete pipeline: read messy data, transform it, and write clean output!"
+                            "This device references a DeviceType and Location that don't exist in Nautobot yet. 
+                            Should I skip it, or create the missing objects?"
                         </div>
                     </div>
                 </div>
             </div>
             
             <div class="panel mb-6 mt-6">
-                <h3 class="text-xl font-bold text-purple-400 mb-4">Complete Transformation Script</h3>
+                <h3 class="text-xl font-bold text-emerald-400 mb-4">Option: Auto-Create Missing Objects</h3>
+                
+                <p class="text-slate-300 mb-4">
+                    For the Location, we can use <code>get_or_create</code> to automatically 
+                    create missing locations:
+                </p>
                 
                 <div class="code-panel">
                     <div class="code-panel-header">
@@ -247,174 +376,46 @@ print("✅ CSV file created with DictWriter!")</code></pre>
                             <div class="dot yellow"></div>
                             <div class="dot green"></div>
                         </div>
-                        <span class="filename">transform_devices.py</span>
+                        <span class="filename">Auto-create missing Locations</span>
                     </div>
-                    <pre><code class="language-python">import csv
-from typing import Optional
+                    <pre><code class="language-python"># Get a default LocationType for new locations
+from nautobot.dcim.models import LocationType
 
-def normalize_hostname(hostname: str) -> str:
-    """Normalize hostname to lowercase with dashes."""
-    return hostname.lower().strip().replace('_', '-').replace(' ', '-')
+default_location_type = LocationType.objects.get(name="Site")
 
-def normalize_location(location: str) -> str:
-    """Normalize location names."""
-    location_mapping = {
-        'bldg a': 'building-a',
-        'building a': 'building-a',
-        'bldg b': 'building-b',
-        'building b': 'building-b',
-        'dc': 'data-center',
-        'data center': 'data-center',
-        'datacenter': 'data-center',
+# Look up or create the Location
+location, loc_created = Location.objects.get_or_create(
+    name=location_name,
+    defaults={
+        "location_type": default_location_type,
+        "status": active_status,
     }
-    normalized = location.lower().strip()
-    return location_mapping.get(normalized, normalized.replace(' ', '-'))
+)
 
-def normalize_device_type(dtype: str) -> str:
-    """Normalize device type names."""
-    type_mapping = {
-        'sw': 'switch', 'switch': 'switch',
-        'rtr': 'router', 'router': 'router',
-        'fw': 'firewall', 'firewall': 'firewall',
-    }
-    return type_mapping.get(dtype.lower().strip(), dtype.lower().strip())
-
-def transform_device(row: dict) -> Optional[dict]:
-    """Transform a single device record. Returns None if invalid."""
-    hostname = row.get('hostname', '').strip()
-    ip = row.get('ip', row.get('ip_address', '')).strip()
-    dtype = row.get('type', row.get('device_type', '')).strip()
-    location = row.get('loc', row.get('location', '')).strip()
-    
-    # Skip invalid records
-    if not hostname or not ip:
-        return None
-    
-    return {
-        'hostname': normalize_hostname(hostname),
-        'ip_address': ip,
-        'device_type': normalize_device_type(dtype),
-        'location': normalize_location(location),
-        'status': 'active'  # Default status
-    }
-
-def process_csv_files(input_files: list[str], output_file: str) -> dict:
-    """Process multiple input files and create one clean output."""
-    all_devices = []
-    stats = {'processed': 0, 'valid': 0, 'skipped': 0}
-    
-    for input_file in input_files:
-        print(f"📖 Reading: {input_file}")
-        with open(input_file, 'r') as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                stats['processed'] += 1
-                device = transform_device(row)
-                if device:
-                    all_devices.append(device)
-                    stats['valid'] += 1
-                else:
-                    stats['skipped'] += 1
-    
-    # Remove duplicates (by hostname)
-    seen = set()
-    unique_devices = []
-    for device in all_devices:
-        if device['hostname'] not in seen:
-            seen.add(device['hostname'])
-            unique_devices.append(device)
-    
-    # Write output
-    fieldnames = ['hostname', 'ip_address', 'device_type', 'location', 'status']
-    with open(output_file, 'w', newline='') as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
-        writer.writeheader()
-        writer.writerows(sorted(unique_devices, key=lambda x: x['hostname']))
-    
-    stats['duplicates_removed'] = len(all_devices) - len(unique_devices)
-    stats['final_count'] = len(unique_devices)
-    
-    return stats
-
-# Run the transformation
-input_files = [
-    'devices_old.csv',
-    'devices_new_BACKUP.csv',
-    'switches_maybe.csv'
-]
-
-stats = process_csv_files(input_files, 'network_inventory.csv')
-print(f"\n📊 Transformation Complete!")
-print(f"   Processed: {stats['processed']} rows")
-print(f"   Valid: {stats['valid']} devices")
-print(f"   Skipped: {stats['skipped']} invalid rows")
-print(f"   Duplicates removed: {stats['duplicates_removed']}")
-print(f"   Final output: {stats['final_count']} devices")</code></pre>
+if loc_created:
+    self.logger.info(f"📍 Created new location: {location_name}")</code></pre>
+                </div>
+                
+                <div class="bg-amber-900/30 border border-amber-500/50 rounded-lg p-4 mt-4">
+                    <h4 class="font-bold text-amber-400 mb-2">⚠️ Be Careful with Auto-Creation</h4>
+                    <p class="text-sm text-slate-300">
+                        Auto-creating objects like DeviceTypes requires more data (manufacturer, model, etc.). 
+                        Often it's better to:
+                    </p>
+                    <ul class="text-sm text-slate-300 mt-2 space-y-1">
+                        <li>• Log warnings for missing objects</li>
+                        <li>• Generate a report of what's missing</li>
+                        <li>• Create missing objects manually or with a separate Job</li>
+                    </ul>
                 </div>
             </div>
         </section>
         
-        <!-- Best Practices -->
+        <!-- Complete Robust Job -->
         <section class="mt-12">
-            <h2 class="comic-title text-3xl text-center mb-8">✨ CSV Best Practices</h2>
+            <h2 class="comic-title text-3xl text-center mb-8">📋 The Robust Import Job</h2>
             
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="panel">
-                    <h3 class="text-lg font-bold text-emerald-400 mb-4">✅ DO:</h3>
-                    <ul class="space-y-3 text-slate-300 text-sm">
-                        <li class="flex items-start gap-2">
-                            <span class="text-emerald-400">✓</span>
-                            <span>Use consistent column names (snake_case recommended)</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-emerald-400">✓</span>
-                            <span>Include a header row</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-emerald-400">✓</span>
-                            <span>Quote fields that contain commas</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-emerald-400">✓</span>
-                            <span>Use UTF-8 encoding</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-emerald-400">✓</span>
-                            <span>Normalize data values</span>
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="panel chaos">
-                    <h3 class="text-lg font-bold text-red-400 mb-4">❌ DON'T:</h3>
-                    <ul class="space-y-3 text-slate-300 text-sm">
-                        <li class="flex items-start gap-2">
-                            <span class="text-red-400">✗</span>
-                            <span>Use spaces in column names</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-red-400">✗</span>
-                            <span>Mix data types in a column</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-red-400">✗</span>
-                            <span>Leave empty rows in the middle</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-red-400">✗</span>
-                            <span>Use inconsistent date formats</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-red-400">✗</span>
-                            <span>Forget to handle special characters</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="panel mt-6">
-                <h3 class="text-lg font-bold text-amber-400 mb-4">🔐 Handling Special Characters</h3>
-                
+            <div class="panel mb-6">
                 <div class="code-panel">
                     <div class="code-panel-header">
                         <div class="dots">
@@ -422,31 +423,145 @@ print(f"   Final output: {stats['final_count']} devices")</code></pre>
                             <div class="dot yellow"></div>
                             <div class="dot green"></div>
                         </div>
-                        <span class="filename">special_chars.py</span>
+                        <span class="filename">jobs/device_import.py (robust version)</span>
                     </div>
                     <pre><code class="language-python">import csv
+from io import StringIO
 
-# Data with special characters
-devices = [
-    {'hostname': 'server-01', 'description': 'Main server, primary'},  # Has comma
-    {'hostname': 'server-02', 'description': 'Backup "hot standby"'},  # Has quotes
-    {'hostname': 'server-03', 'description': 'Line 1\nLine 2'},        # Has newline
-]
+from nautobot.apps.jobs import Job, register_jobs, FileVar, BooleanVar
+from nautobot.dcim.models import Device, DeviceType, Location, LocationType
+from nautobot.extras.models import Role, Status
 
-# csv module handles quoting automatically!
-with open('output.csv', 'w', newline='') as f:
-    writer = csv.DictWriter(f, fieldnames=['hostname', 'description'],
-                            quoting=csv.QUOTE_MINIMAL)  # Quote only when needed
-    writer.writeheader()
-    writer.writerows(devices)
 
-# Result in file:
-# hostname,description
-# server-01,"Main server, primary"
-# server-02,"Backup ""hot standby"""
-# server-03,"Line 1
-# Line 2"</code></pre>
+class DeviceCSVImport(Job):
+    """Import devices from CSV with robust error handling."""
+    
+    class Meta:
+        name = "Device CSV Import (Robust)"
+        description = "Idempotent CSV import with error handling"
+    
+    csv_file = FileVar(
+        description="CSV file with columns: hostname, device_type, role, location"
+    )
+    
+    update_existing = BooleanVar(
+        description="Update existing devices (vs skip them)",
+        default=False
+    )
+    
+    def run(self, csv_file, update_existing):
+        file_content = csv_file.read().decode('utf-8')
+        reader = csv.DictReader(StringIO(file_content))
+        
+        active_status = Status.objects.get(name="Active")
+        default_loc_type = LocationType.objects.first()
+        
+        # Track results
+        created = 0
+        updated = 0
+        skipped = 0
+        errors = []
+        
+        for row_num, row in enumerate(reader, start=2):
+            hostname = row.get('hostname', '').strip()
+            if not hostname:
+                continue
+            
+            device_type_name = row.get('device_type', '').strip()
+            role_name = row.get('role', '').strip()
+            location_name = row.get('location', '').strip()
+            
+            # Look up DeviceType (required, don't auto-create)
+            try:
+                device_type = DeviceType.objects.get(model=device_type_name)
+            except DeviceType.DoesNotExist:
+                errors.append(f"Row {row_num}: DeviceType '{device_type_name}' not found")
+                continue
+            
+            # Look up Role (required)
+            try:
+                role = Role.objects.get(name=role_name)
+            except Role.DoesNotExist:
+                errors.append(f"Row {row_num}: Role '{role_name}' not found")
+                continue
+            
+            # Get or create Location
+            location, _ = Location.objects.get_or_create(
+                name=location_name,
+                defaults={
+                    "location_type": default_loc_type,
+                    "status": active_status,
+                }
+            )
+            
+            # Create or update device
+            try:
+                if update_existing:
+                    device, was_created = Device.objects.update_or_create(
+                        name=hostname,
+                        defaults={
+                            "device_type": device_type,
+                            "role": role,
+                            "location": location,
+                            "status": active_status,
+                        }
+                    )
+                    if was_created:
+                        created += 1
+                        self.logger.info(f"✅ Created: {hostname}")
+                    else:
+                        updated += 1
+                        self.logger.info(f"🔄 Updated: {hostname}")
+                else:
+                    device, was_created = Device.objects.get_or_create(
+                        name=hostname,
+                        defaults={
+                            "device_type": device_type,
+                            "role": role,
+                            "location": location,
+                            "status": active_status,
+                        }
+                    )
+                    if was_created:
+                        created += 1
+                        self.logger.info(f"✅ Created: {hostname}")
+                    else:
+                        skipped += 1
+                        
+            except Exception as e:
+                errors.append(f"Row {row_num}: {hostname} - {e}")
+        
+        # Log summary
+        self.logger.info("=" * 50)
+        self.logger.info("Import Complete!")
+        self.logger.info(f"  Created: {created}")
+        self.logger.info(f"  Updated: {updated}")
+        self.logger.info(f"  Skipped: {skipped}")
+        self.logger.info(f"  Errors: {len(errors)}")
+        
+        if errors:
+            self.logger.warning("Errors encountered:")
+            for error in errors[:10]:  # Show first 10
+                self.logger.warning(f"  {error}")
+            if len(errors) > 10:
+                self.logger.warning(f"  ... and {len(errors) - 10} more")
+        
+        return f"Created: {created}, Updated: {updated}, Skipped: {skipped}, Errors: {len(errors)}"
+
+
+register_jobs(DeviceCSVImport)</code></pre>
                 </div>
+            </div>
+            
+            <div class="panel">
+                <h4 class="font-bold text-emerald-400 mb-3">✨ What's New in This Version:</h4>
+                <ul class="space-y-2 text-slate-300 text-sm">
+                    <li>✓ <strong>BooleanVar</strong> - Adds a checkbox to choose update vs skip behavior</li>
+                    <li>✓ <strong>get_or_create for Locations</strong> - Auto-creates missing locations</li>
+                    <li>✓ <strong>Error collection</strong> - Gathers all errors for summary report</li>
+                    <li>✓ <strong>Detailed logging</strong> - Shows created, updated, skipped counts</li>
+                    <li>✓ <strong>Idempotent</strong> - Safe to run multiple times</li>
+                </ul>
             </div>
         </section>
         
@@ -456,21 +571,30 @@ with open('output.csv', 'w', newline='') as f:
                 <div class="comic-row cols-1">
                     <div class="panel success">
                         <div class="narrator-box mb-4">
-                            After processing all 50 CSV files...
+                            Alex runs the improved Job on the full TechNova dataset...
                         </div>
                         
-                        <div class="text-center mb-4">
-                            <div class="sfx large">VICTORY!</div>
-                        </div>
-                        
-                        <div class="bg-slate-900 rounded-lg p-4 font-mono text-sm mb-4">
-                            <div class="text-slate-500 mb-2">📁 Network_Documentation/</div>
-                            <div class="ml-4 space-y-1">
-                                <div class="text-emerald-400">├── 📄 network_inventory.csv (478 devices)</div>
-                                <div class="text-blue-400">├── 📄 switches.csv (312 switches)</div>
-                                <div class="text-amber-400">├── 📄 routers.csv (89 routers)</div>
-                                <div class="text-purple-400">└── 📄 firewalls.csv (77 firewalls)</div>
+                        <div class="code-panel mb-4">
+                            <div class="code-panel-header">
+                                <div class="dots">
+                                    <div class="dot red"></div>
+                                    <div class="dot yellow"></div>
+                                    <div class="dot green"></div>
+                                </div>
+                                <span class="filename">Job Output</span>
                             </div>
+                            <pre><code class="language-text">INFO | ==================================================
+INFO | Import Complete!
+INFO |   Created: 2,847
+INFO |   Updated: 0
+INFO |   Skipped: 0
+INFO |   Errors: 12
+WARNING | Errors encountered:
+WARNING |   Row 156: DeviceType 'Legacy-Router-2000' not found
+WARNING |   Row 892: DeviceType 'Custom-Switch-v1' not found
+...
+
+Job completed successfully!</code></pre>
                         </div>
                         
                         <div class="character justify-center">
@@ -480,11 +604,8 @@ with open('output.csv', 'w', newline='') as f:
                             </div>
                         </div>
                         <div class="speech-bubble mx-auto" style="max-width: 450px;">
-                            "Clean, organized CSVs! But... I'm still just pushing files around. 
-                            There has to be a better way to manage this data permanently..."
-                        </div>
-                        <div class="thought-bubble mx-auto mt-4" style="max-width: 300px;">
-                            I keep hearing about this "Source of Truth" thing...
+                            "2,847 devices imported! Only 12 errors—all due to missing DeviceTypes 
+                            I'll need to create. And I can safely re-run this anytime. Perfect!"
                         </div>
                     </div>
                 </div>
@@ -498,37 +619,37 @@ with open('output.csv', 'w', newline='') as f:
                 
                 <div class="grid md:grid-cols-2 gap-6">
                     <div>
-                        <h4 class="font-bold text-blue-400 mb-3">Writing CSVs</h4>
+                        <h4 class="font-bold text-blue-400 mb-3">Idempotent Imports</h4>
                         <ul class="space-y-2 text-slate-300 text-sm">
-                            <li>✓ Use <code>csv.DictWriter</code> for clean code</li>
-                            <li>✓ Always use <code>newline=''</code></li>
-                            <li>✓ Call <code>writeheader()</code> first</li>
-                            <li>✓ Let csv module handle quoting</li>
+                            <li>✓ <code>get_or_create()</code> - Create or retrieve</li>
+                            <li>✓ <code>update_or_create()</code> - Create or update</li>
+                            <li>✓ Safe to run multiple times</li>
+                            <li>✓ Use <code>defaults</code> for non-lookup fields</li>
                         </ul>
                     </div>
                     <div>
-                        <h4 class="font-bold text-emerald-400 mb-3">Data Transformation</h4>
+                        <h4 class="font-bold text-emerald-400 mb-3">Error Handling</h4>
                         <ul class="space-y-2 text-slate-300 text-sm">
-                            <li>✓ Create normalization functions</li>
-                            <li>✓ Handle multiple input formats</li>
-                            <li>✓ Remove duplicates</li>
-                            <li>✓ Sort output for consistency</li>
+                            <li>✓ Collect errors, don't fail immediately</li>
+                            <li>✓ Log summaries at the end</li>
+                            <li>✓ Consider auto-creating some objects</li>
+                            <li>✓ Track created/updated/skipped counts</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </section>
         
-        <!-- Try It Yourself -->
-        <div class="try-it-section mt-12">
-            <h3>🧪 Try It Yourself!</h3>
-            <p class="text-slate-400 mb-4">
-                Practice writing and transforming CSV data. Create your own data pipeline!
-            </p>
-            <a href="../exercises/exercise-3.py" class="exercise-link">
-                <span>📝</span>
-                <span>Open Exercise 3</span>
-            </a>
+        <!-- Next Chapter Teaser -->
+        <div class="panel mt-8" style="border-color: #10b981;">
+            <div class="text-center">
+                <div class="text-3xl mb-2">📤</div>
+                <h3 class="text-xl font-bold text-emerald-400 mb-2">Coming Up Next...</h3>
+                <p class="text-slate-300">
+                    In Chapter 4, the auditors come calling! Alex builds CSV export Jobs to 
+                    generate compliance reports from Nautobot data.
+                </p>
+            </div>
         </div>
         
         <!-- Chapter Navigation -->
@@ -549,8 +670,8 @@ with open('output.csv', 'w', newline='') as f:
     <footer class="py-8 px-4 border-t border-slate-800 mt-12">
         <div class="max-w-4xl mx-auto text-center text-slate-500">
             <p class="text-sm">
-                <a href="../index.html" class="text-blue-400 hover:underline">The CSV Chronicles</a>
-                · A learning adventure for network engineers
+                <a href="../index.html" class="text-blue-400 hover:underline">The CSV Chronicles: The Merger</a>
+                · An intermediate Nautobot tutorial
             </p>
         </div>
     </footer>
@@ -560,4 +681,3 @@ with open('output.csv', 'w', newline='') as f:
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
 </body>
 </html>
-

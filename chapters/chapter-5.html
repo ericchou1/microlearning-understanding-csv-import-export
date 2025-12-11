@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapter 5: Automation Victory | The CSV Chronicles</title>
+    <title>Chapter 5: The Complete Pipeline | The CSV Chronicles</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -19,7 +19,7 @@
     <nav class="bg-slate-900/80 backdrop-blur-sm sticky top-0 z-50 border-b border-slate-800">
         <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
             <a href="../index.html" class="flex items-center gap-2 text-slate-300 hover:text-white">
-                <span>📊</span>
+                <span>🔄</span>
                 <span class="font-bold">The CSV Chronicles</span>
             </a>
             <div class="flex items-center gap-4">
@@ -31,10 +31,10 @@
     </nav>
 
     <!-- Chapter Title Card -->
-    <div class="chapter-title-card mx-4 mt-8 md:mx-auto md:max-w-4xl" style="border-color: #10b981; box-shadow: 0 0 40px rgba(16, 185, 129, 0.2);">
-        <div class="chapter-number" style="color: #10b981;">FINAL CHAPTER</div>
-        <h1>Automation Victory</h1>
-        <p class="subtitle">In which our hero imports CSV data into Nautobot and achieves documentation nirvana</p>
+    <div class="chapter-title-card mx-4 mt-8 md:mx-auto md:max-w-4xl" style="border-color: #8b5cf6; box-shadow: 0 0 40px rgba(139, 92, 246, 0.2);">
+        <div class="chapter-number" style="color: #8b5cf6;">FINAL CHAPTER</div>
+        <h1>The Complete Pipeline</h1>
+        <p class="subtitle">In which our hero builds the ultimate import/export system and achieves automation mastery</p>
     </div>
 
     <!-- Story Content -->
@@ -43,14 +43,19 @@
         <!-- Opening Scene -->
         <div class="comic-page">
             <div class="narrator-box success mb-6">
-                The moment of truth. Alex has Nautobot running, base data configured, and the CSV import job ready to test...
+                Friday evening. The device imports are complete, the audit reports are sent, but Alex 
+                isn't done yet. TechNova's remaining data awaits: interfaces, IP addresses, and prefixes...
             </div>
             
             <div class="comic-row cols-2">
-                <div class="panel featured" style="border-color: #10b981;">
-                    <div class="panel-scene flex-col">
-                        <span class="text-6xl mb-2">🖥️</span>
-                        <span class="text-sm text-emerald-400">Nautobot Dashboard</span>
+                <div class="panel">
+                    <div class="bg-slate-900 rounded-lg p-4 font-mono text-sm mb-4">
+                        <div class="text-slate-500 mb-2">📁 Remaining TechNova files:</div>
+                        <div class="ml-4 space-y-1 text-slate-300">
+                            <div>📎 technova_interfaces.csv (18,432 rows)</div>
+                            <div>📎 technova_ip_addresses.csv (5,621 rows)</div>
+                            <div>📎 technova_prefixes.csv (847 rows)</div>
+                        </div>
                     </div>
                     <div class="character">
                         <div class="character-avatar">👨‍💻</div>
@@ -58,40 +63,69 @@
                             <div class="character-name text-sm">Alex</div>
                         </div>
                     </div>
-                    <div class="speech-bubble">
-                        "Nautobot is running. I've set up Locations, DeviceTypes, and Roles. 
-                        Now it's time to write the CSV import job!"
+                    <div class="thought-bubble">
+                        These files have dependencies: Interfaces belong to Devices, 
+                        IPs are assigned to Interfaces. Order matters!
                     </div>
                 </div>
                 
-                <div class="panel">
-                    <div class="bg-slate-800 rounded-lg p-4 text-sm font-mono mb-4">
-                        <div class="text-emerald-400 mb-2">✅ Pre-requisites Complete:</div>
-                        <div class="text-slate-300 space-y-1 ml-4">
-                            <div>• Nautobot running (Docker)</div>
-                            <div>• Locations created</div>
-                            <div>• DeviceTypes defined</div>
-                            <div>• Roles configured</div>
-                            <div>• Status "Active" exists</div>
-                        </div>
-                    </div>
-                    <div class="thought-bubble">
-                        All that CSV practice is about to pay off!
-                    </div>
+                <div class="panel featured" style="border-color: #8b5cf6;">
+                    <h4 class="font-bold text-purple-400 mb-3">Import Order:</h4>
+                    <ol class="space-y-2 text-slate-300 text-sm">
+                        <li class="flex items-center gap-2">
+                            <span class="bg-emerald-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">✓</span>
+                            <span>Devices (done!)</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">2</span>
+                            <span>Prefixes (IP ranges)</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">3</span>
+                            <span>Interfaces (on devices)</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">4</span>
+                            <span>IP Addresses (assigned to interfaces)</span>
+                        </li>
+                    </ol>
                 </div>
             </div>
         </div>
         
-        <!-- Building the Job -->
+        <!-- Prefix Import -->
         <section class="mt-12">
-            <h2 class="comic-title text-3xl text-center mb-8">⚡ Building the CSV Import Job</h2>
+            <h2 class="comic-title text-3xl text-center mb-8">🌐 Importing Prefixes</h2>
             
             <div class="panel mb-6">
-                <h3 class="text-xl font-bold text-blue-400 mb-4">Step 1: Basic Job Structure</h3>
+                <h3 class="text-xl font-bold text-blue-400 mb-4">Prefix CSV Structure</h3>
                 
-                <p class="text-slate-300 mb-4">
-                    First, Alex creates the basic job structure with a FileVar for CSV upload:
-                </p>
+                <div class="csv-preview mb-4">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>prefix</th>
+                                <th>namespace</th>
+                                <th>status</th>
+                                <th>description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>10.100.0.0/16</td>
+                                <td>Global</td>
+                                <td>Active</td>
+                                <td>TechNova Main Network</td>
+                            </tr>
+                            <tr>
+                                <td>10.100.1.0/24</td>
+                                <td>Global</td>
+                                <td>Active</td>
+                                <td>TechNova HQ - Floor 1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 
                 <div class="code-panel">
                     <div class="code-panel-header">
@@ -100,137 +134,225 @@
                             <div class="dot yellow"></div>
                             <div class="dot green"></div>
                         </div>
-                        <span class="filename">jobs/csv_import.py</span>
-                    </div>
-                    <pre><code class="language-python">from nautobot.apps.jobs import Job, register_jobs, FileVar
-
-
-class CSVDeviceImport(Job):
-    """Import network devices from a CSV file into Nautobot."""
-    
-    class Meta:
-        name = "CSV Device Import"
-        description = "Upload a CSV file to import devices into Nautobot"
-    
-    csv_file = FileVar(
-        description="CSV file with columns: hostname, device_type, role, location"
-    )
-    
-    def run(self, csv_file):
-        """Process the uploaded CSV file and create devices."""
-        
-        # Read file contents
-        file_contents = csv_file.read().decode('utf-8')
-        self.logger.info(f"File received: {len(file_contents)} bytes")
-        
-        # For now, just log that it worked
-        self.logger.info("File uploaded successfully!")
-        
-        return "Upload test complete!"
-
-
-register_jobs(CSVDeviceImport)</code></pre>
-                </div>
-                
-                <div class="bg-blue-900/30 border border-blue-500/50 rounded-lg p-4 mt-4">
-                    <h4 class="font-bold text-blue-400 mb-2">📝 Key Components:</h4>
-                    <ul class="text-sm text-slate-300 space-y-1">
-                        <li><strong>Job class</strong> - Inherits from <code>nautobot.apps.jobs.Job</code></li>
-                        <li><strong>Meta class</strong> - Defines job name and description shown in UI</li>
-                        <li><strong>FileVar</strong> - Creates a file upload field</li>
-                        <li><strong>run()</strong> - The main method that executes when job runs</li>
-                        <li><strong>register_jobs()</strong> - Makes the job available in Nautobot</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <!-- Step 2: Parse CSV -->
-            <div class="panel mb-6">
-                <h3 class="text-xl font-bold text-amber-400 mb-4">Step 2: Parse the CSV Data</h3>
-                
-                <p class="text-slate-300 mb-4">
-                    Now Alex adds CSV parsing logic using the skills learned in earlier chapters:
-                </p>
-                
-                <div class="code-panel">
-                    <div class="code-panel-header">
-                        <div class="dots">
-                            <div class="dot red"></div>
-                            <div class="dot yellow"></div>
-                            <div class="dot green"></div>
-                        </div>
-                        <span class="filename">jobs/csv_import.py (updated)</span>
+                        <span class="filename">jobs/prefix_import.py</span>
                     </div>
                     <pre><code class="language-python">import csv
 from io import StringIO
 
 from nautobot.apps.jobs import Job, register_jobs, FileVar
+from nautobot.ipam.models import Prefix, Namespace
+from nautobot.extras.models import Status
 
 
-class CSVDeviceImport(Job):
-    """Import network devices from a CSV file into Nautobot."""
+class PrefixCSVImport(Job):
+    """Import prefixes from CSV."""
     
     class Meta:
-        name = "CSV Device Import"
-        description = "Upload a CSV file to import devices into Nautobot"
+        name = "Prefix CSV Import"
+        description = "Import IP prefixes from CSV"
     
-    csv_file = FileVar(
-        description="CSV file with columns: hostname, device_type, role, location"
-    )
+    csv_file = FileVar(description="CSV with: prefix, namespace, status, description")
     
     def run(self, csv_file):
-        """Process the uploaded CSV file and create devices."""
+        content = csv_file.read().decode('utf-8')
+        reader = csv.DictReader(StringIO(content))
         
-        # Read and decode file contents
-        file_contents = csv_file.read().decode('utf-8')
-        self.logger.info(f"Processing CSV file...")
+        active_status = Status.objects.get(name="Active")
+        created = 0
+        skipped = 0
         
-        # Parse CSV using StringIO (treats string as file)
-        csv_reader = csv.DictReader(StringIO(file_contents))
-        
-        # Process each row
-        devices_to_create = []
-        for row_num, row in enumerate(csv_reader, start=2):
-            self.logger.info(f"Row {row_num}: {row}")
+        for row in reader:
+            prefix_str = row.get('prefix', '').strip()
+            namespace_name = row.get('namespace', 'Global').strip()
+            description = row.get('description', '').strip()
             
-            # Extract and validate fields
-            hostname = row.get('hostname', '').strip()
-            device_type = row.get('device_type', '').strip()
-            role = row.get('role', '').strip()
-            location = row.get('location', '').strip()
-            
-            if not all([hostname, device_type, role, location]):
-                self.logger.warning(f"Row {row_num}: Missing required fields, skipping")
+            if not prefix_str:
                 continue
             
-            devices_to_create.append({
-                'hostname': hostname,
-                'device_type': device_type,
-                'role': role,
-                'location': location
-            })
+            # Get or create namespace
+            namespace, _ = Namespace.objects.get_or_create(
+                name=namespace_name
+            )
+            
+            # Get or create prefix
+            prefix, was_created = Prefix.objects.get_or_create(
+                prefix=prefix_str,
+                namespace=namespace,
+                defaults={
+                    "status": active_status,
+                    "description": description,
+                }
+            )
+            
+            if was_created:
+                self.logger.info(f"✅ Created prefix: {prefix_str}")
+                created += 1
+            else:
+                skipped += 1
         
-        self.logger.info(f"Found {len(devices_to_create)} valid devices to import")
-        
-        return f"Parsed {len(devices_to_create)} devices"
+        return f"Created {created} prefixes, skipped {skipped} existing"
 
 
-register_jobs(CSVDeviceImport)</code></pre>
+register_jobs(PrefixCSVImport)</code></pre>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Interface Import -->
+        <section class="mt-12">
+            <h2 class="comic-title text-3xl text-center mb-8">🔌 Importing Interfaces</h2>
+            
+            <div class="panel mb-6">
+                <h3 class="text-xl font-bold text-emerald-400 mb-4">Interface CSV Structure</h3>
+                
+                <div class="csv-preview mb-4">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>device</th>
+                                <th>name</th>
+                                <th>type</th>
+                                <th>enabled</th>
+                                <th>description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>tn-sw-01</td>
+                                <td>GigabitEthernet0/1</td>
+                                <td>1000base-t</td>
+                                <td>true</td>
+                                <td>Uplink to core</td>
+                            </tr>
+                            <tr>
+                                <td>tn-sw-01</td>
+                                <td>GigabitEthernet0/2</td>
+                                <td>1000base-t</td>
+                                <td>true</td>
+                                <td>Access port</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="code-panel">
+                    <div class="code-panel-header">
+                        <div class="dots">
+                            <div class="dot red"></div>
+                            <div class="dot yellow"></div>
+                            <div class="dot green"></div>
+                        </div>
+                        <span class="filename">jobs/interface_import.py</span>
+                    </div>
+                    <pre><code class="language-python">import csv
+from io import StringIO
+
+from nautobot.apps.jobs import Job, register_jobs, FileVar
+from nautobot.dcim.models import Device, Interface
+from nautobot.extras.models import Status
+
+
+class InterfaceCSVImport(Job):
+    """Import interfaces from CSV."""
+    
+    class Meta:
+        name = "Interface CSV Import"
+        description = "Import device interfaces from CSV"
+    
+    csv_file = FileVar(description="CSV with: device, name, type, enabled, description")
+    
+    def run(self, csv_file):
+        content = csv_file.read().decode('utf-8')
+        reader = csv.DictReader(StringIO(content))
+        
+        active_status = Status.objects.get(name="Active")
+        created = 0
+        errors = []
+        
+        for row_num, row in enumerate(reader, start=2):
+            device_name = row.get('device', '').strip()
+            interface_name = row.get('name', '').strip()
+            interface_type = row.get('type', '1000base-t').strip()
+            enabled = row.get('enabled', 'true').lower() == 'true'
+            description = row.get('description', '').strip()
+            
+            if not device_name or not interface_name:
+                continue
+            
+            # Look up the device
+            try:
+                device = Device.objects.get(name=device_name)
+            except Device.DoesNotExist:
+                errors.append(f"Row {row_num}: Device '{device_name}' not found")
+                continue
+            
+            # Get or create interface
+            interface, was_created = Interface.objects.get_or_create(
+                device=device,
+                name=interface_name,
+                defaults={
+                    "type": interface_type,
+                    "enabled": enabled,
+                    "description": description,
+                    "status": active_status,
+                }
+            )
+            
+            if was_created:
+                created += 1
+        
+        self.logger.info(f"Created {created} interfaces")
+        if errors:
+            self.logger.warning(f"Errors: {len(errors)}")
+            for e in errors[:5]:
+                self.logger.warning(e)
+        
+        return f"Created {created} interfaces, {len(errors)} errors"
+
+
+register_jobs(InterfaceCSVImport)</code></pre>
                 </div>
                 
                 <div class="narrator-box mt-4">
-                    💡 Notice the <code>StringIO</code> - it lets us use <code>csv.DictReader</code> on a string 
-                    as if it were a file. Same CSV skills, just a different input source!
+                    💡 <strong>Note:</strong> Interface type values must match Nautobot's interface type choices 
+                    (e.g., '1000base-t', '10gbase-x-sfpp', 'virtual', etc.)
                 </div>
             </div>
+        </section>
+        
+        <!-- IP Address Import -->
+        <section class="mt-12">
+            <h2 class="comic-title text-3xl text-center mb-8">📍 Importing IP Addresses</h2>
             
-            <!-- Step 3: Create Devices -->
             <div class="panel mb-6">
-                <h3 class="text-xl font-bold text-emerald-400 mb-4">Step 3: Create Devices in Nautobot</h3>
+                <h3 class="text-xl font-bold text-purple-400 mb-4">IP Address CSV with Interface Assignment</h3>
                 
-                <p class="text-slate-300 mb-4">
-                    The final step - actually creating Device objects in Nautobot's database:
-                </p>
+                <div class="csv-preview mb-4">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ip_address</th>
+                                <th>device</th>
+                                <th>interface</th>
+                                <th>description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>10.100.1.1/24</td>
+                                <td>tn-sw-01</td>
+                                <td>Vlan100</td>
+                                <td>Management IP</td>
+                            </tr>
+                            <tr>
+                                <td>10.100.1.2/24</td>
+                                <td>tn-sw-02</td>
+                                <td>Vlan100</td>
+                                <td>Management IP</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 
                 <div class="code-panel">
                     <div class="code-panel-header">
@@ -239,248 +361,120 @@ register_jobs(CSVDeviceImport)</code></pre>
                             <div class="dot yellow"></div>
                             <div class="dot green"></div>
                         </div>
-                        <span class="filename">jobs/csv_import.py (complete)</span>
+                        <span class="filename">jobs/ipaddress_import.py</span>
                     </div>
                     <pre><code class="language-python">import csv
 from io import StringIO
 
 from nautobot.apps.jobs import Job, register_jobs, FileVar
-from nautobot.dcim.models import Device, DeviceType, Location
-from nautobot.extras.models import Role, Status
+from nautobot.dcim.models import Device, Interface
+from nautobot.ipam.models import IPAddress, Namespace
+from nautobot.extras.models import Status
 
 
-class CSVDeviceImport(Job):
-    """Import network devices from a CSV file into Nautobot."""
+class IPAddressCSVImport(Job):
+    """Import IP addresses and assign to interfaces."""
     
     class Meta:
-        name = "CSV Device Import"
-        description = "Upload a CSV file to import devices into Nautobot"
+        name = "IP Address CSV Import"
+        description = "Import IPs and assign to device interfaces"
     
-    csv_file = FileVar(
-        description="CSV file with columns: hostname, device_type, role, location"
-    )
+    csv_file = FileVar(description="CSV with: ip_address, device, interface, description")
     
     def run(self, csv_file):
-        """Process the uploaded CSV file and create devices."""
+        content = csv_file.read().decode('utf-8')
+        reader = csv.DictReader(StringIO(content))
         
-        # Read and decode file contents
-        file_contents = csv_file.read().decode('utf-8')
-        
-        # Parse CSV
-        csv_reader = csv.DictReader(StringIO(file_contents))
-        
-        # Get the "Active" status once
         active_status = Status.objects.get(name="Active")
+        default_namespace = Namespace.objects.get(name="Global")
         
-        # Track results
         created = 0
-        skipped = 0
+        assigned = 0
         errors = []
         
-        for row_num, row in enumerate(csv_reader, start=2):
-            hostname = row.get('hostname', '').strip()
-            device_type_name = row.get('device_type', '').strip()
-            role_name = row.get('role', '').strip()
-            location_name = row.get('location', '').strip()
+        for row_num, row in enumerate(reader, start=2):
+            ip_str = row.get('ip_address', '').strip()
+            device_name = row.get('device', '').strip()
+            interface_name = row.get('interface', '').strip()
+            description = row.get('description', '').strip()
             
-            # Skip rows with missing data
-            if not all([hostname, device_type_name, role_name, location_name]):
-                self.logger.warning(f"Row {row_num}: Missing fields, skipping")
-                skipped += 1
+            if not ip_str:
                 continue
             
-            try:
-                # Look up related objects
-                device_type = DeviceType.objects.get(model=device_type_name)
-                role = Role.objects.get(name=role_name)
-                location = Location.objects.get(name=location_name)
-                
-                # Create the device
-                device = Device(
-                    name=hostname,
-                    device_type=device_type,
-                    role=role,
-                    location=location,
-                    status=active_status,
-                )
-                device.validated_save()
-                
-                self.logger.info(f"✅ Created device: {hostname}")
+            # Get or create IP address
+            ip_address, was_created = IPAddress.objects.get_or_create(
+                address=ip_str,
+                namespace=default_namespace,
+                defaults={
+                    "status": active_status,
+                    "description": description,
+                }
+            )
+            
+            if was_created:
                 created += 1
-                
-            except DeviceType.DoesNotExist:
-                msg = f"Row {row_num}: DeviceType '{device_type_name}' not found"
-                self.logger.error(msg)
-                errors.append(msg)
-            except Role.DoesNotExist:
-                msg = f"Row {row_num}: Role '{role_name}' not found"
-                self.logger.error(msg)
-                errors.append(msg)
-            except Location.DoesNotExist:
-                msg = f"Row {row_num}: Location '{location_name}' not found"
-                self.logger.error(msg)
-                errors.append(msg)
-            except Exception as e:
-                msg = f"Row {row_num}: Error creating {hostname}: {str(e)}"
-                self.logger.error(msg)
-                errors.append(msg)
+                self.logger.info(f"✅ Created IP: {ip_str}")
+            
+            # Assign to interface if specified
+            if device_name and interface_name:
+                try:
+                    device = Device.objects.get(name=device_name)
+                    interface = Interface.objects.get(
+                        device=device,
+                        name=interface_name
+                    )
+                    
+                    # Add IP to interface (M2M relationship)
+                    if ip_address not in interface.ip_addresses.all():
+                        interface.ip_addresses.add(ip_address)
+                        assigned += 1
+                        self.logger.info(f"🔗 Assigned {ip_str} to {device_name}:{interface_name}")
+                        
+                except Device.DoesNotExist:
+                    errors.append(f"Row {row_num}: Device '{device_name}' not found")
+                except Interface.DoesNotExist:
+                    errors.append(f"Row {row_num}: Interface '{interface_name}' not found on {device_name}")
         
-        # Summary
         self.logger.info("=" * 50)
-        self.logger.info(f"Import Complete!")
-        self.logger.info(f"  Created: {created} devices")
-        self.logger.info(f"  Skipped: {skipped} rows")
-        self.logger.info(f"  Errors: {len(errors)}")
+        self.logger.info(f"Created: {created} IPs")
+        self.logger.info(f"Assigned: {assigned} IPs to interfaces")
+        self.logger.info(f"Errors: {len(errors)}")
         
-        return f"Created {created} devices, {skipped} skipped, {len(errors)} errors"
+        return f"Created {created} IPs, assigned {assigned}, {len(errors)} errors"
 
 
-register_jobs(CSVDeviceImport)</code></pre>
+register_jobs(IPAddressCSVImport)</code></pre>
+                </div>
+                
+                <div class="bg-purple-900/30 border border-purple-500/50 rounded-lg p-4 mt-4">
+                    <h4 class="font-bold text-purple-400 mb-2">🔗 Many-to-Many Relationships</h4>
+                    <p class="text-sm text-slate-300">
+                        IP addresses have a M2M relationship with interfaces (an IP can be on multiple interfaces, 
+                        an interface can have multiple IPs). Use <code>.add()</code> to create the relationship:
+                    </p>
+                    <code class="text-sm text-purple-400 block mt-2">interface.ip_addresses.add(ip_address)</code>
                 </div>
             </div>
         </section>
         
-        <!-- Code Breakdown -->
+        <!-- Complete Export Job -->
         <section class="mt-12">
-            <h2 class="comic-title text-3xl text-center mb-8">🔍 Understanding the Code</h2>
+            <h2 class="comic-title text-3xl text-center mb-8">📊 The Ultimate Export: Full Network Report</h2>
             
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="panel">
-                    <h3 class="text-lg font-bold text-purple-400 mb-4">📦 Nautobot Models</h3>
-                    <div class="code-panel">
-                        <pre><code class="language-python">from nautobot.dcim.models import (
-    Device,      # Network devices
-    DeviceType,  # Device models/hardware
-    Location,    # Physical locations
-)
-from nautobot.extras.models import (
-    Role,        # Device roles
-    Status,      # Status (Active, etc.)
-)</code></pre>
+            <div class="panel mb-6">
+                <div class="character">
+                    <div class="character-avatar">👨‍💻</div>
+                    <div>
+                        <div class="character-name text-sm">Alex</div>
                     </div>
-                    <p class="text-sm text-slate-400 mt-2">
-                        Import the Django models that represent Nautobot objects.
-                    </p>
                 </div>
-                
-                <div class="panel">
-                    <h3 class="text-lg font-bold text-blue-400 mb-4">🔎 Looking Up Objects</h3>
-                    <div class="code-panel">
-                        <pre><code class="language-python"># Find existing objects by name
-device_type = DeviceType.objects.get(
-    model=device_type_name
-)
-role = Role.objects.get(name=role_name)
-location = Location.objects.get(
-    name=location_name
-)</code></pre>
-                    </div>
-                    <p class="text-sm text-slate-400 mt-2">
-                        Use Django's ORM to find related objects by their names.
-                    </p>
-                </div>
-                
-                <div class="panel">
-                    <h3 class="text-lg font-bold text-emerald-400 mb-4">✨ Creating Devices</h3>
-                    <div class="code-panel">
-                        <pre><code class="language-python"># Create new device instance
-device = Device(
-    name=hostname,
-    device_type=device_type,
-    role=role,
-    location=location,
-    status=active_status,
-)
-# Validate and save to database
-device.validated_save()</code></pre>
-                    </div>
-                    <p class="text-sm text-slate-400 mt-2">
-                        <code>validated_save()</code> validates data before saving.
-                    </p>
-                </div>
-                
-                <div class="panel">
-                    <h3 class="text-lg font-bold text-amber-400 mb-4">⚠️ Error Handling</h3>
-                    <div class="code-panel">
-                        <pre><code class="language-python">try:
-    device_type = DeviceType.objects.get(
-        model=device_type_name
-    )
-except DeviceType.DoesNotExist:
-    self.logger.error(
-        f"DeviceType not found"
-    )</code></pre>
-                    </div>
-                    <p class="text-sm text-slate-400 mt-2">
-                        Handle cases where referenced objects don't exist.
-                    </p>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Running the Job -->
-        <section class="mt-12">
-            <h2 class="comic-title text-3xl text-center mb-8">🚀 Running the Import</h2>
-            
-            <div class="comic-page">
-                <div class="comic-row cols-1">
-                    <div class="panel">
-                        <div class="narrator-box mb-4">
-                            Alex prepares the CSV file and heads to the Nautobot Jobs page...
-                        </div>
-                        
-                        <div class="csv-preview mb-4">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>hostname</th>
-                                        <th>device_type</th>
-                                        <th>role</th>
-                                        <th>location</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>switch-01</td>
-                                        <td>Catalyst 9300</td>
-                                        <td>Access Switch</td>
-                                        <td>Building A</td>
-                                    </tr>
-                                    <tr>
-                                        <td>switch-02</td>
-                                        <td>Catalyst 9300</td>
-                                        <td>Access Switch</td>
-                                        <td>Building A</td>
-                                    </tr>
-                                    <tr>
-                                        <td>router-core</td>
-                                        <td>ASR 1001-X</td>
-                                        <td>Core Router</td>
-                                        <td>Data Center</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        
-                        <div class="bg-slate-800 rounded-lg p-4">
-                            <div class="text-slate-400 text-sm mb-2">Nautobot UI: Jobs → CSV Device Import</div>
-                            <div class="flex items-center gap-4">
-                                <div class="flex-1 bg-slate-700 rounded px-3 py-2 text-sm">
-                                    📎 network_inventory.csv
-                                </div>
-                                <button class="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded font-bold">
-                                    Run Job
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="speech-bubble">
+                    "For the final piece, let me create a comprehensive export that combines 
+                    devices, interfaces, and their IP assignments in one report!"
                 </div>
             </div>
             
-            <!-- Job Output -->
-            <div class="panel mt-6">
-                <h3 class="text-lg font-bold text-emerald-400 mb-4">📋 Job Output</h3>
-                
+            <div class="panel mb-6">
                 <div class="code-panel">
                     <div class="code-panel-header">
                         <div class="dots">
@@ -488,18 +482,127 @@ except DeviceType.DoesNotExist:
                             <div class="dot yellow"></div>
                             <div class="dot green"></div>
                         </div>
-                        <span class="filename">Job Log</span>
+                        <span class="filename">jobs/full_network_export.py</span>
                     </div>
-                    <pre><code class="language-text">2024-01-15 10:30:15 | INFO | ✅ Created device: switch-01
-2024-01-15 10:30:15 | INFO | ✅ Created device: switch-02  
-2024-01-15 10:30:16 | INFO | ✅ Created device: router-core
-2024-01-15 10:30:16 | INFO | ==================================================
-2024-01-15 10:30:16 | INFO | Import Complete!
-2024-01-15 10:30:16 | INFO |   Created: 3 devices
-2024-01-15 10:30:16 | INFO |   Skipped: 0 rows
-2024-01-15 10:30:16 | INFO |   Errors: 0
+                    <pre><code class="language-python">import csv
+from io import StringIO
 
-Job completed successfully!</code></pre>
+from nautobot.apps.jobs import Job, register_jobs, ObjectVar
+from nautobot.dcim.models import Device, Location
+
+
+class FullNetworkExport(Job):
+    """Export complete network inventory with IPs."""
+    
+    class Meta:
+        name = "Full Network Export"
+        description = "Comprehensive CSV with devices, interfaces, and IPs"
+    
+    location = ObjectVar(
+        model=Location,
+        required=False,
+        description="Filter by location (optional)"
+    )
+    
+    def run(self, location=None):
+        # Build device query with all related data
+        queryset = Device.objects.select_related(
+            'device_type__manufacturer',
+            'location',
+            'role',
+            'status'
+        ).prefetch_related(
+            'interfaces',
+            'interfaces__ip_addresses',
+        ).order_by('name')
+        
+        if location:
+            queryset = queryset.filter(location=location)
+        
+        output = StringIO()
+        writer = csv.writer(output)
+        
+        # Comprehensive header
+        writer.writerow([
+            'device',
+            'device_type',
+            'manufacturer',
+            'location',
+            'role',
+            'device_status',
+            'interface',
+            'interface_type',
+            'interface_enabled',
+            'ip_address',
+            'ip_status'
+        ])
+        
+        row_count = 0
+        
+        for device in queryset:
+            interfaces = device.interfaces.all()
+            
+            if not interfaces:
+                # Device with no interfaces
+                writer.writerow([
+                    device.name,
+                    device.device_type.model,
+                    device.device_type.manufacturer.name,
+                    device.location.name if device.location else '',
+                    device.role.name if device.role else '',
+                    device.status.name if device.status else '',
+                    '', '', '', '', ''
+                ])
+                row_count += 1
+            else:
+                for interface in interfaces:
+                    ip_addresses = interface.ip_addresses.all()
+                    
+                    if not ip_addresses:
+                        # Interface with no IPs
+                        writer.writerow([
+                            device.name,
+                            device.device_type.model,
+                            device.device_type.manufacturer.name,
+                            device.location.name if device.location else '',
+                            device.role.name if device.role else '',
+                            device.status.name if device.status else '',
+                            interface.name,
+                            interface.type,
+                            interface.enabled,
+                            '', ''
+                        ])
+                        row_count += 1
+                    else:
+                        for ip in ip_addresses:
+                            writer.writerow([
+                                device.name,
+                                device.device_type.model,
+                                device.device_type.manufacturer.name,
+                                device.location.name if device.location else '',
+                                device.role.name if device.role else '',
+                                device.status.name if device.status else '',
+                                interface.name,
+                                interface.type,
+                                interface.enabled,
+                                str(ip.address),
+                                ip.status.name if ip.status else ''
+                            ])
+                            row_count += 1
+        
+        csv_content = output.getvalue()
+        
+        self.logger.info(f"Generated report with {row_count} rows")
+        self.logger.info(f"Devices: {queryset.count()}")
+        self.logger.info("=" * 50)
+        self.logger.info("Preview:")
+        for line in csv_content.split('\n')[:10]:
+            self.logger.info(line)
+        
+        return f"Exported {row_count} rows from {queryset.count()} devices"
+
+
+register_jobs(FullNetworkExport)</code></pre>
                 </div>
             </div>
         </section>
@@ -508,99 +611,106 @@ Job completed successfully!</code></pre>
         <section class="mt-12">
             <div class="comic-page">
                 <div class="comic-row cols-1">
-                    <div class="panel success" style="border-color: #10b981; box-shadow: 0 0 40px rgba(16, 185, 129, 0.3);">
+                    <div class="panel success" style="border-color: #8b5cf6; box-shadow: 0 0 40px rgba(139, 92, 246, 0.3);">
                         <div class="text-center mb-6">
-                            <div class="sfx large" style="color: #10b981; text-shadow: 3px 3px 0 #0f172a, 6px 6px 0 rgba(16, 185, 129, 0.3);">
-                                VICTORY!
+                            <div class="sfx large" style="color: #8b5cf6; text-shadow: 3px 3px 0 #0f172a, 6px 6px 0 rgba(139, 92, 246, 0.3);">
+                                MISSION COMPLETE!
                             </div>
                         </div>
                         
-                        <div class="grid md:grid-cols-2 gap-6 mb-6">
-                            <div class="bg-slate-800/50 rounded-lg p-4">
-                                <h4 class="text-emerald-400 font-bold mb-2">📊 Nautobot Dashboard</h4>
-                                <div class="text-3xl font-bold text-white">478</div>
-                                <div class="text-slate-400 text-sm">Devices imported</div>
+                        <div class="grid md:grid-cols-4 gap-4 mb-6">
+                            <div class="bg-slate-800/50 rounded-lg p-4 text-center">
+                                <div class="text-3xl font-bold text-white">3,421</div>
+                                <div class="text-emerald-400 text-sm">Devices</div>
                             </div>
-                            <div class="bg-slate-800/50 rounded-lg p-4">
-                                <h4 class="text-blue-400 font-bold mb-2">🔗 All Connected</h4>
-                                <div class="text-3xl font-bold text-white">100%</div>
-                                <div class="text-slate-400 text-sm">Source of truth coverage</div>
+                            <div class="bg-slate-800/50 rounded-lg p-4 text-center">
+                                <div class="text-3xl font-bold text-white">18,432</div>
+                                <div class="text-blue-400 text-sm">Interfaces</div>
+                            </div>
+                            <div class="bg-slate-800/50 rounded-lg p-4 text-center">
+                                <div class="text-3xl font-bold text-white">5,621</div>
+                                <div class="text-purple-400 text-sm">IP Addresses</div>
+                            </div>
+                            <div class="bg-slate-800/50 rounded-lg p-4 text-center">
+                                <div class="text-3xl font-bold text-white">847</div>
+                                <div class="text-amber-400 text-sm">Prefixes</div>
                             </div>
                         </div>
                         
                         <div class="character justify-center">
-                            <div class="character-avatar" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">🏆</div>
+                            <div class="character-avatar" style="background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);">🏆</div>
                             <div>
-                                <div class="character-name" style="color: #10b981;">Alex Chen</div>
-                                <div class="text-slate-400 text-sm">Network Automation Hero</div>
+                                <div class="character-name" style="color: #8b5cf6;">Alex Chen</div>
+                                <div class="text-slate-400 text-sm">Network Automation Master</div>
                             </div>
                         </div>
                         
                         <div class="speech-bubble mx-auto mt-4" style="max-width: 500px;">
-                            "From scattered spreadsheets to a complete source of truth! 
-                            Every device is now in Nautobot, searchable, and connected. 
-                            This is what network documentation should be!"
+                            "The TechNova merger is complete! All network data is in Nautobot, the auditors 
+                            have their reports, and I've built reusable Jobs for future imports and exports. 
+                            This is the power of automation!"
                         </div>
                     </div>
                 </div>
             </div>
         </section>
         
-        <!-- The Journey Summary -->
+        <!-- Summary -->
         <section class="mt-12">
-            <h2 class="comic-title text-3xl text-center mb-8">📖 The Journey Complete</h2>
+            <h2 class="comic-title text-3xl text-center mb-8">📚 Journey Complete</h2>
             
-            <div class="grid md:grid-cols-5 gap-4">
-                <div class="panel text-center p-4">
-                    <div class="text-2xl mb-2">📁</div>
-                    <div class="text-xs text-slate-400">Chapter 1</div>
-                    <div class="text-sm font-bold text-blue-400">CSV Basics</div>
-                </div>
-                <div class="panel text-center p-4">
-                    <div class="text-2xl mb-2">🔍</div>
-                    <div class="text-xs text-slate-400">Chapter 2</div>
-                    <div class="text-sm font-bold text-amber-400">Validation</div>
-                </div>
-                <div class="panel text-center p-4">
-                    <div class="text-2xl mb-2">✍️</div>
-                    <div class="text-xs text-slate-400">Chapter 3</div>
-                    <div class="text-sm font-bold text-purple-400">Writing CSVs</div>
-                </div>
-                <div class="panel text-center p-4">
-                    <div class="text-2xl mb-2">🎯</div>
-                    <div class="text-xs text-slate-400">Chapter 4</div>
-                    <div class="text-sm font-bold text-emerald-400">Nautobot</div>
+            <div class="grid md:grid-cols-5 gap-4 mb-8">
+                <div class="panel text-center p-4" style="border-color: #3b82f6;">
+                    <div class="text-2xl mb-2">🚀</div>
+                    <div class="text-xs text-slate-400">Ch 1</div>
+                    <div class="text-sm font-bold text-blue-400">Setup</div>
                 </div>
                 <div class="panel text-center p-4" style="border-color: #10b981;">
-                    <div class="text-2xl mb-2">🏆</div>
-                    <div class="text-xs text-slate-400">Chapter 5</div>
-                    <div class="text-sm font-bold text-emerald-400">Victory!</div>
+                    <div class="text-2xl mb-2">📥</div>
+                    <div class="text-xs text-slate-400">Ch 2</div>
+                    <div class="text-sm font-bold text-emerald-400">Import</div>
+                </div>
+                <div class="panel text-center p-4" style="border-color: #f59e0b;">
+                    <div class="text-2xl mb-2">🛡️</div>
+                    <div class="text-xs text-slate-400">Ch 3</div>
+                    <div class="text-sm font-bold text-amber-400">Errors</div>
+                </div>
+                <div class="panel text-center p-4" style="border-color: #06b6d4;">
+                    <div class="text-2xl mb-2">📤</div>
+                    <div class="text-xs text-slate-400">Ch 4</div>
+                    <div class="text-sm font-bold text-cyan-400">Export</div>
+                </div>
+                <div class="panel text-center p-4" style="border-color: #8b5cf6;">
+                    <div class="text-2xl mb-2">🔄</div>
+                    <div class="text-xs text-slate-400">Ch 5</div>
+                    <div class="text-sm font-bold text-purple-400">Pipeline</div>
                 </div>
             </div>
-        </section>
-        
-        <!-- Key Takeaways -->
-        <section class="mt-12">
+            
             <div class="panel">
-                <h3 class="comic-title text-2xl text-center mb-6">📝 Final Key Takeaways</h3>
+                <h3 class="text-xl font-bold text-center mb-6">Skills Mastered</h3>
                 
                 <div class="grid md:grid-cols-2 gap-6">
                     <div>
-                        <h4 class="font-bold text-blue-400 mb-3">Nautobot Jobs</h4>
+                        <h4 class="font-bold text-blue-400 mb-3">📥 Import Skills</h4>
                         <ul class="space-y-2 text-slate-300 text-sm">
-                            <li>✓ <code>FileVar</code> enables file uploads</li>
-                            <li>✓ Use <code>StringIO</code> to parse uploaded text</li>
-                            <li>✓ <code>self.logger</code> for progress logging</li>
-                            <li>✓ <code>register_jobs()</code> to enable the job</li>
+                            <li>✓ FileVar for file uploads</li>
+                            <li>✓ CSV parsing with StringIO</li>
+                            <li>✓ Looking up related objects</li>
+                            <li>✓ get_or_create / update_or_create</li>
+                            <li>✓ Idempotent operations</li>
+                            <li>✓ Error handling and logging</li>
                         </ul>
                     </div>
                     <div>
-                        <h4 class="font-bold text-emerald-400 mb-3">Creating Objects</h4>
+                        <h4 class="font-bold text-emerald-400 mb-3">📤 Export Skills</h4>
                         <ul class="space-y-2 text-slate-300 text-sm">
-                            <li>✓ Look up related objects first</li>
-                            <li>✓ Handle <code>DoesNotExist</code> exceptions</li>
-                            <li>✓ Use <code>validated_save()</code> to save</li>
-                            <li>✓ Track success/failure counts</li>
+                            <li>✓ QuerySet filtering</li>
+                            <li>✓ select_related / prefetch_related</li>
+                            <li>✓ ObjectVar for filter UI</li>
+                            <li>✓ CSV generation</li>
+                            <li>✓ Multi-model reports</li>
+                            <li>✓ FileProxy for downloads</li>
                         </ul>
                     </div>
                 </div>
@@ -610,25 +720,25 @@ Job completed successfully!</code></pre>
         <!-- What's Next -->
         <section class="mt-12">
             <div class="panel featured">
-                <h3 class="comic-title text-2xl text-center mb-6">🚀 What's Next for Alex?</h3>
+                <h3 class="comic-title text-2xl text-center mb-6">🚀 What's Next?</h3>
                 
                 <div class="grid md:grid-cols-3 gap-6">
                     <div class="bg-slate-800/50 rounded-lg p-4 text-center">
                         <div class="text-3xl mb-2">🔌</div>
-                        <h4 class="font-bold text-blue-400 mb-2">API Integrations</h4>
+                        <h4 class="font-bold text-blue-400 mb-2">API Integration</h4>
                         <p class="text-sm text-slate-400">
-                            Connect monitoring tools to Nautobot for live data sync
+                            Build Jobs that sync with external systems via REST APIs
                         </p>
                     </div>
                     <div class="bg-slate-800/50 rounded-lg p-4 text-center">
-                        <div class="text-3xl mb-2">🤖</div>
-                        <h4 class="font-bold text-emerald-400 mb-2">Ansible + Nautobot</h4>
+                        <div class="text-3xl mb-2">⏰</div>
+                        <h4 class="font-bold text-emerald-400 mb-2">Scheduled Jobs</h4>
                         <p class="text-sm text-slate-400">
-                            Use Nautobot as inventory source for automation
+                            Automate reports with scheduled Job execution
                         </p>
                     </div>
                     <div class="bg-slate-800/50 rounded-lg p-4 text-center">
-                        <div class="text-3xl mb-2">📊</div>
+                        <div class="text-3xl mb-2">🔧</div>
                         <h4 class="font-bold text-purple-400 mb-2">Golden Config</h4>
                         <p class="text-sm text-slate-400">
                             Generate and validate device configurations
@@ -637,41 +747,24 @@ Job completed successfully!</code></pre>
                 </div>
                 
                 <div class="text-center mt-6">
-                    <a href="https://docs.nautobot.com/" target="_blank" 
+                    <a href="https://docs.nautobot.com/projects/core/en/stable/user-guide/platform-functionality/jobs/" 
+                       target="_blank" 
                        class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300">
                         <span>📚</span>
-                        <span>Explore Nautobot Documentation →</span>
+                        <span>Explore Nautobot Jobs Documentation →</span>
                     </a>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Epilogue -->
-        <section class="mt-12">
-            <div class="panel" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);">
-                <div class="narrator-box success mb-4">
-                    Epilogue: Six months later...
-                </div>
-                
-                <div class="text-center">
-                    <div class="character-avatar mx-auto mb-4" style="width: 80px; height: 80px; font-size: 2.5rem; background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);">
-                        👨‍💻
-                    </div>
-                    <p class="text-slate-300 text-lg italic max-w-lg mx-auto">
-                        "Remember when I couldn't find a single IP address in those spreadsheets? 
-                        Now the whole team uses Nautobot. We even automated our config deployments. 
-                        Funny how it all started with learning to read a CSV file..."
-                    </p>
-                    <div class="text-slate-500 text-sm mt-4">— Alex Chen, now Senior Network Automation Engineer</div>
                 </div>
             </div>
         </section>
         
         <!-- The End -->
         <div class="text-center mt-12">
-            <div class="comic-title text-4xl text-emerald-400 mb-4">THE END</div>
-            <p class="text-slate-500">
-                Thank you for reading The CSV Chronicles!
+            <div class="comic-title text-4xl text-purple-400 mb-4">THE END</div>
+            <p class="text-slate-500 mb-4">
+                Thank you for completing The CSV Chronicles: The Merger!
+            </p>
+            <p class="text-slate-600 text-sm">
+                Built with 💜 for network automation engineers
             </p>
         </div>
         
@@ -693,8 +786,8 @@ Job completed successfully!</code></pre>
     <footer class="py-8 px-4 border-t border-slate-800 mt-12">
         <div class="max-w-4xl mx-auto text-center text-slate-500">
             <p class="text-sm mb-2">
-                <a href="../index.html" class="text-blue-400 hover:underline">The CSV Chronicles</a>
-                · A learning adventure for network engineers
+                <a href="../index.html" class="text-blue-400 hover:underline">The CSV Chronicles: The Merger</a>
+                · An intermediate Nautobot tutorial
             </p>
             <p class="text-xs">
                 Inspired by <a href="https://github.com/nautobot/100-days-of-nautobot" target="_blank" class="text-blue-400 hover:underline">100 Days of Nautobot</a>
@@ -707,4 +800,3 @@ Job completed successfully!</code></pre>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
 </body>
 </html>
-

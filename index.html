@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The CSV Chronicles | A Network Engineer's Journey</title>
+    <title>The CSV Chronicles: The Merger | Nautobot CSV Import & Export</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -19,12 +19,13 @@
     <section class="hero">
         <div class="hero-content">
             <div class="mb-6">
-                <span class="text-6xl">📊</span>
+                <span class="text-6xl">🔄</span>
             </div>
             <h1 class="comic-title">The CSV Chronicles</h1>
+            <p class="text-2xl text-amber-400 font-bold mb-2">The Merger</p>
             <p class="tagline">
-                A graphic novel adventure where a network engineer battles spreadsheet chaos 
-                and discovers the power of Python automation and Nautobot.
+                An intermediate-level adventure where a network automation engineer 
+                tackles CSV imports and exports with Nautobot Jobs during a company acquisition.
             </p>
             
             <!-- Character Introduction -->
@@ -33,12 +34,12 @@
                     <div class="character-avatar">👨‍💻</div>
                     <div class="text-left">
                         <div class="character-name">Alex Chen</div>
-                        <div class="text-slate-400 text-sm">Network Engineer, DataFlow Corp</div>
+                        <div class="text-slate-400 text-sm">Senior Network Automation Engineer, DataFlow Corp</div>
                     </div>
                 </div>
                 <p class="text-slate-300 text-sm mt-3 italic">
-                    "I just inherited a network with 500 devices and zero documentation. 
-                    All I have are these scattered CSV files... What could go wrong?"
+                    "We just acquired TechNova Inc. I have CSV dumps of their entire network inventory. 
+                    Time to build some Nautobot Jobs to merge their data with ours..."
                 </p>
             </div>
             
@@ -48,10 +49,10 @@
             </a>
             
             <div class="mt-6">
-                <a href="https://github.com/codespaces/new" target="_blank" 
+                <a href="https://github.com/nautobot/100-days-of-nautobot" target="_blank" 
                    class="text-emerald-400 hover:text-emerald-300 text-sm flex items-center justify-center gap-2">
                     <span>🚀</span>
-                    <span>Launch in GitHub Codespace to practice along</span>
+                    <span>Uses 100-days-of-nautobot Codespace environment</span>
                 </a>
             </div>
         </div>
@@ -61,44 +62,44 @@
     <section class="py-16 px-4">
         <div class="max-w-4xl mx-auto">
             <div class="narrator-box text-center text-lg mb-12">
-                In a world where spreadsheets multiply like rabbits and network documentation 
-                exists only in the minds of engineers who left years ago, one hero must rise 
-                to bring order from chaos...
+                DataFlow Corp has just acquired TechNova Inc. The networks must be merged, 
+                compliance reports are due, and Alex Chen has exactly one week to make it happen. 
+                Armed with Nautobot and Python, the race begins...
             </div>
             
             <div class="comic-page">
                 <div class="comic-row cols-3">
                     <div class="panel chaos">
                         <div class="panel-scene">
-                            <span class="text-6xl">📁📁📁</span>
+                            <span class="text-6xl">📥</span>
                         </div>
-                        <div class="sfx text-center">CHAOS!</div>
+                        <div class="sfx text-center">IMPORT!</div>
                         <p class="text-sm text-slate-400 mt-2 text-center">
-                            Hundreds of CSV files, no naming convention
+                            CSV files from the acquired company
                         </p>
                     </div>
                     
                     <div class="panel">
                         <div class="panel-scene">
-                            <span class="text-6xl">🐍</span>
+                            <span class="text-6xl">🎯</span>
                         </div>
                         <div class="text-center">
-                            <span class="text-amber-400 font-bold">Python</span>
+                            <span class="text-blue-400 font-bold">Nautobot Jobs</span>
                         </div>
                         <p class="text-sm text-slate-400 mt-2 text-center">
-                            The hero discovers a powerful ally
+                            FileVar, validation, error handling
                         </p>
                     </div>
                     
                     <div class="panel success">
                         <div class="panel-scene">
-                            <span class="text-6xl">🎯</span>
+                            <span class="text-6xl">📤</span>
                         </div>
                         <div class="text-center text-emerald-400 font-bold">
-                            Source of Truth
+                            Export Reports
                         </div>
                         <p class="text-sm text-slate-400 mt-2 text-center">
-                            Nautobot brings order to the network
+                            Compliance-ready CSV exports
                         </p>
                     </div>
                 </div>
@@ -115,105 +116,154 @@
                 <!-- Chapter 1 -->
                 <a href="chapters/chapter-1.html" class="chapter-card">
                     <div class="chapter-num">01</div>
-                    <h3>The Spreadsheet Nightmare</h3>
-                    <p>Alex inherits a network disaster. Scattered CSVs are the only clue to what exists.</p>
+                    <h3>The Merger Begins</h3>
+                    <p>DataFlow acquires TechNova. Alex receives CSV dumps and sets up the Nautobot environment.</p>
                     <div class="mt-4 text-xs text-blue-400">
-                        📚 Learn: CSV structure, Python csv module basics
+                        📚 Learn: Codespace setup, Nautobot docker-compose, environment prep
                     </div>
                 </a>
                 
                 <!-- Chapter 2 -->
                 <a href="chapters/chapter-2.html" class="chapter-card">
                     <div class="chapter-num">02</div>
-                    <h3>Making Sense of Chaos</h3>
-                    <p>Armed with Python, Alex begins parsing the cryptic device inventory files.</p>
+                    <h3>Importing the Fleet</h3>
+                    <p>Alex builds a Nautobot Job to import TechNova's devices from CSV files.</p>
                     <div class="mt-4 text-xs text-blue-400">
-                        📚 Learn: Reading CSVs, handling headers, data validation
+                        📚 Learn: FileVar, CSV parsing, Device/DeviceType creation
                     </div>
                 </a>
                 
                 <!-- Chapter 3 -->
                 <a href="chapters/chapter-3.html" class="chapter-card">
                     <div class="chapter-num">03</div>
-                    <h3>Building Order from Disorder</h3>
-                    <p>Alex creates a system to export clean, standardized CSV files.</p>
+                    <h3>When Things Go Wrong</h3>
+                    <p>Duplicate hostnames, missing references, partial failures—Alex learns to handle errors gracefully.</p>
                     <div class="mt-4 text-xs text-blue-400">
-                        📚 Learn: Writing CSVs, data transformation
+                        📚 Learn: Error handling, validation, get_or_create, idempotency
                     </div>
                 </a>
                 
                 <!-- Chapter 4 -->
                 <a href="chapters/chapter-4.html" class="chapter-card">
                     <div class="chapter-num">04</div>
-                    <h3>The Source of Truth</h3>
-                    <p>A mysterious message leads Alex to discover Nautobot—a network source of truth.</p>
+                    <h3>Exporting for the Auditors</h3>
+                    <p>The compliance team needs network inventory reports. Alex builds CSV export Jobs.</p>
                     <div class="mt-4 text-xs text-blue-400">
-                        📚 Learn: Nautobot introduction, why source of truth matters
+                        📚 Learn: QuerySets, CSV export, HttpResponse, report generation
                     </div>
                 </a>
                 
                 <!-- Chapter 5 -->
                 <a href="chapters/chapter-5.html" class="chapter-card">
                     <div class="chapter-num">05</div>
-                    <h3>Automation Victory</h3>
-                    <p>Alex imports CSV data into Nautobot and achieves network documentation nirvana.</p>
+                    <h3>The Complete Pipeline</h3>
+                    <p>Alex builds the ultimate import/export system handling IPs, Prefixes, and Interfaces.</p>
                     <div class="mt-4 text-xs text-blue-400">
-                        📚 Learn: Nautobot Jobs, FileVar, CSV imports
+                        📚 Learn: Multi-model operations, relationships, advanced patterns
                     </div>
                 </a>
             </div>
         </div>
     </section>
     
-    <!-- What You'll Learn -->
+    <!-- Prerequisites -->
     <section class="py-16 px-4">
         <div class="max-w-4xl mx-auto">
-            <h2 class="comic-title text-3xl text-center mb-8">What You'll Learn</h2>
+            <h2 class="comic-title text-3xl text-center mb-8">Prerequisites</h2>
             
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="panel">
-                    <h3 class="text-xl font-bold text-blue-400 mb-4">🐍 Python CSV Mastery</h3>
-                    <ul class="space-y-2 text-slate-300">
-                        <li>✓ Read and parse CSV files</li>
-                        <li>✓ Handle headers and data types</li>
-                        <li>✓ Validate and clean data</li>
-                        <li>✓ Write and export CSVs</li>
-                        <li>✓ Transform data structures</li>
-                    </ul>
-                </div>
+            <div class="panel">
+                <p class="text-slate-300 mb-6 text-center">
+                    This is an <strong class="text-amber-400">intermediate-level</strong> tutorial. 
+                    You should already be familiar with:
+                </p>
                 
-                <div class="panel featured">
-                    <h3 class="text-xl font-bold text-emerald-400 mb-4">🎯 Nautobot Integration</h3>
-                    <ul class="space-y-2 text-slate-300">
-                        <li>✓ Understand source of truth concepts</li>
-                        <li>✓ Create Nautobot Jobs</li>
-                        <li>✓ Use FileVar for file uploads</li>
-                        <li>✓ Import CSV data to Nautobot</li>
-                        <li>✓ Work with Nautobot data models</li>
-                    </ul>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-slate-800 rounded-lg p-4 text-center">
+                        <div class="text-3xl mb-2">🐍</div>
+                        <h4 class="font-bold text-blue-400">Python Basics</h4>
+                        <p class="text-sm text-slate-400">Functions, classes, file I/O, error handling</p>
+                    </div>
+                    <div class="bg-slate-800 rounded-lg p-4 text-center">
+                        <div class="text-3xl mb-2">📄</div>
+                        <h4 class="font-bold text-emerald-400">CSV Operations</h4>
+                        <p class="text-sm text-slate-400">csv module, DictReader, DictWriter</p>
+                    </div>
+                    <div class="bg-slate-800 rounded-lg p-4 text-center">
+                        <div class="text-3xl mb-2">🎯</div>
+                        <h4 class="font-bold text-purple-400">Nautobot Basics</h4>
+                        <p class="text-sm text-slate-400">Data models, UI navigation, basic Jobs</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
     
-    <!-- Getting Started with Codespace -->
+    <!-- What You'll Learn -->
     <section class="py-16 px-4 bg-slate-900/50">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="comic-title text-3xl text-center mb-8">What You'll Learn</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="panel">
+                    <h3 class="text-xl font-bold text-blue-400 mb-4">📥 CSV Import Jobs</h3>
+                    <ul class="space-y-2 text-slate-300">
+                        <li>✓ FileVar for file uploads</li>
+                        <li>✓ Parsing CSV in Nautobot Jobs</li>
+                        <li>✓ Creating Devices, DeviceTypes</li>
+                        <li>✓ Handling related objects (Locations, Roles)</li>
+                        <li>✓ Error handling and validation</li>
+                        <li>✓ Idempotent imports (get_or_create)</li>
+                    </ul>
+                </div>
+                
+                <div class="panel featured">
+                    <h3 class="text-xl font-bold text-emerald-400 mb-4">📤 CSV Export Jobs</h3>
+                    <ul class="space-y-2 text-slate-300">
+                        <li>✓ Querying Nautobot data</li>
+                        <li>✓ Filtering with QuerySets</li>
+                        <li>✓ Generating CSV output</li>
+                        <li>✓ HttpResponse for downloads</li>
+                        <li>✓ Custom report formatting</li>
+                        <li>✓ Multi-model exports</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="panel mt-6">
+                <h3 class="text-xl font-bold text-purple-400 mb-4">🔧 Nautobot Models Covered</h3>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm">Device</span>
+                    <span class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm">DeviceType</span>
+                    <span class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm">Manufacturer</span>
+                    <span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded-full text-sm">IPAddress</span>
+                    <span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded-full text-sm">Prefix</span>
+                    <span class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">Interface</span>
+                    <span class="px-3 py-1 bg-amber-500/20 text-amber-400 rounded-full text-sm">Location</span>
+                    <span class="px-3 py-1 bg-amber-500/20 text-amber-400 rounded-full text-sm">Role</span>
+                    <span class="px-3 py-1 bg-slate-500/20 text-slate-400 rounded-full text-sm">Status</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Getting Started -->
+    <section class="py-16 px-4">
         <div class="max-w-3xl mx-auto text-center">
-            <h2 class="comic-title text-3xl mb-6">Ready to Practice?</h2>
+            <h2 class="comic-title text-3xl mb-6">Ready to Start?</h2>
             <p class="text-slate-300 mb-8">
-                Launch this repository in GitHub Codespace for a ready-to-use Python environment. 
-                Follow along with the exercises as you read each chapter!
+                This tutorial uses the <strong>100-days-of-nautobot</strong> Codespace environment. 
+                You'll have a fully configured Nautobot instance ready to go!
             </p>
             
             <div class="try-it-section">
                 <h3>🚀 Launch Your Lab</h3>
                 <p class="text-slate-400 mb-6">
-                    Click the button below to open this project in GitHub Codespace. 
-                    All dependencies are pre-configured!
+                    Follow along with Chapter 1 to set up your Codespace environment 
+                    with Nautobot and start building Jobs.
                 </p>
-                <a href="https://github.com/codespaces/new" target="_blank" class="exercise-link">
-                    <span>⚡</span>
-                    <span>Open in Codespace</span>
+                <a href="chapters/chapter-1.html" class="exercise-link">
+                    <span>📖</span>
+                    <span>Start Chapter 1</span>
                 </a>
             </div>
         </div>
@@ -223,17 +273,17 @@
     <footer class="py-8 px-4 border-t border-slate-800">
         <div class="max-w-4xl mx-auto text-center text-slate-500">
             <p class="mb-2">
-                <span class="text-2xl">📊</span> The CSV Chronicles
+                <span class="text-2xl">🔄</span> The CSV Chronicles: The Merger
             </p>
             <p class="text-sm">
-                A learning experience inspired by 
+                Built on 
                 <a href="https://github.com/nautobot/100-days-of-nautobot" 
                    class="text-blue-400 hover:underline" target="_blank">
                     100 Days of Nautobot
                 </a>
             </p>
             <p class="text-xs mt-4">
-                Built with ❤️ for network engineers learning automation
+                An intermediate tutorial for network engineers mastering Nautobot automation
             </p>
         </div>
     </footer>
@@ -243,4 +293,3 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
 </body>
 </html>
-

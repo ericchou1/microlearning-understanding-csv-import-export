@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapter 2: Making Sense of Chaos | The CSV Chronicles</title>
+    <title>Chapter 2: Importing the Fleet | The CSV Chronicles</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -19,7 +19,7 @@
     <nav class="bg-slate-900/80 backdrop-blur-sm sticky top-0 z-50 border-b border-slate-800">
         <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
             <a href="../index.html" class="flex items-center gap-2 text-slate-300 hover:text-white">
-                <span>📊</span>
+                <span>🔄</span>
                 <span class="font-bold">The CSV Chronicles</span>
             </a>
             <div class="flex items-center gap-4">
@@ -33,8 +33,8 @@
     <!-- Chapter Title Card -->
     <div class="chapter-title-card mx-4 mt-8 md:mx-auto md:max-w-4xl">
         <div class="chapter-number">CHAPTER TWO</div>
-        <h1>Making Sense of Chaos</h1>
-        <p class="subtitle">In which our hero learns to read, validate, and understand the data</p>
+        <h1>Importing the Fleet</h1>
+        <p class="subtitle">In which our hero builds a CSV import Job and brings TechNova's devices into Nautobot</p>
     </div>
 
     <!-- Story Content -->
@@ -43,14 +43,50 @@
         <!-- Opening Scene -->
         <div class="comic-page">
             <div class="narrator-box mb-6">
-                The next morning. Alex arrives early, armed with coffee and determination...
+                Tuesday morning. Alex opens the first CSV file from TechNova and starts planning the import Job...
             </div>
             
             <div class="comic-row cols-2">
                 <div class="panel">
-                    <div class="panel-scene flex-col">
-                        <span class="text-5xl mb-2">☕</span>
+                    <div class="narrator-box mb-4">
+                        The TechNova device inventory CSV:
                     </div>
+                    <div class="csv-preview">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>hostname</th>
+                                    <th>device_type</th>
+                                    <th>role</th>
+                                    <th>location</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>tn-sw-01</td>
+                                    <td>Catalyst 9300</td>
+                                    <td>Access Switch</td>
+                                    <td>TechNova HQ</td>
+                                </tr>
+                                <tr>
+                                    <td>tn-rtr-core</td>
+                                    <td>ASR 1001-X</td>
+                                    <td>Core Router</td>
+                                    <td>TechNova DC</td>
+                                </tr>
+                                <tr>
+                                    <td>tn-fw-01</td>
+                                    <td>Firepower 2110</td>
+                                    <td>Firewall</td>
+                                    <td>TechNova DC</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-2">... and 2,844 more rows</p>
+                </div>
+                
+                <div class="panel">
                     <div class="character">
                         <div class="character-avatar">👨‍💻</div>
                         <div>
@@ -58,81 +94,32 @@
                         </div>
                     </div>
                     <div class="thought-bubble">
-                        Yesterday I learned to read CSVs. Today, I need to actually understand what's in them...
-                    </div>
-                </div>
-                
-                <div class="panel chaos">
-                    <div class="narrator-box warning mb-4">
-                        But the data had other plans...
-                    </div>
-                    <div class="code-panel">
-                        <div class="code-panel-header">
-                            <div class="dots">
-                                <div class="dot red"></div>
-                                <div class="dot yellow"></div>
-                                <div class="dot green"></div>
-                            </div>
-                            <span class="filename">devices_old.csv</span>
-                        </div>
-                        <pre><code class="language-text">hostname,ip,type,loc
-sw01,10.0.1.1,switch,Bldg A
-,10.0.1.2,switch,
-ROUTER-CORE,10.0.0.1,rtr,DC
-fw-main,NOT_ASSIGNED,firewall,DC
-switch-03,10.0.1.3,Switch,Building A</code></pre>
-                    </div>
-                    <div class="sfx text-center mt-3">YIKES!</div>
-                </div>
-            </div>
-            
-            <!-- Problem Discovery -->
-            <div class="comic-row cols-1 mt-6">
-                <div class="panel">
-                    <div class="character">
-                        <div class="character-avatar">👨‍💻</div>
-                        <div>
-                            <div class="character-name text-sm">Alex</div>
-                        </div>
-                    </div>
-                    <div class="shout-bubble mx-auto">
-                        THE DATA IS A MESS!
+                        Clean column names, consistent formatting... TechNova's IT team did good work.
+                        Now I need to map these to Nautobot objects.
                     </div>
                     
-                    <div class="grid md:grid-cols-2 gap-4 mt-6">
-                        <div class="bg-red-900/30 border border-red-500/50 rounded-lg p-4">
-                            <h4 class="font-bold text-red-400 mb-2">🚨 Problems Found:</h4>
-                            <ul class="text-sm text-slate-300 space-y-1">
-                                <li>• Missing hostnames</li>
-                                <li>• Empty location fields</li>
-                                <li>• Inconsistent type names (rtr vs router)</li>
-                                <li>• Invalid IP addresses</li>
-                                <li>• Inconsistent capitalization</li>
-                            </ul>
-                        </div>
-                        <div class="bg-emerald-900/30 border border-emerald-500/50 rounded-lg p-4">
-                            <h4 class="font-bold text-emerald-400 mb-2">✅ Alex's Plan:</h4>
-                            <ul class="text-sm text-slate-300 space-y-1">
-                                <li>1. Read and inspect the data</li>
-                                <li>2. Validate each field</li>
-                                <li>3. Clean and normalize values</li>
-                                <li>4. Report errors for manual review</li>
-                            </ul>
+                    <div class="bg-slate-800 rounded-lg p-3 mt-4 text-sm">
+                        <div class="text-amber-400 font-bold mb-2">CSV → Nautobot Mapping:</div>
+                        <div class="space-y-1 text-slate-300">
+                            <div><code>hostname</code> → <code>Device.name</code></div>
+                            <div><code>device_type</code> → <code>Device.device_type</code></div>
+                            <div><code>role</code> → <code>Device.role</code></div>
+                            <div><code>location</code> → <code>Device.location</code></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         
-        <!-- Learning Section: Reading with Validation -->
+        <!-- Building the Import Job -->
         <section class="mt-12">
-            <h2 class="comic-title text-3xl text-center mb-8">📚 Reading CSVs with Validation</h2>
+            <h2 class="comic-title text-3xl text-center mb-8">🛠️ Building the Import Job</h2>
             
             <div class="panel mb-6">
-                <h3 class="text-xl font-bold text-blue-400 mb-4">Step 1: Inspect the Data First</h3>
+                <h3 class="text-xl font-bold text-blue-400 mb-4">Step 1: Basic Structure with FileVar</h3>
                 
                 <p class="text-slate-300 mb-4">
-                    Before processing, Alex writes a script to understand the data:
+                    Alex starts with the Job structure, using <code>FileVar</code> to accept CSV uploads:
                 </p>
                 
                 <div class="code-panel">
@@ -142,217 +129,377 @@ switch-03,10.0.1.3,Switch,Building A</code></pre>
                             <div class="dot yellow"></div>
                             <div class="dot green"></div>
                         </div>
-                        <span class="filename">inspect_csv.py</span>
+                        <span class="filename">jobs/device_import.py</span>
                     </div>
                     <pre><code class="language-python">import csv
+from io import StringIO
 
-def inspect_csv(filename: str) -> None:
-    """Inspect a CSV file and report its structure."""
-    with open(filename, 'r') as file:
-        reader = csv.DictReader(file)
-        
-        # Get the column names
-        print(f"📋 Columns: {reader.fieldnames}")
-        
-        # Count rows and check for issues
-        row_count = 0
-        empty_fields = {field: 0 for field in reader.fieldnames}
-        
-        for row in reader:
-            row_count += 1
-            for field, value in row.items():
-                if not value or value.strip() == '':
-                    empty_fields[field] += 1
-        
-        print(f"📊 Total rows: {row_count}")
-        print(f"⚠️  Empty fields:")
-        for field, count in empty_fields.items():
-            if count > 0:
-                print(f"   - {field}: {count} empty")
+from nautobot.apps.jobs import Job, register_jobs, FileVar
+from nautobot.dcim.models import Device, DeviceType, Location
+from nautobot.extras.models import Role, Status
 
-# Run inspection
-inspect_csv('devices_old.csv')</code></pre>
-                </div>
-                
-                <div class="code-panel mt-4">
-                    <div class="code-panel-header">
-                        <div class="dots">
-                            <div class="dot red"></div>
-                            <div class="dot yellow"></div>
-                            <div class="dot green"></div>
-                        </div>
-                        <span class="filename">Output</span>
-                    </div>
-                    <pre><code class="language-text">📋 Columns: ['hostname', 'ip', 'type', 'loc']
-📊 Total rows: 5
-⚠️  Empty fields:
-   - hostname: 1 empty
-   - loc: 1 empty</code></pre>
-                </div>
-            </div>
-            
-            <!-- Validation Functions -->
-            <div class="panel mb-6">
-                <h3 class="text-xl font-bold text-amber-400 mb-4">Step 2: Create Validation Functions</h3>
-                
-                <p class="text-slate-300 mb-4">
-                    Alex creates helper functions to validate each type of field:
-                </p>
-                
-                <div class="code-panel">
-                    <div class="code-panel-header">
-                        <div class="dots">
-                            <div class="dot red"></div>
-                            <div class="dot yellow"></div>
-                            <div class="dot green"></div>
-                        </div>
-                        <span class="filename">validators.py</span>
-                    </div>
-                    <pre><code class="language-python">import re
 
-def is_valid_hostname(hostname: str) -> bool:
-    """Check if hostname is valid (not empty, alphanumeric with dashes)."""
-    if not hostname or not hostname.strip():
-        return False
-    # Hostname pattern: letters, numbers, dashes
-    pattern = r'^[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9]$|^[a-zA-Z0-9]$'
-    return bool(re.match(pattern, hostname))
-
-def is_valid_ip(ip_address: str) -> bool:
-    """Check if IP address is valid IPv4 format."""
-    if not ip_address or not ip_address.strip():
-        return False
-    # Simple IPv4 pattern
-    pattern = r'^(\d{1,3}\.){3}\d{1,3}$'
-    if not re.match(pattern, ip_address):
-        return False
-    # Check each octet is 0-255
-    octets = ip_address.split('.')
-    return all(0 <= int(octet) <= 255 for octet in octets)
-
-def normalize_device_type(device_type: str) -> str:
-    """Normalize device type to standard values."""
-    type_mapping = {
-        'sw': 'switch',
-        'switch': 'switch',
-        'rtr': 'router',
-        'router': 'router',
-        'fw': 'firewall',
-        'firewall': 'firewall',
-    }
-    normalized = device_type.lower().strip()
-    return type_mapping.get(normalized, normalized)
-
-# Test the validators
-print(is_valid_hostname("switch-01"))  # True
-print(is_valid_hostname(""))           # False
-print(is_valid_ip("10.0.1.1"))         # True
-print(is_valid_ip("NOT_ASSIGNED"))     # False
-print(normalize_device_type("rtr"))    # router</code></pre>
-                </div>
-            </div>
-            
-            <!-- Complete Validation Script -->
-            <div class="panel mb-6">
-                <h3 class="text-xl font-bold text-emerald-400 mb-4">Step 3: Process with Validation</h3>
-                
-                <p class="text-slate-300 mb-4">
-                    Now Alex combines everything into a complete validation script:
-                </p>
-                
-                <div class="code-panel">
-                    <div class="code-panel-header">
-                        <div class="dots">
-                            <div class="dot red"></div>
-                            <div class="dot yellow"></div>
-                            <div class="dot green"></div>
-                        </div>
-                        <span class="filename">validate_devices.py</span>
-                    </div>
-                    <pre><code class="language-python">import csv
-from dataclasses import dataclass
-from typing import Optional
-
-@dataclass
-class ValidationResult:
-    """Result of validating a single row."""
-    row_number: int
-    is_valid: bool
-    errors: list[str]
-    data: Optional[dict] = None
-
-def validate_row(row_num: int, row: dict) -> ValidationResult:
-    """Validate a single CSV row and return results."""
-    errors = []
+class DeviceCSVImport(Job):
+    """Import devices from a CSV file into Nautobot."""
     
-    # Check hostname
-    hostname = row.get('hostname', '').strip()
-    if not hostname:
-        errors.append("Missing hostname")
-    elif not is_valid_hostname(hostname):
-        errors.append(f"Invalid hostname: {hostname}")
+    class Meta:
+        name = "Device CSV Import"
+        description = "Upload a CSV file to import devices from TechNova acquisition"
     
-    # Check IP address
-    ip = row.get('ip', '').strip()
-    if not ip:
-        errors.append("Missing IP address")
-    elif not is_valid_ip(ip):
-        errors.append(f"Invalid IP: {ip}")
-    
-    # Normalize device type
-    device_type = normalize_device_type(row.get('type', ''))
-    if not device_type:
-        errors.append("Missing device type")
-    
-    # Check location
-    location = row.get('loc', '').strip()
-    if not location:
-        errors.append("Missing location")
-    
-    return ValidationResult(
-        row_number=row_num,
-        is_valid=len(errors) == 0,
-        errors=errors,
-        data={
-            'hostname': hostname.lower(),
-            'ip_address': ip,
-            'device_type': device_type,
-            'location': location
-        } if not errors else None
+    csv_file = FileVar(
+        description="CSV file with columns: hostname, device_type, role, location"
     )
-
-def process_csv(filename: str) -> tuple[list[dict], list[ValidationResult]]:
-    """Process CSV file, returning valid data and validation errors."""
-    valid_devices = []
-    all_results = []
     
-    with open(filename, 'r') as file:
-        reader = csv.DictReader(file)
+    def run(self, csv_file):
+        """Process the uploaded CSV and create devices."""
         
-        for row_num, row in enumerate(reader, start=2):  # Start at 2 (header is row 1)
-            result = validate_row(row_num, row)
-            all_results.append(result)
-            
-            if result.is_valid:
-                valid_devices.append(result.data)
-            else:
-                print(f"⚠️  Row {row_num}: {', '.join(result.errors)}")
-    
-    return valid_devices, all_results
+        # Read and decode the file
+        file_content = csv_file.read().decode('utf-8')
+        self.logger.info(f"Received CSV file: {len(file_content)} bytes")
+        
+        # Parse CSV
+        reader = csv.DictReader(StringIO(file_content))
+        
+        # Get the Active status (we'll use this for all imported devices)
+        active_status = Status.objects.get(name="Active")
+        
+        # Process each row
+        created_count = 0
+        for row in reader:
+            # We'll add the creation logic next...
+            pass
+        
+        return f"Import complete! Created {created_count} devices."
 
-# Run the processor
-valid, results = process_csv('devices_old.csv')
-print(f"\n✅ Valid devices: {len(valid)}")
-print(f"❌ Invalid rows: {len([r for r in results if not r.is_valid])}")</code></pre>
+register_jobs(DeviceCSVImport)</code></pre>
+                </div>
+                
+                <div class="bg-blue-900/30 border border-blue-500/50 rounded-lg p-4 mt-4">
+                    <h4 class="font-bold text-blue-400 mb-2">🔑 Key Imports</h4>
+                    <ul class="text-sm text-slate-300 space-y-1">
+                        <li><code>StringIO</code> - Lets us use csv.DictReader on a string</li>
+                        <li><code>FileVar</code> - Creates file upload field in the Job UI</li>
+                        <li><code>Device, DeviceType, Location</code> - Nautobot DCIM models</li>
+                        <li><code>Role, Status</code> - Nautobot extras models</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Step 2: Looking up related objects -->
+            <div class="panel mb-6">
+                <h3 class="text-xl font-bold text-emerald-400 mb-4">Step 2: Looking Up Related Objects</h3>
+                
+                <div class="comic-row cols-2 mb-4">
+                    <div class="panel">
+                        <div class="character">
+                            <div class="character-avatar">👨‍💻</div>
+                            <div>
+                                <div class="character-name text-sm">Alex</div>
+                            </div>
+                        </div>
+                        <div class="thought-bubble">
+                            A Device in Nautobot has relationships to other objects. 
+                            I need to look up each one before creating the Device.
+                        </div>
+                    </div>
+                    <div class="bg-slate-800 rounded-lg p-4">
+                        <div class="text-sm text-slate-300">
+                            <div class="font-bold text-purple-400 mb-2">Device Relationships:</div>
+                            <div class="space-y-1">
+                                <div>→ DeviceType (required)</div>
+                                <div>→ Location (required)</div>
+                                <div>→ Role (required)</div>
+                                <div>→ Status (required)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <p class="text-slate-300 mb-4">
+                    Alex adds the logic to look up each related object using Django's ORM:
+                </p>
+                
+                <div class="code-panel">
+                    <div class="code-panel-header">
+                        <div class="dots">
+                            <div class="dot red"></div>
+                            <div class="dot yellow"></div>
+                            <div class="dot green"></div>
+                        </div>
+                        <span class="filename">jobs/device_import.py (updated run method)</span>
+                    </div>
+                    <pre><code class="language-python">def run(self, csv_file):
+    """Process the uploaded CSV and create devices."""
+    
+    # Read and decode the file
+    file_content = csv_file.read().decode('utf-8')
+    self.logger.info(f"Processing CSV file...")
+    
+    # Parse CSV
+    reader = csv.DictReader(StringIO(file_content))
+    
+    # Get the Active status
+    active_status = Status.objects.get(name="Active")
+    
+    # Track results
+    created_count = 0
+    error_count = 0
+    
+    for row_num, row in enumerate(reader, start=2):
+        hostname = row.get('hostname', '').strip()
+        device_type_name = row.get('device_type', '').strip()
+        role_name = row.get('role', '').strip()
+        location_name = row.get('location', '').strip()
+        
+        # Look up related objects
+        try:
+            device_type = DeviceType.objects.get(model=device_type_name)
+        except DeviceType.DoesNotExist:
+            self.logger.warning(f"Row {row_num}: DeviceType '{device_type_name}' not found, skipping")
+            error_count += 1
+            continue
+        
+        try:
+            role = Role.objects.get(name=role_name)
+        except Role.DoesNotExist:
+            self.logger.warning(f"Row {row_num}: Role '{role_name}' not found, skipping")
+            error_count += 1
+            continue
+        
+        try:
+            location = Location.objects.get(name=location_name)
+        except Location.DoesNotExist:
+            self.logger.warning(f"Row {row_num}: Location '{location_name}' not found, skipping")
+            error_count += 1
+            continue
+        
+        # Create the device (next step!)
+        # ...
+    
+    return f"Created {created_count} devices, {error_count} errors"</code></pre>
+                </div>
+                
+                <div class="narrator-box mt-4">
+                    💡 <strong>Important:</strong> The related objects (DeviceType, Role, Location) must already 
+                    exist in Nautobot before importing devices. We'll handle missing objects in Chapter 3!
+                </div>
+            </div>
+            
+            <!-- Step 3: Creating the Device -->
+            <div class="panel mb-6">
+                <h3 class="text-xl font-bold text-purple-400 mb-4">Step 3: Creating the Device</h3>
+                
+                <p class="text-slate-300 mb-4">
+                    With all related objects found, Alex adds the device creation code:
+                </p>
+                
+                <div class="code-panel">
+                    <div class="code-panel-header">
+                        <div class="dots">
+                            <div class="dot red"></div>
+                            <div class="dot yellow"></div>
+                            <div class="dot green"></div>
+                        </div>
+                        <span class="filename">Device creation code</span>
+                    </div>
+                    <pre><code class="language-python"># After looking up all related objects...
+
+# Create the device
+device = Device(
+    name=hostname,
+    device_type=device_type,
+    role=role,
+    location=location,
+    status=active_status,
+)
+
+# validated_save() validates the data before saving
+device.validated_save()
+
+self.logger.info(f"✅ Created device: {hostname}")
+created_count += 1</code></pre>
+                </div>
+                
+                <div class="bg-emerald-900/30 border border-emerald-500/50 rounded-lg p-4 mt-4">
+                    <h4 class="font-bold text-emerald-400 mb-2">Why validated_save()?</h4>
+                    <p class="text-sm text-slate-300">
+                        <code>validated_save()</code> is Nautobot's enhanced save method that:
+                    </p>
+                    <ul class="text-sm text-slate-300 mt-2 space-y-1">
+                        <li>• Runs model validation before saving</li>
+                        <li>• Ensures all required fields are present</li>
+                        <li>• Raises clear errors if validation fails</li>
+                    </ul>
+                    <p class="text-sm text-slate-400 mt-2">
+                        Always prefer <code>validated_save()</code> over <code>save()</code> in Nautobot Jobs!
+                    </p>
                 </div>
             </div>
         </section>
         
-        <!-- Alex's Progress Scene -->
+        <!-- Complete Job -->
         <section class="mt-12">
+            <h2 class="comic-title text-3xl text-center mb-8">📋 The Complete Import Job</h2>
+            
+            <div class="panel mb-6">
+                <div class="code-panel">
+                    <div class="code-panel-header">
+                        <div class="dots">
+                            <div class="dot red"></div>
+                            <div class="dot yellow"></div>
+                            <div class="dot green"></div>
+                        </div>
+                        <span class="filename">jobs/device_import.py (complete)</span>
+                    </div>
+                    <pre><code class="language-python">import csv
+from io import StringIO
+
+from nautobot.apps.jobs import Job, register_jobs, FileVar
+from nautobot.dcim.models import Device, DeviceType, Location
+from nautobot.extras.models import Role, Status
+
+
+class DeviceCSVImport(Job):
+    """Import devices from a CSV file into Nautobot."""
+    
+    class Meta:
+        name = "Device CSV Import"
+        description = "Upload a CSV file to import devices"
+    
+    csv_file = FileVar(
+        description="CSV file with columns: hostname, device_type, role, location"
+    )
+    
+    def run(self, csv_file):
+        """Process the uploaded CSV and create devices."""
+        
+        # Read and decode the file
+        file_content = csv_file.read().decode('utf-8')
+        self.logger.info("Processing CSV file...")
+        
+        # Parse CSV using StringIO to treat string as file
+        reader = csv.DictReader(StringIO(file_content))
+        
+        # Get the Active status once (reuse for all devices)
+        active_status = Status.objects.get(name="Active")
+        
+        # Track results
+        created_count = 0
+        error_count = 0
+        
+        for row_num, row in enumerate(reader, start=2):
+            # Extract fields from CSV row
+            hostname = row.get('hostname', '').strip()
+            device_type_name = row.get('device_type', '').strip()
+            role_name = row.get('role', '').strip()
+            location_name = row.get('location', '').strip()
+            
+            # Skip empty rows
+            if not hostname:
+                continue
+            
+            # Look up DeviceType
+            try:
+                device_type = DeviceType.objects.get(model=device_type_name)
+            except DeviceType.DoesNotExist:
+                self.logger.warning(
+                    f"Row {row_num}: DeviceType '{device_type_name}' not found"
+                )
+                error_count += 1
+                continue
+            
+            # Look up Role
+            try:
+                role = Role.objects.get(name=role_name)
+            except Role.DoesNotExist:
+                self.logger.warning(
+                    f"Row {row_num}: Role '{role_name}' not found"
+                )
+                error_count += 1
+                continue
+            
+            # Look up Location
+            try:
+                location = Location.objects.get(name=location_name)
+            except Location.DoesNotExist:
+                self.logger.warning(
+                    f"Row {row_num}: Location '{location_name}' not found"
+                )
+                error_count += 1
+                continue
+            
+            # Create the device
+            try:
+                device = Device(
+                    name=hostname,
+                    device_type=device_type,
+                    role=role,
+                    location=location,
+                    status=active_status,
+                )
+                device.validated_save()
+                self.logger.info(f"✅ Created: {hostname}")
+                created_count += 1
+                
+            except Exception as e:
+                self.logger.error(f"Row {row_num}: Failed to create {hostname}: {e}")
+                error_count += 1
+        
+        # Summary
+        self.logger.info("=" * 50)
+        self.logger.info(f"Import Complete!")
+        self.logger.info(f"  Created: {created_count}")
+        self.logger.info(f"  Errors: {error_count}")
+        
+        return f"Created {created_count} devices, {error_count} errors"
+
+
+register_jobs(DeviceCSVImport)</code></pre>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Running the Job -->
+        <section class="mt-12">
+            <h2 class="comic-title text-3xl text-center mb-8">🚀 Running the Import</h2>
+            
             <div class="comic-page">
-                <div class="comic-row cols-2">
+                <div class="comic-row cols-1">
                     <div class="panel">
+                        <div class="narrator-box mb-4">
+                            Alex enables the Job in Nautobot and runs the first test import...
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-4 mb-4">
+                            <div class="bg-slate-800 rounded-lg p-4">
+                                <h4 class="font-bold text-blue-400 mb-2">Step 1: Enable the Job</h4>
+                                <ol class="text-sm text-slate-300 space-y-1">
+                                    <li>1. Navigate to <strong>Jobs → Jobs</strong></li>
+                                    <li>2. Find "Device CSV Import"</li>
+                                    <li>3. Click <strong>Edit</strong></li>
+                                    <li>4. Check <strong>Enabled</strong></li>
+                                    <li>5. Click <strong>Save</strong></li>
+                                </ol>
+                            </div>
+                            <div class="bg-slate-800 rounded-lg p-4">
+                                <h4 class="font-bold text-emerald-400 mb-2">Step 2: Run the Job</h4>
+                                <ol class="text-sm text-slate-300 space-y-1">
+                                    <li>1. Click the Job name</li>
+                                    <li>2. Click <strong>Run</strong></li>
+                                    <li>3. Upload your CSV file</li>
+                                    <li>4. Click <strong>Run Job</strong></li>
+                                    <li>5. View results in Job log</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Job Output -->
+                <div class="comic-row cols-1 mt-6">
+                    <div class="panel success">
+                        <h4 class="font-bold text-emerald-400 mb-4">📋 Job Output</h4>
+                        
                         <div class="code-panel">
                             <div class="code-panel-header">
                                 <div class="dots">
@@ -360,124 +507,34 @@ print(f"❌ Invalid rows: {len([r for r in results if not r.is_valid])}")</code>
                                     <div class="dot yellow"></div>
                                     <div class="dot green"></div>
                                 </div>
-                                <span class="filename">Terminal Output</span>
+                                <span class="filename">Job Log</span>
                             </div>
-                            <pre><code class="language-text">$ python validate_devices.py
-⚠️  Row 3: Missing hostname, Missing location
-⚠️  Row 5: Invalid IP: NOT_ASSIGNED
+                            <pre><code class="language-text">INFO | Processing CSV file...
+INFO | ✅ Created: tn-sw-01
+INFO | ✅ Created: tn-sw-02
+INFO | ✅ Created: tn-sw-03
+WARNING | Row 5: DeviceType 'Unknown Model' not found
+INFO | ✅ Created: tn-rtr-core
+INFO | ✅ Created: tn-fw-01
+INFO | ==================================================
+INFO | Import Complete!
+INFO |   Created: 5
+INFO |   Errors: 1
 
-✅ Valid devices: 3
-❌ Invalid rows: 2</code></pre>
+Job completed: Created 5 devices, 1 errors</code></pre>
                         </div>
-                    </div>
-                    
-                    <div class="panel success">
-                        <div class="character">
+                        
+                        <div class="character justify-center mt-4">
                             <div class="character-avatar">👨‍💻</div>
                             <div>
-                                <div class="character-name text-sm">Alex</div>
+                                <div class="character-name">Alex</div>
                             </div>
                         </div>
-                        <div class="speech-bubble">
-                            "Now I know exactly which rows have problems! I can fix them manually 
-                            or flag them for review."
-                        </div>
-                        <div class="thought-bubble mt-4">
-                            But I have 50 CSV files to process... I need to automate this further.
+                        <div class="speech-bubble mx-auto" style="max-width: 450px;">
+                            "It's working! The devices are being created. But that error... 
+                            what happens if I run this twice? I need better error handling."
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Bonus: Pandas Section -->
-        <section class="mt-12">
-            <h2 class="comic-title text-3xl text-center mb-8">🐼 Bonus: Power Up with Pandas</h2>
-            
-            <div class="panel featured mb-6">
-                <div class="narrator-box mb-4">
-                    A colleague stops by Alex's desk...
-                </div>
-                
-                <div class="comic-row cols-2 gap-4">
-                    <div>
-                        <div class="character">
-                            <div class="character-avatar" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">👩‍💻</div>
-                            <div>
-                                <div class="character-name text-sm" style="color: #10b981;">Sam</div>
-                                <div class="text-slate-500 text-xs">Data Analyst</div>
-                            </div>
-                        </div>
-                        <div class="speech-bubble">
-                            "Hey Alex! If you're dealing with lots of CSV files, you should try Pandas. 
-                            It's a game-changer for data processing!"
-                        </div>
-                    </div>
-                    <div>
-                        <div class="character">
-                            <div class="character-avatar">👨‍💻</div>
-                            <div>
-                                <div class="character-name text-sm">Alex</div>
-                            </div>
-                        </div>
-                        <div class="speech-bubble">
-                            "Pandas? Like the bear?"
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="panel mb-6">
-                <h3 class="text-xl font-bold text-purple-400 mb-4">Reading CSVs with Pandas</h3>
-                
-                <p class="text-slate-300 mb-4">
-                    Pandas makes CSV handling incredibly powerful with just a few lines:
-                </p>
-                
-                <div class="code-panel">
-                    <div class="code-panel-header">
-                        <div class="dots">
-                            <div class="dot red"></div>
-                            <div class="dot yellow"></div>
-                            <div class="dot green"></div>
-                        </div>
-                        <span class="filename">pandas_example.py</span>
-                    </div>
-                    <pre><code class="language-python">import pandas as pd
-
-# Read CSV into a DataFrame
-df = pd.read_csv('devices_old.csv')
-
-# Quick overview of the data
-print(df.info())
-print("\n" + "="*50 + "\n")
-
-# Show first few rows
-print(df.head())
-print("\n" + "="*50 + "\n")
-
-# Find rows with missing values
-print("Rows with missing data:")
-print(df[df.isnull().any(axis=1)])
-print("\n" + "="*50 + "\n")
-
-# Get unique values in a column
-print(f"Device types found: {df['type'].unique()}")
-
-# Filter data
-switches = df[df['type'].str.lower().isin(['switch', 'sw'])]
-print(f"\nFound {len(switches)} switches")</code></pre>
-                </div>
-                
-                <div class="bg-purple-900/30 border border-purple-500/50 rounded-lg p-4 mt-4">
-                    <h4 class="font-bold text-purple-400 mb-2">🐼 Why Pandas?</h4>
-                    <ul class="text-sm text-slate-300 space-y-1">
-                        <li>• Read/write CSVs in one line</li>
-                        <li>• Powerful filtering and querying</li>
-                        <li>• Handle missing data gracefully</li>
-                        <li>• Transform and clean data easily</li>
-                        <li>• Export to multiple formats</li>
-                    </ul>
                 </div>
             </div>
         </section>
@@ -489,38 +546,37 @@ print(f"\nFound {len(switches)} switches")</code></pre>
                 
                 <div class="grid md:grid-cols-2 gap-6">
                     <div>
-                        <h4 class="font-bold text-blue-400 mb-3">Data Validation</h4>
+                        <h4 class="font-bold text-blue-400 mb-3">CSV Import Basics</h4>
                         <ul class="space-y-2 text-slate-300 text-sm">
-                            <li>✓ Always inspect data before processing</li>
-                            <li>✓ Check for missing/empty values</li>
-                            <li>✓ Validate data formats (IP, hostname)</li>
-                            <li>✓ Normalize inconsistent values</li>
+                            <li>✓ <code>FileVar</code> creates file upload UI</li>
+                            <li>✓ <code>StringIO</code> wraps string for csv.DictReader</li>
+                            <li>✓ Decode bytes: <code>.read().decode('utf-8')</code></li>
+                            <li>✓ Track row numbers for error reporting</li>
                         </ul>
                     </div>
                     <div>
-                        <h4 class="font-bold text-emerald-400 mb-3">Best Practices</h4>
+                        <h4 class="font-bold text-emerald-400 mb-3">Creating Objects</h4>
                         <ul class="space-y-2 text-slate-300 text-sm">
-                            <li>✓ Create reusable validation functions</li>
-                            <li>✓ Report errors with row numbers</li>
-                            <li>✓ Separate valid from invalid data</li>
-                            <li>✓ Consider Pandas for complex tasks</li>
+                            <li>✓ Look up related objects first</li>
+                            <li>✓ Handle <code>DoesNotExist</code> exceptions</li>
+                            <li>✓ Use <code>validated_save()</code> to save</li>
+                            <li>✓ Log progress with <code>self.logger</code></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </section>
         
-        <!-- Try It Yourself -->
-        <div class="try-it-section mt-12">
-            <h3>🧪 Try It Yourself!</h3>
-            <p class="text-slate-400 mb-4">
-                Practice reading and validating CSV data with Python. 
-                The exercise includes messy sample data to clean!
-            </p>
-            <a href="../exercises/exercise-2.py" class="exercise-link">
-                <span>📝</span>
-                <span>Open Exercise 2</span>
-            </a>
+        <!-- Next Chapter Teaser -->
+        <div class="panel mt-8" style="border-color: #f59e0b;">
+            <div class="text-center">
+                <div class="text-3xl mb-2">⚠️</div>
+                <h3 class="text-xl font-bold text-amber-400 mb-2">Coming Up Next...</h3>
+                <p class="text-slate-300">
+                    In Chapter 3, Alex discovers the dangers of running imports twice, learns about 
+                    idempotency, and builds robust error handling with <code>get_or_create</code>.
+                </p>
+            </div>
         </div>
         
         <!-- Chapter Navigation -->
@@ -541,8 +597,8 @@ print(f"\nFound {len(switches)} switches")</code></pre>
     <footer class="py-8 px-4 border-t border-slate-800 mt-12">
         <div class="max-w-4xl mx-auto text-center text-slate-500">
             <p class="text-sm">
-                <a href="../index.html" class="text-blue-400 hover:underline">The CSV Chronicles</a>
-                · A learning adventure for network engineers
+                <a href="../index.html" class="text-blue-400 hover:underline">The CSV Chronicles: The Merger</a>
+                · An intermediate Nautobot tutorial
             </p>
         </div>
     </footer>
@@ -552,4 +608,3 @@ print(f"\nFound {len(switches)} switches")</code></pre>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
 </body>
 </html>
-
