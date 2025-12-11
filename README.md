@@ -1,7 +1,7 @@
 # Nautobot CSV Import & Export Jobs
 
 <a href="https://ericchou1.github.io/microlearning-understanding-csv-import-export/" target="_blank">
-  <img src="https://img.shields.io/badge/View%20Live%20Site-00FFFF?style=for-the-badge&logo=github" alt="View Live Site">
+  <img src="assets/images/enter-button.svg" alt="Enter The Protocol">
 </a>
 
 A practical guide to building Nautobot Jobs for CSV import and export operations.
