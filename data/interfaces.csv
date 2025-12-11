@@ -1,0 +1,11 @@
+device,name,type,enabled,description
+tn-sw-01,GigabitEthernet0/1,1000base-t,true,Uplink to core
+tn-sw-01,GigabitEthernet0/2,1000base-t,true,Access port
+tn-sw-01,Vlan100,virtual,true,Management VLAN
+tn-sw-02,GigabitEthernet0/1,1000base-t,true,Uplink to core
+tn-sw-02,GigabitEthernet0/2,1000base-t,true,Access port
+tn-sw-02,Vlan100,virtual,true,Management VLAN
+tn-rtr-core,GigabitEthernet0/0,1000base-t,true,Core interface
+tn-rtr-core,GigabitEthernet0/1,1000base-t,true,To switch-01
+tn-rtr-core,GigabitEthernet0/2,1000base-t,true,To switch-02
+

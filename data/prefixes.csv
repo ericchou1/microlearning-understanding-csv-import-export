@@ -1,0 +1,7 @@
+prefix,namespace,status,description
+10.100.0.0/16,Global,Active,TechNova Main Network
+10.100.0.0/24,Global,Active,TechNova DC - Infrastructure
+10.100.1.0/24,Global,Active,TechNova HQ - Floor 1
+10.100.2.0/24,Global,Active,TechNova HQ - Floor 2
+10.100.10.0/24,Global,Active,TechNova Branch Office
+
