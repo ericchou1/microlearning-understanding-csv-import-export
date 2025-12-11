@@ -8,190 +8,159 @@
     <link rel="stylesheet" href="assets/css/cyberpunk.css">
 </head>
 <body>
-    <!-- Hero Section -->
+    <div id="character-creation-trigger"></div>
+
+    <!-- Cinematic Opening -->
     <section class="min-h-screen flex flex-col items-center justify-center text-center px-4 relative overflow-hidden">
-        <!-- Background grid effect -->
         <div class="absolute inset-0 opacity-10" style="background-image: linear-gradient(var(--neon-cyan) 1px, transparent 1px), linear-gradient(90deg, var(--neon-cyan) 1px, transparent 1px); background-size: 50px 50px;"></div>
         
-        <div class="relative z-10">
+        <div class="relative z-10 max-w-3xl">
             <div class="text-6xl mb-6">🔌</div>
-            
             <h1 class="neon-title text-5xl md:text-7xl mb-2">NETRUNNER</h1>
-            <h2 class="text-2xl md:text-3xl text-magenta mb-8" style="font-family: 'Orbitron', sans-serif; color: var(--neon-magenta);">
-                THE NAUTOBOT PROTOCOL
-            </h2>
+            <h2 class="text-2xl md:text-3xl mb-8" style="font-family: 'Orbitron', sans-serif; color: var(--neon-magenta);">THE NAUTOBOT PROTOCOL</h2>
             
-            <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-12">
-                Neo-Tokyo 2087. You are a netrunner hired to infiltrate network infrastructure databases. 
-                Master the art of CSV data manipulation to complete your mission.
-            </p>
+            <div id="character-status"></div>
             
-            <!-- XP Bar -->
-            <div class="max-w-md mx-auto mb-8">
-                <div class="flex justify-between text-sm mb-2">
-                    <span class="text-cyan" style="color: var(--neon-cyan);">LEVEL 1: INITIATE</span>
-                    <span class="text-gray-500">0 / 500 XP</span>
-                </div>
-                <div class="xp-bar-container">
-                    <div class="xp-bar" style="width: 0%;"></div>
-                </div>
+            <a href="#prologue" class="cyber-btn mt-8">
+                <span>◆</span>
+                <span>BEGIN</span>
+                <span>→</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- PROLOGUE -->
+    <section id="prologue" class="container scroll-reveal">
+        <div class="section-divider"><span>NEO-TOKYO 2087</span></div>
+        
+        <div class="narrative">
+            <p>The rain never stops in Neo-Tokyo.</p>
+            
+            <p class="mt-4">It drums against your window in the coffin apartment you call home—a 3x2 meter box stacked among thousands of others in the Shibuya megablock. The neon signs outside paint your walls in shifting colors: <em>cyan</em>, <em>magenta</em>, <em>yellow</em>. Advertisements for things you'll never afford.</p>
+            
+            <p class="mt-4">You're a <strong>netrunner</strong>. One of the ghosts who slip through corporate networks like water through cracks. You don't exist in their databases. You don't show up on their security feeds. You're nobody—and that's exactly what makes you valuable.</p>
+            
+            <p class="mt-4">Three weeks ago, you were just another code jockey scraping by on small jobs. Data recovery. Password cracks. Nothing glamorous.</p>
+            
+            <p class="mt-4">Then <strong>she</strong> found you.</p>
+        </div>
+    </section>
+
+    <!-- THE CONTACT -->
+    <section class="container scroll-reveal">
+        <div class="npc-card">
+            <div class="npc-portrait">👤</div>
+            <div class="npc-info">
+                <div class="npc-name">MAYA "ZERO" TANAKA</div>
+                <div class="npc-title">Fixer • Information Broker • Enigma</div>
+                <div class="npc-dialogue">"I've been watching you. You're careful. Methodical. You don't leave traces. That's rare. I have a client who needs someone exactly like you."</div>
             </div>
+        </div>
+        
+        <div class="narrative">
+            <p>Maya's message arrived encrypted seventeen layers deep—a test in itself. When you finally cracked it, you found coordinates to a ramen shop in the underground markets. She was waiting in the back booth, her face half-hidden by AR glasses that flickered with data streams you couldn't read.</p>
             
-            <a href="chapters/quest-01.html" class="cyber-btn">
+            <p class="mt-4">The job sounded simple at first: infiltrate a network database called <strong style="color: var(--neon-cyan);">NAUTOBOT</strong>. Extract information about network infrastructure—devices, IP addresses, configurations. Standard corporate espionage.</p>
+            
+            <p class="mt-4">But nothing is ever simple.</p>
+        </div>
+    </section>
+
+    <!-- THE CATCH -->
+    <section class="container scroll-reveal">
+        <div class="mission-briefing">
+            <p><strong style="color: var(--neon-orange);">// MAYA'S BRIEFING</strong></p>
+            <p class="mt-4">"The client is <strong>DataFlow Industries</strong>. Megacorp. Tier One. They want you to learn everything about how Nautobot handles CSV data streams—imports, exports, the whole pipeline."</p>
+            <p class="mt-4">"Here's the thing: they don't want you to just steal data. They want you to <em>understand</em> the system. Learn it from the inside. Become an expert. Then bring that knowledge back."</p>
+            <p class="mt-4" style="color: var(--neon-magenta);">"Why? That's above my pay grade. And yours. But the money's good. Real good."</p>
+        </div>
+        
+        <div class="narrative">
+            <p>You hesitated. Corps hiring netrunners to learn systems instead of just cracking them? That's unusual. Suspicious.</p>
+            
+            <p class="mt-4">But Maya was right about the money. Enough to get out of the coffin. Enough to disappear if things go wrong.</p>
+            
+            <p class="mt-4"><span class="action">*You accepted the job.*</span></p>
+        </div>
+    </section>
+
+    <!-- QUEST LOG -->
+    <section class="container scroll-reveal">
+        <div class="section-divider"><span>YOUR MISSION</span></div>
+        
+        <div id="quest-log">
+            <div class="quest-log-header">◆ ACTIVE MISSION ◆</div>
+            <div class="quest-log-title">THE NAUTOBOT PROTOCOL</div>
+            <div class="quest-log-status">Infiltrate and master the Nautobot CSV data pipeline</div>
+            <div class="quest-objective">
+                <span class="objective-check">☐</span>
+                Quest 1: Establish connection to the Nautobot system
+            </div>
+            <div class="quest-objective">
+                <span class="objective-check">☐</span>
+                Quest 2: Learn CSV import protocols (FileVar, parsing)
+            </div>
+            <div class="quest-objective">
+                <span class="objective-check">☐</span>
+                Quest 3: Master error handling and system conflicts
+            </div>
+            <div class="quest-objective">
+                <span class="objective-check">☐</span>
+                Quest 4: Extract data via CSV export
+            </div>
+            <div class="quest-objective">
+                <span class="objective-check">☐</span>
+                Quest 5: Complete multi-model pipeline integration
+            </div>
+        </div>
+        
+        <div class="narrative mt-8">
+            <p>Maya slides a chip across the table. <em>"Codespace access credentials. Clean. Untraceable. This is your way in."</em></p>
+            <p class="mt-4">You pocket the chip. Time to jack in.</p>
+        </div>
+        
+        <div class="text-center mt-8">
+            <a href="chapters/quest-01.html" class="cyber-btn green">
                 <span>◆</span>
                 <span>JACK IN</span>
                 <span>→</span>
             </a>
         </div>
     </section>
-    
-    <!-- Mission Briefing -->
-    <section class="container">
-        <div class="mission-briefing">
-            <p><strong class="text-cyan" style="color: var(--neon-orange);">INCOMING TRANSMISSION...</strong></p>
-            <p class="mt-4">
-                Agent, your skills are needed. <strong>DataFlow Industries</strong> has contracted you for a critical operation.
-            </p>
-            <p class="mt-2">
-                Your target: <strong class="text-cyan" style="color: var(--neon-cyan);">NAUTOBOT</strong> — a network infrastructure database containing valuable intel on network assets, IP addresses, and system configurations.
-            </p>
-            <p class="mt-2">
-                Your mission: Master <strong>CSV data stream manipulation</strong> to extract, transform, and control network data. Complete all five quests to unlock the title of <strong class="text-green" style="color: var(--neon-green);">DATA ARCHITECT</strong>.
-            </p>
-            <p class="mt-4 text-gray-500 text-sm">
-                // Prerequisites: Basic Python knowledge, CSV fundamentals, Nautobot familiarity required.
-            </p>
-        </div>
-    </section>
-    
-    <!-- Quest Log -->
-    <section class="container">
-        <div class="quest-log">
-            <a href="chapters/quest-01.html" class="quest-item active" style="text-decoration: none; color: inherit;">
-                <div class="quest-status">01</div>
-                <div class="flex-1">
-                    <div class="font-bold" style="font-family: 'Orbitron', sans-serif;">INITIALIZATION</div>
-                    <div class="text-sm text-gray-500">Boot the Nautobot system and establish connection</div>
-                </div>
-                <div class="text-sm" style="color: var(--neon-cyan);">+100 XP</div>
-            </a>
-            
-            <a href="chapters/quest-02.html" class="quest-item locked" style="text-decoration: none; color: inherit;">
-                <div class="quest-status">02</div>
-                <div class="flex-1">
-                    <div class="font-bold" style="font-family: 'Orbitron', sans-serif;">DATA EXTRACTION</div>
-                    <div class="text-sm text-gray-500">Import device data via CSV uplink</div>
-                </div>
-                <div class="text-sm" style="color: var(--neon-cyan);">+150 XP</div>
-            </a>
-            
-            <a href="chapters/quest-03.html" class="quest-item locked" style="text-decoration: none; color: inherit;">
-                <div class="quest-status">03</div>
-                <div class="flex-1">
-                    <div class="font-bold" style="font-family: 'Orbitron', sans-serif;">ERROR RECOVERY</div>
-                    <div class="text-sm text-gray-500">Handle corrupted data streams and system conflicts</div>
-                </div>
-                <div class="text-sm" style="color: var(--neon-cyan);">+150 XP</div>
-            </a>
-            
-            <a href="chapters/quest-04.html" class="quest-item locked" style="text-decoration: none; color: inherit;">
-                <div class="quest-status">04</div>
-                <div class="flex-1">
-                    <div class="font-bold" style="font-family: 'Orbitron', sans-serif;">DATA EXFILTRATION</div>
-                    <div class="text-sm text-gray-500">Export intel to CSV dropfiles for analysis</div>
-                </div>
-                <div class="text-sm" style="color: var(--neon-cyan);">+150 XP</div>
-            </a>
-            
-            <a href="chapters/quest-05.html" class="quest-item locked" style="text-decoration: none; color: inherit;">
-                <div class="quest-status">05</div>
-                <div class="flex-1">
-                    <div class="font-bold" style="font-family: 'Orbitron', sans-serif;">SYSTEM INTEGRATION</div>
-                    <div class="text-sm text-gray-500">Full network takeover — multi-model data pipeline</div>
-                </div>
-                <div class="text-sm" style="color: var(--neon-green);">+200 XP</div>
-            </a>
-        </div>
-    </section>
-    
-    <!-- Skills Preview -->
-    <section class="container mt-8">
-        <div class="section-divider">
-            <span>SKILLS TO UNLOCK</span>
-        </div>
+
+    <!-- WORLD INFO (Collapsible) -->
+    <section class="container scroll-reveal mb-16">
+        <div class="section-divider"><span>WORLD DATABASE</span></div>
         
-        <div class="grid-3 mt-6">
-            <div class="skill-card text-center">
-                <div class="skill-icon">📡</div>
-                <div class="skill-name">FILE_UPLOAD</div>
-                <div class="skill-level">Lv.0 → Lv.3</div>
-            </div>
-            <div class="skill-card text-center">
-                <div class="skill-icon">🔓</div>
-                <div class="skill-name">CSV_PARSE</div>
-                <div class="skill-level">Lv.0 → Lv.3</div>
-            </div>
-            <div class="skill-card text-center">
-                <div class="skill-icon">⚡</div>
-                <div class="skill-name">OBJECT_CREATE</div>
-                <div class="skill-level">Lv.0 → Lv.3</div>
-            </div>
-            <div class="skill-card text-center">
-                <div class="skill-icon">🛡️</div>
-                <div class="skill-name">ERROR_HANDLE</div>
-                <div class="skill-level">Lv.0 → Lv.3</div>
-            </div>
-            <div class="skill-card text-center">
-                <div class="skill-icon">🔍</div>
-                <div class="skill-name">QUERY_BUILD</div>
-                <div class="skill-level">Lv.0 → Lv.3</div>
-            </div>
-            <div class="skill-card text-center">
-                <div class="skill-icon">📤</div>
-                <div class="skill-name">EXPORT_STREAM</div>
-                <div class="skill-level">Lv.0 → Lv.3</div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- System Requirements -->
-    <section class="container mt-8 mb-16">
-        <div class="stats-panel">
-            <div class="stat-row">
-                <span class="stat-name">CODESPACE ACCESS</span>
-                <span class="stat-value">REQUIRED</span>
-            </div>
-            <div class="stat-row">
-                <span class="stat-name">PYTHON CLEARANCE</span>
-                <span class="stat-value">LEVEL 2+</span>
-            </div>
-            <div class="stat-row">
-                <span class="stat-name">CSV KNOWLEDGE</span>
-                <span class="stat-value">BASIC</span>
-            </div>
-            <div class="stat-row">
-                <span class="stat-name">NAUTOBOT FAMILIARITY</span>
-                <span class="stat-value">BASIC</span>
+        <div class="collapsible-trigger">THE CORPORATIONS</div>
+        <div class="collapsible-content">
+            <div class="p-4" style="background: var(--bg-tertiary); margin-bottom: 1rem;">
+                <p class="mb-4"><strong style="color: var(--neon-cyan);">DATAFLOW INDUSTRIES</strong> — Your mysterious client. Tier One megacorp specializing in network infrastructure. Their motto: "Connecting the Future."</p>
+                <p class="mb-4"><strong style="color: var(--neon-magenta);">NAUTOBOT SYSTEMS</strong> — The target. A cutting-edge network automation platform. Their database contains the blueprints of the world's most critical infrastructure.</p>
+                <p><strong style="color: var(--neon-orange);">THE SYNDICATE</strong> — Whispers say they're interested in the same data. Competition. Dangerous competition.</p>
             </div>
         </div>
         
-        <div class="text-center mt-8">
-            <a href="chapters/quest-01.html" class="cyber-btn green">
-                <span>◆</span>
-                <span>BEGIN MISSION</span>
-                <span>→</span>
-            </a>
+        <div class="collapsible-trigger mt-4">NETRUNNER SKILLS</div>
+        <div class="collapsible-content">
+            <div class="p-4" style="background: var(--bg-tertiary);">
+                <div class="grid-2">
+                    <div class="skill-card"><div class="skill-name">FILE_UPLOAD</div><div class="text-sm text-gray-400">Upload data streams via FileVar</div></div>
+                    <div class="skill-card"><div class="skill-name">CSV_PARSE</div><div class="text-sm text-gray-400">Decode CSV data structures</div></div>
+                    <div class="skill-card"><div class="skill-name">OBJECT_CREATE</div><div class="text-sm text-gray-400">Materialize database objects</div></div>
+                    <div class="skill-card"><div class="skill-name">ERROR_HANDLE</div><div class="text-sm text-gray-400">Recover from system conflicts</div></div>
+                    <div class="skill-card"><div class="skill-name">QUERY_BUILD</div><div class="text-sm text-gray-400">Construct data queries</div></div>
+                    <div class="skill-card"><div class="skill-name">EXPORT_STREAM</div><div class="text-sm text-gray-400">Extract data to CSV</div></div>
+                </div>
+            </div>
         </div>
     </section>
-    
-    <!-- Footer -->
-    <footer class="text-center py-8 border-t" style="border-color: var(--neon-cyan); opacity: 0.3;">
-        <p class="text-sm text-gray-600">
-            NETRUNNER: The Nautobot Protocol // A LitRPG Learning Experience
-        </p>
-        <p class="text-xs text-gray-700 mt-2">
-            Based on <a href="https://github.com/nautobot/100-days-of-nautobot" class="text-cyan" style="color: var(--neon-cyan);">100 Days of Nautobot</a>
-        </p>
+
+    <footer class="text-center py-8 border-t" style="border-color: rgba(0,255,255,0.2);">
+        <p class="text-sm text-gray-600">NETRUNNER: The Nautobot Protocol // A LitRPG Learning Experience</p>
+        <p class="text-xs text-gray-700 mt-2">Based on <a href="https://github.com/nautobot/100-days-of-nautobot" style="color: var(--neon-cyan);">100 Days of Nautobot</a></p>
     </footer>
+
+    <script src="assets/js/litrpg.js"></script>
 </body>
 </html>

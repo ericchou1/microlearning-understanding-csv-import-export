@@ -600,3 +600,743 @@ code, pre, .terminal {
   gap: 1rem;
 }
 
+/* ================================
+   LITRPG: SYSTEM MESSAGES
+   ================================ */
+#system-messages {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.system-message {
+  background: rgba(0, 0, 0, 0.9);
+  border: 2px solid var(--neon-cyan);
+  border-radius: 4px;
+  padding: 12px 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  color: var(--neon-cyan);
+  transform: translateX(100%);
+  opacity: 0;
+  transition: all 0.3s ease;
+  max-width: 350px;
+}
+
+.system-message.visible {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.system-message .system-prefix {
+  color: var(--neon-magenta);
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.system-message.system-xp {
+  border-color: var(--neon-green);
+  color: var(--neon-green);
+}
+
+.system-message.system-quest {
+  border-color: var(--neon-yellow);
+  color: var(--neon-yellow);
+}
+
+/* ================================
+   LITRPG: DIALOGUE BOX
+   ================================ */
+.dialogue-box {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.95) 20%);
+  padding: 60px 20px 30px;
+  z-index: 9000;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+}
+
+.dialogue-box.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.dialogue-content {
+  max-width: 800px;
+  margin: 0 auto;
+  background: var(--bg-panel);
+  border: 2px solid var(--neon-cyan);
+  border-radius: 8px;
+  padding: 20px 30px;
+  position: relative;
+}
+
+.dialogue-speaker {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  color: var(--neon-magenta);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.dialogue-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-primary);
+  min-height: 60px;
+}
+
+.dialogue-continue {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.dialogue-portrait {
+  width: 80px;
+  height: 80px;
+  border: 2px solid var(--neon-cyan);
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: -40px;
+  left: 30px;
+}
+
+/* ================================
+   LITRPG: CHOICE BOX
+   ================================ */
+.choice-box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9500;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.choice-box.visible {
+  opacity: 1;
+}
+
+.choice-prompt {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.2rem;
+  color: var(--neon-cyan);
+  text-align: center;
+  margin-bottom: 30px;
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+.choice-options {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.choice-btn {
+  background: var(--bg-panel);
+  border: 2px solid var(--neon-magenta);
+  color: var(--text-primary);
+  padding: 15px 25px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.choice-btn::before {
+  content: '▶';
+  color: var(--neon-magenta);
+  margin-right: 15px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.choice-btn:hover {
+  background: rgba(255, 0, 255, 0.2);
+  border-color: var(--neon-cyan);
+  transform: translateX(10px);
+}
+
+.choice-btn:hover::before {
+  opacity: 1;
+}
+
+/* ================================
+   LITRPG: SKILL POPUP
+   ================================ */
+.skill-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9800;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.skill-popup.visible {
+  opacity: 1;
+}
+
+.skill-popup-content {
+  background: var(--bg-secondary);
+  border: 3px solid var(--neon-green);
+  border-radius: 12px;
+  padding: 40px 60px;
+  text-align: center;
+  box-shadow: var(--glow-green), inset 0 0 50px rgba(57, 255, 20, 0.1);
+  animation: skillPulse 2s infinite;
+}
+
+@keyframes skillPulse {
+  0%, 100% { box-shadow: var(--glow-green), inset 0 0 50px rgba(57, 255, 20, 0.1); }
+  50% { box-shadow: 0 0 30px #39ff14, 0 0 60px #39ff14, inset 0 0 80px rgba(57, 255, 20, 0.2); }
+}
+
+.skill-popup-header {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.9rem;
+  color: var(--neon-yellow);
+  letter-spacing: 4px;
+  margin-bottom: 15px;
+}
+
+.skill-popup-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2rem;
+  color: var(--neon-green);
+  text-shadow: var(--glow-green);
+  margin-bottom: 10px;
+}
+
+.skill-popup-desc {
+  color: var(--text-secondary);
+  margin-bottom: 25px;
+  font-size: 1rem;
+}
+
+.skill-popup button {
+  background: transparent;
+  border: 2px solid var(--neon-green);
+  color: var(--neon-green);
+  padding: 10px 30px;
+  font-family: 'Orbitron', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.skill-popup button:hover {
+  background: var(--neon-green);
+  color: var(--bg-primary);
+}
+
+/* ================================
+   LITRPG: LEVEL UP
+   ================================ */
+.levelup-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9900;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.levelup-popup.visible {
+  opacity: 1;
+}
+
+.levelup-content {
+  text-align: center;
+  position: relative;
+}
+
+.levelup-flash {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, var(--neon-yellow) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  animation: levelFlash 1s ease-out;
+  opacity: 0;
+}
+
+@keyframes levelFlash {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+  50% { opacity: 0.8; }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(3); }
+}
+
+.levelup-text {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.5rem;
+  color: var(--neon-yellow);
+  letter-spacing: 8px;
+  margin-bottom: 10px;
+  animation: levelText 0.5s ease-out;
+}
+
+.levelup-level {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 4rem;
+  color: var(--neon-cyan);
+  text-shadow: var(--glow-cyan);
+  animation: levelNumber 0.5s ease-out 0.2s both;
+}
+
+.levelup-stats {
+  font-size: 1.1rem;
+  color: var(--neon-green);
+  margin-top: 20px;
+  animation: levelStats 0.5s ease-out 0.4s both;
+}
+
+@keyframes levelText {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes levelNumber {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes levelStats {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ================================
+   LITRPG: CHARACTER STATUS
+   ================================ */
+#character-status {
+  position: fixed;
+  top: 70px;
+  left: 20px;
+  width: 200px;
+  background: var(--bg-panel);
+  border: 2px solid var(--neon-cyan);
+  border-radius: 8px;
+  padding: 15px;
+  z-index: 100;
+  font-size: 0.85rem;
+}
+
+.status-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+.status-name {
+  font-family: 'Orbitron', sans-serif;
+  color: var(--neon-cyan);
+}
+
+.status-class {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.status-xp {
+  margin-bottom: 15px;
+}
+
+.xp-bar-bg {
+  height: 8px;
+  background: var(--bg-tertiary);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.xp-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-green));
+  transition: width 0.5s ease;
+}
+
+.status-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 0;
+}
+
+.stat-item .stat-name {
+  color: var(--text-muted);
+  font-size: 0.7rem;
+}
+
+.stat-item .stat-value {
+  color: var(--neon-green);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ================================
+   LITRPG: QUEST LOG PANEL
+   ================================ */
+#quest-log {
+  background: var(--bg-panel);
+  border: 2px solid var(--neon-magenta);
+  border-radius: 8px;
+  padding: 15px;
+  margin: 20px 0;
+}
+
+.quest-log-header {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.75rem;
+  color: var(--neon-magenta);
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.quest-log-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.1rem;
+  color: var(--neon-cyan);
+  margin-bottom: 5px;
+}
+
+.quest-log-status {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-bottom: 15px;
+}
+
+.quest-objective {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 0, 255, 0.1);
+  color: var(--text-secondary);
+}
+
+.quest-objective.complete {
+  color: var(--neon-green);
+  text-decoration: line-through;
+}
+
+.objective-check {
+  font-size: 1.2rem;
+}
+
+/* ================================
+   LITRPG: CHARACTER CREATION
+   ================================ */
+.character-creation-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.character-creation-modal.visible {
+  opacity: 1;
+}
+
+.cc-content {
+  background: var(--bg-secondary);
+  border: 2px solid var(--neon-cyan);
+  border-radius: 12px;
+  padding: 40px;
+  max-width: 500px;
+  text-align: center;
+}
+
+.cc-content h2 {
+  color: var(--neon-cyan);
+  text-shadow: var(--glow-cyan);
+  margin-bottom: 10px;
+}
+
+.cc-subtitle {
+  color: var(--text-secondary);
+  margin-bottom: 30px;
+}
+
+.cc-field {
+  margin-bottom: 25px;
+  text-align: left;
+}
+
+.cc-field label {
+  display: block;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.8rem;
+  color: var(--neon-magenta);
+  margin-bottom: 8px;
+}
+
+.cc-field input {
+  width: 100%;
+  padding: 12px 15px;
+  background: var(--bg-tertiary);
+  border: 2px solid var(--neon-cyan);
+  border-radius: 4px;
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+}
+
+.cc-field input:focus {
+  outline: none;
+  box-shadow: var(--glow-cyan);
+}
+
+.cc-stats {
+  background: rgba(0, 255, 255, 0.05);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 25px;
+}
+
+.cc-stats p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.cc-stat-preview {
+  display: flex;
+  justify-content: space-around;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--neon-green);
+  font-size: 0.9rem;
+}
+
+/* ================================
+   LITRPG: NARRATIVE TEXT
+   ================================ */
+.narrative {
+  font-size: 1.15rem;
+  line-height: 2;
+  color: var(--text-primary);
+  margin: 1.5rem 0;
+}
+
+.narrative em {
+  color: var(--neon-cyan);
+  font-style: normal;
+}
+
+.narrative strong {
+  color: var(--neon-magenta);
+}
+
+.narrative .action {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ================================
+   LITRPG: SCROLL REVEAL
+   ================================ */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+}
+
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ================================
+   LITRPG: COLLAPSIBLES
+   ================================ */
+.collapsible-trigger {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 20px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--neon-cyan);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.9rem;
+  color: var(--neon-cyan);
+}
+
+.collapsible-trigger::before {
+  content: '▶';
+  transition: transform 0.3s ease;
+}
+
+.collapsible-trigger.open::before {
+  transform: rotate(90deg);
+}
+
+.collapsible-trigger:hover {
+  background: rgba(0, 255, 255, 0.1);
+}
+
+.collapsible-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+
+.collapsible-content.open {
+  max-height: 2000px;
+}
+
+/* ================================
+   LITRPG: INTERACTIVE TERMINAL
+   ================================ */
+.interactive-terminal .terminal-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-top: 1px solid var(--neon-green);
+  padding: 10px;
+  color: var(--neon-cyan);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+}
+
+.interactive-terminal .terminal-input:focus {
+  outline: none;
+}
+
+.interactive-terminal .terminal-input::placeholder {
+  color: var(--text-muted);
+}
+
+.terminal-success {
+  color: var(--neon-green);
+  margin-top: 10px;
+}
+
+.terminal-error {
+  color: #ff4444;
+  margin-top: 10px;
+}
+
+.interactive-terminal.completed {
+  border-color: var(--neon-green);
+}
+
+/* ================================
+   LITRPG: NPC CARD
+   ================================ */
+.npc-card {
+  display: flex;
+  gap: 20px;
+  background: var(--bg-panel);
+  border: 2px solid var(--neon-magenta);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.npc-portrait {
+  width: 80px;
+  height: 80px;
+  border: 2px solid var(--neon-cyan);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  flex-shrink: 0;
+}
+
+.npc-info {
+  flex: 1;
+}
+
+.npc-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.1rem;
+  color: var(--neon-magenta);
+  margin-bottom: 5px;
+}
+
+.npc-title {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.npc-dialogue {
+  font-style: italic;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Hide status panel on mobile */
+@media (max-width: 768px) {
+  #character-status {
+    display: none;
+  }
+}
+

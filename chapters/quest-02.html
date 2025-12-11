@@ -10,28 +10,34 @@
 <body>
     <nav class="cyber-nav">
         <a href="../index.html">◆ NETRUNNER</a>
-        <div class="flex items-center gap-4">
-            <a href="quest-01.html" style="color: var(--neon-magenta);">← PREV</a>
-            <span class="text-gray-500 text-sm">QUEST 02/05</span>
-            <a href="quest-03.html" style="color: var(--neon-magenta);">NEXT →</a>
-        </div>
+        <span class="text-gray-500">QUEST 02: DATA EXTRACTION</span>
     </nav>
+
+    <div id="character-status"></div>
 
     <header class="chapter-header">
         <div class="chapter-number">◆ QUEST 02 ◆</div>
         <h1 class="chapter-title">DATA EXTRACTION</h1>
-        <p class="chapter-subtitle">Import device data via CSV uplink into Nautobot</p>
+        <p class="chapter-subtitle">The first data stream arrives</p>
     </header>
 
     <main class="container">
-        <div class="mission-briefing">
-            <p><strong style="color: var(--neon-orange);">// MISSION OBJECTIVE</strong></p>
-            <p class="mt-2">Write a CSV Import Job using <strong style="color: var(--neon-cyan);">FileVar</strong> to upload device inventory into Nautobot.</p>
+        <div class="narrative scroll-reveal">
+            <p>72 hours since you jacked in. The Nautobot system is becoming familiar—its rhythms, its architecture. You've been careful, probing gently, leaving no traces.</p>
+            
+            <p class="mt-4">Then Maya sends you the first package.</p>
         </div>
 
-        <div class="section-divider mt-8"><span>PHASE 1: DATA STRUCTURE</span></div>
+        <div class="npc-card scroll-reveal">
+            <div class="npc-portrait">👤</div>
+            <div class="npc-info">
+                <div class="npc-name">MAYA "ZERO" TANAKA</div>
+                <div class="npc-title">Fixer</div>
+                <div class="npc-dialogue">"Incoming data stream. Device inventory from an acquired subsidiary. CSV format. DataFlow wants it imported into Nautobot. Clean. No errors. Think you can handle it?"</div>
+            </div>
+        </div>
 
-        <div class="terminal mt-6">
+        <div class="terminal scroll-reveal">
             <div class="terminal-header">
                 <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
                 <span class="terminal-title">devices.csv</span>
@@ -39,21 +45,30 @@
             <div class="terminal-body">
                 <pre>hostname,device_type,role,location
 tn-sw-01,Catalyst 9300,Access Switch,TechNova HQ
-tn-rtr-core,ASR 1001-X,Core Router,TechNova DC</pre>
+tn-sw-02,Catalyst 9300,Access Switch,TechNova HQ
+tn-rtr-core,ASR 1001-X,Core Router,TechNova DC
+tn-fw-01,Firepower 2110,Firewall,TechNova DC</pre>
             </div>
         </div>
 
-        <div class="section-divider mt-8"><span>PHASE 2: FILEVAR UPLINK</span></div>
+        <!-- SCENE 2: THE METHOD -->
+        <div class="section-divider scroll-reveal"><span>THE FILEVAR PROTOCOL</span></div>
 
-        <p class="mt-4 mb-4"><strong style="color: var(--neon-magenta);">FileVar</strong> creates a file upload field in the Job UI:</p>
+        <div class="narrative scroll-reveal">
+            <p>To import CSV data into Nautobot, you need <strong style="color: var(--neon-magenta);">FileVar</strong>—a special variable that creates a file upload interface in the Job UI.</p>
+        </div>
 
-        <div class="terminal">
+        <div class="terminal scroll-reveal">
             <div class="terminal-header">
                 <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
                 <span class="terminal-title">jobs/device_import.py</span>
             </div>
             <div class="terminal-body">
-                <pre><span style="color: var(--neon-magenta);">from</span> nautobot.apps.jobs <span style="color: var(--neon-magenta);">import</span> Job, register_jobs, FileVar
+                <pre><span style="color: var(--neon-magenta);">import</span> csv
+<span style="color: var(--neon-magenta);">from</span> io <span style="color: var(--neon-magenta);">import</span> StringIO
+<span style="color: var(--neon-magenta);">from</span> nautobot.apps.jobs <span style="color: var(--neon-magenta);">import</span> Job, register_jobs, FileVar
+<span style="color: var(--neon-magenta);">from</span> nautobot.dcim.models <span style="color: var(--neon-magenta);">import</span> Device, DeviceType, Location
+<span style="color: var(--neon-magenta);">from</span> nautobot.extras.models <span style="color: var(--neon-magenta);">import</span> Role, Status
 
 <span style="color: var(--neon-magenta);">class</span> <span style="color: var(--neon-cyan);">DeviceCSVImport</span>(Job):
     <span style="color: var(--neon-magenta);">class</span> <span style="color: var(--neon-cyan);">Meta</span>:
@@ -62,87 +77,66 @@ tn-rtr-core,ASR 1001-X,Core Router,TechNova DC</pre>
     csv_file = FileVar(description=<span style="color: var(--neon-yellow);">"CSV file to import"</span>)
     
     <span style="color: var(--neon-magenta);">def</span> <span style="color: var(--neon-cyan);">run</span>(self, csv_file):
-        <span style="color: #888;"># File is passed as parameter</span>
-        <span style="color: var(--neon-magenta);">pass</span>
+        <span style="color: #666;"># Decode binary to string</span>
+        content = csv_file.read().decode(<span style="color: var(--neon-yellow);">'utf-8'</span>)
+        reader = csv.DictReader(StringIO(content))
+        
+        active_status = Status.objects.get(name=<span style="color: var(--neon-yellow);">"Active"</span>)
+        
+        <span style="color: var(--neon-magenta);">for</span> row <span style="color: var(--neon-magenta);">in</span> reader:
+            device_type = DeviceType.objects.get(model=row[<span style="color: var(--neon-yellow);">'device_type'</span>])
+            role = Role.objects.get(name=row[<span style="color: var(--neon-yellow);">'role'</span>])
+            location = Location.objects.get(name=row[<span style="color: var(--neon-yellow);">'location'</span>])
+            
+            device = Device(
+                name=row[<span style="color: var(--neon-yellow);">'hostname'</span>],
+                device_type=device_type,
+                role=role,
+                location=location,
+                status=active_status,
+            )
+            device.validated_save()
+            self.logger.info(<span style="color: var(--neon-yellow);">f"✓ </span>{row[<span style="color: var(--neon-yellow);">'hostname'</span>]}<span style="color: var(--neon-yellow);">"</span>)
 
 register_jobs(DeviceCSVImport)</pre>
             </div>
         </div>
 
-        <div class="section-divider mt-8"><span>PHASE 3: PARSE CSV</span></div>
+        <!-- GHOST APPEARS -->
+        <div class="section-divider scroll-reveal"><span>UNEXPECTED VISITOR</span></div>
 
-        <div class="terminal mt-4">
-            <div class="terminal-header">
-                <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
-                <span class="terminal-title">Parsing Logic</span>
-            </div>
-            <div class="terminal-body">
-                <pre><span style="color: var(--neon-magenta);">import</span> csv
-<span style="color: var(--neon-magenta);">from</span> io <span style="color: var(--neon-magenta);">import</span> StringIO
-
-<span style="color: var(--neon-magenta);">def</span> <span style="color: var(--neon-cyan);">run</span>(self, csv_file):
-    <span style="color: #888;"># Decode binary to string</span>
-    content = csv_file.read().decode(<span style="color: var(--neon-yellow);">'utf-8'</span>)
-    
-    <span style="color: #888;"># Parse with DictReader</span>
-    reader = csv.DictReader(StringIO(content))
-    
-    <span style="color: var(--neon-magenta);">for</span> row <span style="color: var(--neon-magenta);">in</span> reader:
-        hostname = row[<span style="color: var(--neon-yellow);">'hostname'</span>].strip()
-        self.logger.info(<span style="color: var(--neon-yellow);">f"Found: </span>{hostname}<span style="color: var(--neon-yellow);">"</span>)</pre>
+        <div class="npc-card scroll-reveal">
+            <div class="npc-portrait">🔮</div>
+            <div class="npc-info">
+                <div class="npc-name">GHOST</div>
+                <div class="npc-title">Unknown Entity</div>
+                <div class="npc-dialogue">"Careful with those imports. Run that code twice and you'll hit a wall. The system doesn't like duplicates. Learn idempotency, or you'll burn like the others."</div>
             </div>
         </div>
 
-        <div class="section-divider mt-8"><span>PHASE 4: CREATE DEVICES</span></div>
-
-        <div class="terminal mt-4">
-            <div class="terminal-header">
-                <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
-                <span class="terminal-title">Complete Job</span>
-            </div>
-            <div class="terminal-body">
-                <pre><span style="color: var(--neon-magenta);">from</span> nautobot.dcim.models <span style="color: var(--neon-magenta);">import</span> Device, DeviceType, Location
-<span style="color: var(--neon-magenta);">from</span> nautobot.extras.models <span style="color: var(--neon-magenta);">import</span> Role, Status
-
-<span style="color: #888;"># Inside run():</span>
-active_status = Status.objects.get(name=<span style="color: var(--neon-yellow);">"Active"</span>)
-
-<span style="color: var(--neon-magenta);">for</span> row <span style="color: var(--neon-magenta);">in</span> reader:
-    <span style="color: var(--neon-magenta);">try</span>:
-        device_type = DeviceType.objects.get(model=row[<span style="color: var(--neon-yellow);">'device_type'</span>])
-        role = Role.objects.get(name=row[<span style="color: var(--neon-yellow);">'role'</span>])
-        location = Location.objects.get(name=row[<span style="color: var(--neon-yellow);">'location'</span>])
-        
-        device = Device(
-            name=row[<span style="color: var(--neon-yellow);">'hostname'</span>],
-            device_type=device_type,
-            role=role,
-            location=location,
-            status=active_status,
-        )
-        device.validated_save()
-        self.logger.info(<span style="color: var(--neon-yellow);">f"✓ Created: </span>{row[<span style="color: var(--neon-yellow);">'hostname'</span>]}<span style="color: var(--neon-yellow);">"</span>)
-    <span style="color: var(--neon-magenta);">except</span> Exception <span style="color: var(--neon-magenta);">as</span> e:
-        self.logger.error(<span style="color: var(--neon-yellow);">f"✗ Error: </span>{e}<span style="color: var(--neon-yellow);">"</span>)</pre>
-            </div>
+        <div class="narrative scroll-reveal">
+            <p>The message disappears before you can respond. Idempotency. Making operations safe to repeat. Ghost is giving you hints—but why?</p>
+            <p class="mt-4"><span class="action">*You file the warning away. You'll need it in the next quest.*</span></p>
         </div>
 
-        <div class="grid-2 mt-6">
+        <div class="grid-2 scroll-reveal mt-6">
             <div class="skill-card"><div class="skill-name">FileVar</div><div class="text-sm text-gray-400">File upload in Job UI</div></div>
-            <div class="skill-card"><div class="skill-name">StringIO</div><div class="text-sm text-gray-400">String as file object</div></div>
+            <div class="skill-card"><div class="skill-name">StringIO</div><div class="text-sm text-gray-400">String → file object</div></div>
             <div class="skill-card"><div class="skill-name">DictReader</div><div class="text-sm text-gray-400">CSV with headers as keys</div></div>
             <div class="skill-card"><div class="skill-name">validated_save()</div><div class="text-sm text-gray-400">Save with validation</div></div>
         </div>
 
-        <!-- Quest Complete -->
-        <div class="text-center mt-8 p-8" style="background: rgba(57, 255, 20, 0.1); border: 2px solid var(--neon-green); border-radius: 8px;">
-            <h3 class="neon-title green text-2xl mb-4">+150 XP — SKILLS UNLOCKED</h3>
+        <!-- QUEST COMPLETE -->
+        <div class="text-center mt-8 p-8 scroll-reveal" style="background: rgba(57, 255, 20, 0.1); border: 2px solid var(--neon-green); border-radius: 8px;">
+            <h3 class="neon-title green text-2xl mb-4">QUEST COMPLETE: +150 XP</h3>
             <div class="grid-3 mb-6">
                 <div class="skill-card text-center"><div class="skill-icon">📡</div><div class="skill-name">FILE_UPLOAD</div></div>
                 <div class="skill-card text-center"><div class="skill-icon">🔓</div><div class="skill-name">CSV_PARSE</div></div>
                 <div class="skill-card text-center"><div class="skill-icon">⚡</div><div class="skill-name">OBJECT_CREATE</div></div>
             </div>
-            <a href="quest-03.html" class="cyber-btn green"><span>QUEST 03: ERROR RECOVERY →</span></a>
+            <a href="quest-03.html" class="cyber-btn green" onclick="NetRunner.gainXP(150); NetRunner.completeQuest('DATA_EXTRACTION');">
+                <span>QUEST 03: ERROR RECOVERY →</span>
+            </a>
         </div>
 
         <div class="flex justify-between mt-8 mb-8">
@@ -150,6 +144,6 @@ active_status = Status.objects.get(name=<span style="color: var(--neon-yellow);"
             <a href="quest-03.html" class="cyber-btn magenta" style="padding: 0.5rem 1rem;">QUEST 03 →</a>
         </div>
     </main>
+    <script src="../assets/js/litrpg.js"></script>
 </body>
 </html>
-

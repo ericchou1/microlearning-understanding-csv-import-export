@@ -10,52 +10,75 @@
 <body>
     <nav class="cyber-nav">
         <a href="../index.html">◆ NETRUNNER</a>
-        <div class="flex items-center gap-4">
-            <a href="quest-02.html" style="color: var(--neon-magenta);">← PREV</a>
-            <span class="text-gray-500 text-sm">QUEST 03/05</span>
-            <a href="quest-04.html" style="color: var(--neon-magenta);">NEXT →</a>
-        </div>
+        <span class="text-gray-500">QUEST 03: ERROR RECOVERY</span>
     </nav>
 
-    <header class="chapter-header">
-        <div class="chapter-number">◆ QUEST 03 ◆</div>
-        <h1 class="chapter-title">ERROR RECOVERY</h1>
-        <p class="chapter-subtitle">Handle corrupted data streams and duplicate conflicts</p>
+    <div id="character-status"></div>
+
+    <header class="chapter-header" style="border-color: var(--neon-orange);">
+        <div class="chapter-number" style="color: var(--neon-orange);">◆ QUEST 03 ◆</div>
+        <h1 class="chapter-title" style="color: var(--neon-orange);">ERROR RECOVERY</h1>
+        <p class="chapter-subtitle">When the system fights back</p>
     </header>
 
     <main class="container">
-        <div class="mission-briefing">
-            <p><strong style="color: var(--neon-orange);">// SYSTEM ALERT</strong></p>
-            <p class="mt-2">Running your import twice causes a <strong style="color: #ff4444;">UNIQUE CONSTRAINT FAILURE</strong>. Devices already exist! You need <strong style="color: var(--neon-cyan);">idempotent</strong> operations.</p>
+        <div class="narrative scroll-reveal">
+            <p>You run the import again. Routine check. Make sure the data stuck.</p>
+            <p class="mt-4">The system screams.</p>
         </div>
 
-        <div class="section-divider mt-8"><span>THE PROBLEM</span></div>
-
-        <div class="terminal mt-6">
-            <div class="terminal-header">
+        <div class="terminal scroll-reveal" style="border-color: #ff4444;">
+            <div class="terminal-header" style="border-color: #ff4444;">
                 <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
-                <span class="terminal-title" style="color: #ff4444;">ERROR_LOG</span>
+                <span class="terminal-title" style="color: #ff4444;">SYSTEM ERROR</span>
             </div>
             <div class="terminal-body">
                 <pre style="color: #ff4444;">ERROR | UNIQUE constraint failed: dcim_device.name
-Device 'tn-sw-01' already exists in database!</pre>
+ERROR | Device 'tn-sw-01' already exists!
+ERROR | Transaction rolled back.
+STATUS: <span style="color: #ff4444;">CRITICAL FAILURE</span></pre>
             </div>
         </div>
 
-        <div class="section-divider mt-8"><span>SOLUTION: get_or_create</span></div>
+        <div class="narrative scroll-reveal">
+            <p><strong style="color: #ff4444;">Duplicate entries.</strong> The devices already exist from your first run. The system is rejecting the inserts.</p>
+            <p class="mt-4">Ghost was right. If you'd done this on a production system, you'd have triggered alarms. Maybe worse.</p>
+        </div>
 
-        <p class="mt-4 mb-4">Use <strong style="color: var(--neon-green);">get_or_create()</strong> — it retrieves existing objects or creates new ones:</p>
+        <!-- GHOST RETURNS WITH REVELATION -->
+        <div class="section-divider scroll-reveal"><span>THE TRUTH</span></div>
 
-        <div class="terminal">
+        <div class="npc-card scroll-reveal" style="border-color: var(--neon-cyan);">
+            <div class="npc-portrait">🔮</div>
+            <div class="npc-info">
+                <div class="npc-name">GHOST</div>
+                <div class="npc-title">Former Netrunner • Trapped in the System</div>
+                <div class="npc-dialogue">"I was like you once. DataFlow hired me too. Same job. Learn the system, they said. But I got careless. Triggered a security trace that I couldn't escape. Now I exist only in here. Part of the machine."</div>
+            </div>
+        </div>
+
+        <div class="narrative scroll-reveal">
+            <p>Your blood runs cold. Ghost isn't just an AI. They're a <em>person</em>. Trapped in the Nautobot system for who knows how long.</p>
+            <p class="mt-4" style="color: var(--neon-cyan);">"I can't leave. But I can help you avoid my fate. Learn <strong>idempotency</strong>. Make your code safe to repeat. Then maybe... maybe you can finish what I started."</p>
+        </div>
+
+        <!-- THE SOLUTION -->
+        <div class="section-divider scroll-reveal"><span>GET_OR_CREATE</span></div>
+
+        <div class="narrative scroll-reveal">
+            <p>The answer is <strong style="color: var(--neon-green);">get_or_create()</strong>. It checks if an object exists before creating it:</p>
+        </div>
+
+        <div class="terminal scroll-reveal">
             <div class="terminal-header">
                 <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
-                <span class="terminal-title">Idempotent Import</span>
+                <span class="terminal-title">Idempotent Code</span>
             </div>
             <div class="terminal-body">
-                <pre><span style="color: #888;"># Returns (object, was_created_boolean)</span>
+                <pre><span style="color: #666;"># Returns (object, was_created_boolean)</span>
 device, created = Device.objects.get_or_create(
-    name=hostname,  <span style="color: #888;"># Lookup field</span>
-    defaults={      <span style="color: #888;"># Fields set only when creating</span>
+    name=hostname,  <span style="color: #666;"># Lookup field</span>
+    defaults={      <span style="color: #666;"># Only used when creating</span>
         <span style="color: var(--neon-yellow);">"device_type"</span>: device_type,
         <span style="color: var(--neon-yellow);">"role"</span>: role,
         <span style="color: var(--neon-yellow);">"location"</span>: location,
@@ -66,65 +89,32 @@ device, created = Device.objects.get_or_create(
 <span style="color: var(--neon-magenta);">if</span> created:
     self.logger.info(<span style="color: var(--neon-yellow);">f"✓ Created: </span>{hostname}<span style="color: var(--neon-yellow);">"</span>)
 <span style="color: var(--neon-magenta);">else</span>:
-    self.logger.info(<span style="color: var(--neon-yellow);">f"⏭ Skipped (exists): </span>{hostname}<span style="color: var(--neon-yellow);">"</span>)</pre>
+    self.logger.info(<span style="color: var(--neon-yellow);">f"⏭ Exists: </span>{hostname}<span style="color: var(--neon-yellow);">"</span>)</pre>
             </div>
         </div>
 
-        <div class="section-divider mt-8"><span>ALTERNATIVE: update_or_create</span></div>
-
-        <p class="mt-4 mb-4">If CSV should overwrite existing data, use <strong style="color: var(--neon-magenta);">update_or_create()</strong>:</p>
-
-        <div class="terminal">
-            <div class="terminal-header">
-                <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
-                <span class="terminal-title">Update Mode</span>
-            </div>
-            <div class="terminal-body">
-                <pre>device, created = Device.objects.update_or_create(
-    name=hostname,  <span style="color: #888;"># Lookup field</span>
-    defaults={      <span style="color: #888;"># Fields to set (create OR update)</span>
-        <span style="color: var(--neon-yellow);">"device_type"</span>: device_type,
-        <span style="color: var(--neon-yellow);">"role"</span>: role,
-        <span style="color: var(--neon-yellow);">"location"</span>: location,
-        <span style="color: var(--neon-yellow);">"status"</span>: active_status,
-    }
-)
-
-<span style="color: var(--neon-magenta);">if</span> created:
-    self.logger.info(<span style="color: var(--neon-yellow);">f"✓ Created: </span>{hostname}<span style="color: var(--neon-yellow);">"</span>)
-<span style="color: var(--neon-magenta);">else</span>:
-    self.logger.info(<span style="color: var(--neon-yellow);">f"🔄 Updated: </span>{hostname}<span style="color: var(--neon-yellow);">"</span>)</pre>
-            </div>
+        <div class="skill-card scroll-reveal mt-4">
+            <div class="skill-name">💡 ALTERNATIVE: update_or_create</div>
+            <div class="text-sm text-gray-400">If CSV should overwrite existing data, use <code style="color: var(--neon-magenta);">update_or_create()</code> instead.</div>
         </div>
 
-        <div class="section-divider mt-8"><span>COMPARISON</span></div>
-
-        <div class="stats-panel mt-4">
-            <div class="stat-row">
-                <span class="stat-name">get_or_create</span>
-                <span class="stat-value" style="color: var(--neon-green);">Skip existing</span>
-            </div>
-            <div class="stat-row">
-                <span class="stat-name">update_or_create</span>
-                <span class="stat-value" style="color: var(--neon-magenta);">Overwrite existing</span>
-            </div>
+        <div class="stats-panel scroll-reveal mt-6">
+            <div class="stat-row"><span class="stat-name">get_or_create</span><span class="stat-value" style="color: var(--neon-green);">Skip existing</span></div>
+            <div class="stat-row"><span class="stat-name">update_or_create</span><span class="stat-value" style="color: var(--neon-magenta);">Overwrite existing</span></div>
         </div>
 
-        <div class="skill-card mt-6">
-            <div class="skill-name">💡 PRO TIP: BooleanVar</div>
-            <div class="text-sm text-gray-400 mt-2">Add a toggle to let users choose behavior:</div>
-            <pre class="mt-2" style="color: var(--neon-cyan); font-size: 0.85rem;">update_existing = BooleanVar(description="Update existing?", default=False)</pre>
-        </div>
-
-        <!-- Quest Complete -->
-        <div class="text-center mt-8 p-8" style="background: rgba(57, 255, 20, 0.1); border: 2px solid var(--neon-green); border-radius: 8px;">
-            <h3 class="neon-title green text-2xl mb-4">+150 XP — SKILLS UNLOCKED</h3>
+        <!-- QUEST COMPLETE -->
+        <div class="text-center mt-8 p-8 scroll-reveal" style="background: rgba(57, 255, 20, 0.1); border: 2px solid var(--neon-green); border-radius: 8px;">
+            <h3 class="neon-title green text-2xl mb-4">QUEST COMPLETE: +150 XP</h3>
+            <p class="text-gray-400 mb-4">Ghost's warning saved you. Now your imports are bulletproof.</p>
             <div class="grid-3 mb-6">
                 <div class="skill-card text-center"><div class="skill-icon">🛡️</div><div class="skill-name">IDEMPOTENCY</div></div>
                 <div class="skill-card text-center"><div class="skill-icon">🔄</div><div class="skill-name">ERROR_HANDLE</div></div>
                 <div class="skill-card text-center"><div class="skill-icon">✅</div><div class="skill-name">DATA_VALIDATE</div></div>
             </div>
-            <a href="quest-04.html" class="cyber-btn green"><span>QUEST 04: DATA EXFILTRATION →</span></a>
+            <a href="quest-04.html" class="cyber-btn green" onclick="NetRunner.gainXP(150); NetRunner.completeQuest('ERROR_RECOVERY');">
+                <span>QUEST 04: DATA EXFILTRATION →</span>
+            </a>
         </div>
 
         <div class="flex justify-between mt-8 mb-8">
@@ -132,6 +122,6 @@ device, created = Device.objects.get_or_create(
             <a href="quest-04.html" class="cyber-btn magenta" style="padding: 0.5rem 1rem;">QUEST 04 →</a>
         </div>
     </main>
+    <script src="../assets/js/litrpg.js"></script>
 </body>
 </html>
-

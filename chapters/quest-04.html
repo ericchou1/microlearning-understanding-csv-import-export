@@ -10,152 +10,136 @@
 <body>
     <nav class="cyber-nav">
         <a href="../index.html">◆ NETRUNNER</a>
-        <div class="flex items-center gap-4">
-            <a href="quest-03.html" style="color: var(--neon-magenta);">← PREV</a>
-            <span class="text-gray-500 text-sm">QUEST 04/05</span>
-            <a href="quest-05.html" style="color: var(--neon-magenta);">NEXT →</a>
-        </div>
+        <span class="text-gray-500">QUEST 04: DATA EXFILTRATION</span>
     </nav>
+
+    <div id="character-status"></div>
 
     <header class="chapter-header">
         <div class="chapter-number">◆ QUEST 04 ◆</div>
         <h1 class="chapter-title">DATA EXFILTRATION</h1>
-        <p class="chapter-subtitle">Export intel from Nautobot to CSV dropfiles</p>
+        <p class="chapter-subtitle">Time to extract the payload</p>
     </header>
 
     <main class="container">
-        <div class="mission-briefing">
-            <p><strong style="color: var(--neon-orange);">// EXTRACTION PROTOCOL</strong></p>
-            <p class="mt-2">DataFlow needs network intel extracted as CSV. You'll query the database and generate structured export files.</p>
+        <div class="narrative scroll-reveal">
+            <p>Day 7. You've learned to import. Now DataFlow wants proof you can <em>extract</em>.</p>
         </div>
 
-        <div class="section-divider mt-8"><span>PHASE 1: QUERY DATABASE</span></div>
+        <div class="npc-card scroll-reveal">
+            <div class="npc-portrait">👤</div>
+            <div class="npc-info">
+                <div class="npc-name">MAYA "ZERO" TANAKA</div>
+                <div class="npc-title">Fixer</div>
+                <div class="npc-dialogue">"DataFlow is getting impatient. They want a sample extraction. Pull the device inventory from Nautobot and deliver it as CSV. Show them you know what you're doing."</div>
+            </div>
+        </div>
 
-        <p class="mt-4 mb-4">Use Django <strong style="color: var(--neon-cyan);">QuerySets</strong> to retrieve data:</p>
+        <div class="narrative scroll-reveal">
+            <p>Something in her voice bothers you. She sounds nervous. That's not like Maya.</p>
+            <p class="mt-4"><span class="action">*You push the thought aside and focus on the job.*</span></p>
+        </div>
 
-        <div class="terminal">
+        <!-- QUERYSETS -->
+        <div class="section-divider scroll-reveal"><span>QUERYING THE DATABASE</span></div>
+
+        <div class="terminal scroll-reveal">
             <div class="terminal-header">
                 <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
-                <span class="terminal-title">QuerySet Examples</span>
+                <span class="terminal-title">QuerySet Basics</span>
             </div>
             <div class="terminal-body">
                 <pre><span style="color: var(--neon-magenta);">from</span> nautobot.dcim.models <span style="color: var(--neon-magenta);">import</span> Device
 
-<span style="color: #888;"># Get all devices</span>
+<span style="color: #666;"># Get all devices</span>
 devices = Device.objects.all()
 
-<span style="color: #888;"># Filter by criteria</span>
+<span style="color: #666;"># Filter by location</span>
 dc_devices = Device.objects.filter(location__name=<span style="color: var(--neon-yellow);">"TechNova DC"</span>)
 
-<span style="color: #888;"># Multiple filters</span>
-active_switches = Device.objects.filter(
-    role__name=<span style="color: var(--neon-yellow);">"Access Switch"</span>,
-    status__name=<span style="color: var(--neon-yellow);">"Active"</span>
-)
-
-<span style="color: #888;"># Optimize with select_related (eager load FKs)</span>
+<span style="color: #666;"># Optimize with select_related (eager load ForeignKeys)</span>
 devices = Device.objects.select_related(
     <span style="color: var(--neon-yellow);">'device_type'</span>, <span style="color: var(--neon-yellow);">'location'</span>, <span style="color: var(--neon-yellow);">'role'</span>
 ).all()</pre>
             </div>
         </div>
 
-        <div class="section-divider mt-8"><span>PHASE 2: OBJECTVAR FILTER</span></div>
+        <!-- EXPORT JOB -->
+        <div class="section-divider scroll-reveal"><span>THE EXPORT JOB</span></div>
 
-        <p class="mt-4 mb-4">Let users filter exports with <strong style="color: var(--neon-magenta);">ObjectVar</strong>:</p>
-
-        <div class="terminal">
+        <div class="terminal scroll-reveal">
             <div class="terminal-header">
                 <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
-                <span class="terminal-title">Export Job with Filter</span>
+                <span class="terminal-title">jobs/device_export.py</span>
             </div>
             <div class="terminal-body">
-                <pre><span style="color: var(--neon-magenta);">from</span> nautobot.apps.jobs <span style="color: var(--neon-magenta);">import</span> Job, register_jobs, ObjectVar
+                <pre><span style="color: var(--neon-magenta);">import</span> csv
+<span style="color: var(--neon-magenta);">from</span> io <span style="color: var(--neon-magenta);">import</span> StringIO
+<span style="color: var(--neon-magenta);">from</span> nautobot.apps.jobs <span style="color: var(--neon-magenta);">import</span> Job, register_jobs, ObjectVar
 <span style="color: var(--neon-magenta);">from</span> nautobot.dcim.models <span style="color: var(--neon-magenta);">import</span> Device, Location
 
 <span style="color: var(--neon-magenta);">class</span> <span style="color: var(--neon-cyan);">DeviceExport</span>(Job):
     <span style="color: var(--neon-magenta);">class</span> <span style="color: var(--neon-cyan);">Meta</span>:
         name = <span style="color: var(--neon-yellow);">"Device CSV Export"</span>
     
-    <span style="color: #888;"># Dropdown to select Location (optional)</span>
-    location = ObjectVar(
-        model=Location,
-        required=<span style="color: var(--neon-orange);">False</span>,
-        description=<span style="color: var(--neon-yellow);">"Filter by location"</span>
-    )
+    <span style="color: #666;"># Optional filter dropdown</span>
+    location = ObjectVar(model=Location, required=<span style="color: var(--neon-orange);">False</span>)
     
     <span style="color: var(--neon-magenta);">def</span> <span style="color: var(--neon-cyan);">run</span>(self, location=<span style="color: var(--neon-orange);">None</span>):
         queryset = Device.objects.select_related(
             <span style="color: var(--neon-yellow);">'device_type'</span>, <span style="color: var(--neon-yellow);">'location'</span>, <span style="color: var(--neon-yellow);">'role'</span>
         )
-        
         <span style="color: var(--neon-magenta);">if</span> location:
             queryset = queryset.filter(location=location)
         
-        <span style="color: #888;"># Continue with export...</span></pre>
+        output = StringIO()
+        writer = csv.writer(output)
+        writer.writerow([<span style="color: var(--neon-yellow);">'hostname'</span>, <span style="color: var(--neon-yellow);">'device_type'</span>, <span style="color: var(--neon-yellow);">'role'</span>, <span style="color: var(--neon-yellow);">'location'</span>])
+        
+        <span style="color: var(--neon-magenta);">for</span> device <span style="color: var(--neon-magenta);">in</span> queryset:
+            writer.writerow([
+                device.name,
+                device.device_type.model,
+                device.role.name <span style="color: var(--neon-magenta);">if</span> device.role <span style="color: var(--neon-magenta);">else</span> <span style="color: var(--neon-yellow);">''</span>,
+                device.location.name <span style="color: var(--neon-magenta);">if</span> device.location <span style="color: var(--neon-magenta);">else</span> <span style="color: var(--neon-yellow);">''</span>,
+            ])
+        
+        self.logger.info(<span style="color: var(--neon-yellow);">f"Exported </span>{queryset.count()}<span style="color: var(--neon-yellow);"> devices"</span>)
+        <span style="color: var(--neon-magenta);">return</span> output.getvalue()
+
+register_jobs(DeviceExport)</pre>
             </div>
         </div>
 
-        <div class="section-divider mt-8"><span>PHASE 3: GENERATE CSV</span></div>
-
-        <div class="terminal mt-4">
-            <div class="terminal-header">
-                <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
-                <span class="terminal-title">CSV Generation</span>
-            </div>
-            <div class="terminal-body">
-                <pre><span style="color: var(--neon-magenta);">import</span> csv
-<span style="color: var(--neon-magenta);">from</span> io <span style="color: var(--neon-magenta);">import</span> StringIO
-
-<span style="color: var(--neon-magenta);">def</span> <span style="color: var(--neon-cyan);">run</span>(self, location=<span style="color: var(--neon-orange);">None</span>):
-    queryset = Device.objects.select_related(
-        <span style="color: var(--neon-yellow);">'device_type__manufacturer'</span>, <span style="color: var(--neon-yellow);">'location'</span>, <span style="color: var(--neon-yellow);">'role'</span>
-    )
-    <span style="color: var(--neon-magenta);">if</span> location:
-        queryset = queryset.filter(location=location)
-    
-    <span style="color: #888;"># Create CSV in memory</span>
-    output = StringIO()
-    writer = csv.writer(output)
-    
-    <span style="color: #888;"># Write header</span>
-    writer.writerow([<span style="color: var(--neon-yellow);">'hostname'</span>, <span style="color: var(--neon-yellow);">'device_type'</span>, <span style="color: var(--neon-yellow);">'role'</span>, <span style="color: var(--neon-yellow);">'location'</span>])
-    
-    <span style="color: #888;"># Write data rows</span>
-    <span style="color: var(--neon-magenta);">for</span> device <span style="color: var(--neon-magenta);">in</span> queryset:
-        writer.writerow([
-            device.name,
-            device.device_type.model,
-            device.role.name <span style="color: var(--neon-magenta);">if</span> device.role <span style="color: var(--neon-magenta);">else</span> <span style="color: var(--neon-yellow);">''</span>,
-            device.location.name <span style="color: var(--neon-magenta);">if</span> device.location <span style="color: var(--neon-magenta);">else</span> <span style="color: var(--neon-yellow);">''</span>,
-        ])
-    
-    <span style="color: #888;"># Log output preview</span>
-    csv_content = output.getvalue()
-    self.logger.info(<span style="color: var(--neon-yellow);">f"Exported </span>{queryset.count()}<span style="color: var(--neon-yellow);"> devices"</span>)
-    <span style="color: var(--neon-magenta);">for</span> line <span style="color: var(--neon-magenta);">in</span> csv_content.split(<span style="color: var(--neon-yellow);">'\n'</span>)[:<span style="color: var(--neon-orange);">5</span>]:
-        self.logger.info(line)
-    
-    <span style="color: var(--neon-magenta);">return</span> <span style="color: var(--neon-yellow);">f"Exported </span>{queryset.count()}<span style="color: var(--neon-yellow);"> devices"</span></pre>
+        <!-- WARNING -->
+        <div class="npc-card scroll-reveal" style="border-color: #ff4444;">
+            <div class="npc-portrait">🔮</div>
+            <div class="npc-info">
+                <div class="npc-name">GHOST</div>
+                <div class="npc-title">Former Netrunner</div>
+                <div class="npc-dialogue" style="color: #ff4444;">"They're tracking your exports. DataFlow is logging everything you pull. Be careful what you give them. Once it's out, you can't take it back."</div>
             </div>
         </div>
 
-        <div class="grid-2 mt-6">
-            <div class="skill-card"><div class="skill-name">ObjectVar</div><div class="text-sm text-gray-400">Dropdown to select Nautobot object</div></div>
+        <div class="grid-2 scroll-reveal mt-6">
+            <div class="skill-card"><div class="skill-name">ObjectVar</div><div class="text-sm text-gray-400">Dropdown for object selection</div></div>
             <div class="skill-card"><div class="skill-name">select_related</div><div class="text-sm text-gray-400">Optimize FK queries</div></div>
             <div class="skill-card"><div class="skill-name">csv.writer</div><div class="text-sm text-gray-400">Write CSV rows</div></div>
-            <div class="skill-card"><div class="skill-name">StringIO</div><div class="text-sm text-gray-400">In-memory file buffer</div></div>
+            <div class="skill-card"><div class="skill-name">StringIO</div><div class="text-sm text-gray-400">In-memory buffer</div></div>
         </div>
 
-        <!-- Quest Complete -->
-        <div class="text-center mt-8 p-8" style="background: rgba(57, 255, 20, 0.1); border: 2px solid var(--neon-green); border-radius: 8px;">
-            <h3 class="neon-title green text-2xl mb-4">+150 XP — SKILLS UNLOCKED</h3>
+        <!-- QUEST COMPLETE -->
+        <div class="text-center mt-8 p-8 scroll-reveal" style="background: rgba(57, 255, 20, 0.1); border: 2px solid var(--neon-green); border-radius: 8px;">
+            <h3 class="neon-title green text-2xl mb-4">QUEST COMPLETE: +150 XP</h3>
+            <p class="text-gray-400 mb-4">Data exfiltration successful. But Ghost's warning echoes in your mind...</p>
             <div class="grid-3 mb-6">
                 <div class="skill-card text-center"><div class="skill-icon">🔍</div><div class="skill-name">QUERY_BUILD</div></div>
                 <div class="skill-card text-center"><div class="skill-icon">📤</div><div class="skill-name">EXPORT_STREAM</div></div>
                 <div class="skill-card text-center"><div class="skill-icon">🎯</div><div class="skill-name">FILTER_LOGIC</div></div>
             </div>
-            <a href="quest-05.html" class="cyber-btn green"><span>FINAL QUEST: SYSTEM INTEGRATION →</span></a>
+            <a href="quest-05.html" class="cyber-btn green" onclick="NetRunner.gainXP(150); NetRunner.completeQuest('DATA_EXFILTRATION');">
+                <span>FINAL QUEST: SYSTEM INTEGRATION →</span>
+            </a>
         </div>
 
         <div class="flex justify-between mt-8 mb-8">
@@ -163,6 +147,6 @@ devices = Device.objects.select_related(
             <a href="quest-05.html" class="cyber-btn magenta" style="padding: 0.5rem 1rem;">QUEST 05 →</a>
         </div>
     </main>
+    <script src="../assets/js/litrpg.js"></script>
 </body>
 </html>
-
